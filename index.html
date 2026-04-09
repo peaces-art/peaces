@@ -46,7 +46,7 @@
     .hero-parallax { display: flex; align-items: stretch; min-height: 580px; will-change: transform; }
     .hero-text { flex: 1; padding: 60px 48px; display: flex; align-items: center; }
     .hero-text h1 { font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 400; color: var(--white); line-height: 1.2; letter-spacing: -0.5px; }
-    .hero-image { flex: 0.7; min-height: 420px; border-radius: var(--radius-lg); overflow: hidden; margin: 16px 16px 16px 0; }
+    .hero-image { flex: 0.5; min-height: 420px; border-radius: var(--radius-lg); overflow: hidden; margin: 16px 16px 16px 0; }
     .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     /* HOME ABOUT SNIPPET */
@@ -159,13 +159,7 @@
       Replace the SVG with your own logo:
       <img src="your-logo.png" alt="Peaces Design logo" class="logo-svg" />
     -->
-    <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="Peaces Design logo">
-      <circle cx="50" cy="50" r="46" fill="none" stroke="#111" stroke-width="5"/>
-      <line x1="50" y1="4" x2="50" y2="96" stroke="#111" stroke-width="5"/>
-      <line x1="50" y1="50" x2="12" y2="80" stroke="#111" stroke-width="5"/>
-      <line x1="50" y1="50" x2="88" y2="80" stroke="#111" stroke-width="5"/>
-      <circle cx="50" cy="22" r="5" fill="#111"/>
-    </svg>
+    <img src="peaces logo BW TransparentBG.png" alt="Peaces Design logo" class="logo-svg" />
     <h2 class="site-title">Peaces Design &amp; Illustration</h2>
     <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Open menu">
       <span></span><span></span><span></span>
@@ -183,9 +177,7 @@
           Replace with your hero image:
           <img src="your-hero-image.jpg" alt="Artwork display" />
         -->
-        <img src="The fall_off.jpg" alt="The Fall Off — original painting by Tye Esparza" />
-      </div>
-    </div>3
+        
   </section>
 
   <!-- HOME ABOUT SNIPPET -->
@@ -365,4 +357,17 @@
 
     /* ── Lightbox ── */
     function openLightbox(src, alt) {
-      const
+      const lb = document.getElementById('lightbox');
+      const img = document.getElementById('lightboxImg');
+      img.src = src; img.alt = alt;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* ── Scroll Effects ── */
+    const header       = document.getElementById('siteHeader');
+    const heroParallax = document.g
