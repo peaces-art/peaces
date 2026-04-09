@@ -46,7 +46,7 @@
     .hero-parallax { display: flex; align-items: stretch; min-height: 580px; will-change: transform; }
     .hero-text { flex: 1; padding: 60px 48px; display: flex; align-items: center; }
     .hero-text h1 { font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 400; color: var(--white); line-height: 1.2; letter-spacing: -0.5px; }
-    .hero-image { flex: 1; min-height: 420px; border-radius: var(--radius-lg); overflow: hidden; margin: 16px 16px 16px 0; }
+    .hero-image { flex: 0.7; min-height: 420px; border-radius: var(--radius-lg); overflow: hidden; margin: 16px 16px 16px 0; }
     .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     /* HOME ABOUT SNIPPET */
@@ -178,7 +178,7 @@
       <div class="hero-text">
         <h1>Drawn to the heart.<br>Designed with a pulse.</h1>
       </div>
-      <div class="hero-image">
+      <img src="abstract 2.png" alt="Artwork reimagined with GPT" />
         <!--
           Replace with your hero image:
           <img src="your-hero-image.jpg" alt="Artwork display" />
@@ -210,11 +210,35 @@
 
       <!-- Card 1 — The Fall Off -->
       <div class="artwork-card" onclick="openLightbox('The_fall_off.jpg', 'The Fall Off')">
-        <img src="The_fall_off.jpg" alt="The Fall Off" />
+        <img src="The fall off.jpg" alt="The Fall Off" />
         <div class="artwork-card-info">
           <p class="artwork-card-title">The Fall Off</p>
           <p class="artwork-card-meta">Original Painting · Acrylic on Canvas</p>
           <span class="artwork-card-tag">Painting</span>
+        </div>
+      </div>
+      <div class="artwork-card" onclick="openLightbox('L hat.jpg', 'L hat')">
+        <img src="L hat.jpg" alt="Lynnnwood Hat" />
+        <div class="artwork-card-info">
+          <p class="artwork-card-title">Custom Embroidered Dad Hat</p>
+          <p class="artwork-card-meta">Custom Apparel · Hat</p>
+          <span class="artwork-card-tag">Apparel</span>
+        </div>
+      </div>
+      <div class="artwork-card" onclick="openLightbox('sblx.jpg', 'SBLX')">
+        <img src="sblx.png" alt="Super Bowl LX Champs" />
+        <div class="artwork-card-info">
+          <p class="artwork-card-title">Custom Super Bowl Tee Graphic</p>
+          <p class="artwork-card-meta">Custom Apparel · Tee</p>
+          <span class="artwork-card-tag">Apparel</span>
+        </div>
+      </div>
+      <div class="artwork-card" onclick="openLightbox('Hawks Logo.jpg', 'Hawks Logo Redesign')">
+        <img src="Hawks.png" alt="Terrace Hawks Logo Redesign" />
+        <div class="artwork-card-info">
+          <p class="artwork-card-title">Custom Flyer Logo</p>
+          <p class="artwork-card-meta">Custom Apparel · Hat</p>
+          <span class="artwork-card-tag">Apparel</span>
         </div>
       </div>
 
@@ -341,41 +365,4 @@
 
     /* ── Lightbox ── */
     function openLightbox(src, alt) {
-      const lb = document.getElementById('lightbox');
-      const img = document.getElementById('lightboxImg');
-      img.src = src; img.alt = alt;
-      lb.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    /* ── Scroll Effects ── */
-    const header       = document.getElementById('siteHeader');
-    const heroParallax = document.getElementById('heroParallax');
-    const HEADER_FADE_PX = 125;
-    const PARALLAX_SPEED = 0.30;
-
-    function applyScrollEffects() {
-      const scrollY = window.scrollY;
-      const progress = Math.min(scrollY / HEADER_FADE_PX, 1);
-      header.style.opacity   = 1 - progress;
-      header.style.transform = `translateY(-${progress * 24}px)`;
-      heroParallax.style.transform = `translateY(-${scrollY * PARALLAX_SPEED}px)`;
-    }
-
-    let rafPending = false;
-    window.addEventListener('scroll', () => {
-      if (!rafPending) {
-        requestAnimationFrame(() => { applyScrollEffects(); rafPending = false; });
-        rafPending = true;
-      }
-    }, { passive: true });
-
-    applyScrollEffects();
-  </script>
-
-</body>
-</html>
+      const
