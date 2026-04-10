@@ -25,13 +25,27 @@
       pointer-events: none;
     }
     header {
-      background: linear-gradient(to right, #FFE600, #FF6B00);
-      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-      padding: 18px 32px;
-      display: flex; align-items: center; gap: 20px;
-      pointer-events: all;
-      will-change: opacity, transform;
-    }
+  background: linear-gradient(to right, #FFE600, #FF6B00);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  padding: 18px 32px;
+  display: flex; align-items: center; gap: 20px;
+  pointer-events: all;
+  will-change: opacity, transform;
+  position: relative;
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 55%;
+  height: 18px;
+  background: linear-gradient(to right, #FFE600, #FF6B00);
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  z-index: -1;
+}
 
     #pagePush { height: 0px; }
 
