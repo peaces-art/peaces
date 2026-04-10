@@ -37,56 +37,11 @@
 
     .logo-svg { width: 80px; height: 80px; flex-shrink: 0; }
 
-   .site-title-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.site-title {
-  font-size: clamp(1.6rem, 4vw, 2.8rem);
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  color: var(--black);
-  background: linear-gradient(
-    105deg,
-    var(--black)   0%,
-    var(--black)   40%,
-    #ffffff        48%,
-    #fffde0        50%,
-    #ffffff        52%,
-    var(--black)   60%,
-    var(--black)   100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmer 3.5s linear infinite;
-}
-
-.lightning-underline {
-  width: 100%;
-  height: 18px;
-  overflow: visible;
-}
-
-.lightning-underline polyline {
-  fill: none;
-  stroke: var(--black);
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  animation: boltPulse 2s ease-in-out infinite;
-}
-
-@keyframes boltPulse {
-  0%   { stroke-dasharray: 0 600; stroke-dashoffset: 0;    opacity: 0.4; }
-  30%  { opacity: 1; }
-  60%  { stroke-dasharray: 600 0; stroke-dashoffset: -10;  opacity: 1; }
-  100% { stroke-dasharray: 600 0; stroke-dashoffset: -620; opacity: 0.4; }
-}
+    .site-title {
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 700;
+      flex: 1;
+      letter-spacing: -0.5px;
       color: var(--black);
       background: linear-gradient(
         105deg,
@@ -276,21 +231,7 @@
   <div id="headerWrapper">
     <header id="siteHeader">
       <img src="peaces logo BW TransparentBG.png" alt="Peaces Design logo" class="logo-svg" />
-      <div class="site-title-wrapper">
-  <h2 class="site-title">Peaces Design &amp; Illustration</h2>
-  <svg class="lightning-underline" viewBox="0 0 600 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <polyline points="
-      0,9 30,9 38,2 46,16 54,2 62,16 70,9
-      110,9 118,2 126,16 134,2 142,16 150,9
-      190,9 198,2 206,16 214,2 222,16 230,9
-      270,9 278,2 286,16 294,2 302,16 310,9
-      350,9 358,2 366,16 374,2 382,16 390,9
-      430,9 438,2 446,16 454,2 462,16 470,9
-      510,9 518,2 526,16 534,2 542,16 550,9
-      600,9
-    "/>
-  </svg>
-</div>
+      <h2 class="site-title">Peaces Design &amp; Illustration</h2>
       <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
