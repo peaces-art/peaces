@@ -17,26 +17,22 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Exo 2', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
 
-    /* ─── HEADER WRAPPER ───
-       FIX: We wrap the header in a fixed-position container so the
-       fade/slide JS works correctly on GitHub Pages. The header itself
-       is no longer sticky — the wrapper handles positioning instead. */
+    /* HEADER WRAPPER */
     #headerWrapper {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      pointer-events: none; /* lets clicks pass through when invisible */
+      pointer-events: none;
     }
-   header {
-  background: linear-gradient(to right, #FFE600, #FF6B00)
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-  padding: 18px 32px;
-  display: flex; align-items: center; gap: 20px;
-  position: sticky; top: 0; z-index: 100;
-  will-change: opacity, transform;
+    header {
+      background: linear-gradient(to right, #FFE600, #FF6B00); /* FIX: added missing semicolon after gradient */
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      padding: 18px 32px;
+      display: flex; align-items: center; gap: 20px;
+      pointer-events: all;
+      will-change: opacity, transform;
     }
 
-    /* Push page content down so it doesn't hide under the fixed header */
     #pagePush { height: 116px; }
 
     .logo-svg { width: 80px; height: 80px; flex-shrink: 0; }
@@ -47,23 +43,15 @@
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-9.5px) rotate(-45deg); }
 
-    /* ─── NAV MENU ─── */
-    nav {
-      position: fixed; top: 0; right: -320px;
-      width: 280px; height: 100vh;
-      background: var(--black); z-index: 200;
-      display: flex; flex-direction: column; justify-content: center;
-      transition: right 0.4s cubic-bezier(0.4,0,0.2,1);
-      border-radius: var(--radius-lg) 0 0 var(--radius-lg);
-    }
+    /* NAV */
+    nav { position: fixed; top: 0; right: -320px; width: 280px; height: 100vh; background: var(--black); z-index: 200; display: flex; flex-direction: column; justify-content: center; transition: right 0.4s cubic-bezier(0.4,0,0.2,1); border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
     nav.open { right: 0; }
     nav a { font-size: 1.6rem; font-weight: 600; color: var(--white); text-decoration: none; padding: 20px 40px; transition: color 0.2s, background 0.2s; border-left: 4px solid transparent; }
     nav a:hover { color: var(--yellow); border-left-color: var(--yellow); background: rgba(255,230,0,0.05); }
     .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 150; }
     .nav-overlay.open { display: block; }
 
-    /* ─── HERO ───
-       FIX: hero-image is now properly inside hero-parallax as a flex child */
+    /* HERO */
     .hero-wrapper { position: relative; background: var(--black); border-radius: 0 0 var(--radius-lg) var(--radius-lg); overflow: hidden; min-height: 460px; }
     .hero-parallax { display: flex; align-items: stretch; min-height: 580px; will-change: transform; }
     .hero-text { flex: 1; padding: 60px 48px; display: flex; align-items: center; }
@@ -71,15 +59,21 @@
     .hero-image { flex: 0.65; min-height: 420px; border-radius: var(--radius-lg); overflow: hidden; margin: 16px 16px 16px 0; }
     .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    /* ─── HOME ABOUT ─── */
-    .home-about { padding: 52px 48px 64px; }
+    /* VIDEO */
+    .video-wrapper { background: var(--black); padding: 0 48px 48px; border-radius: 0 0 40px 40px; margin-top: -2px; }
+    .video-inner { max-width: 55%; margin: 0 auto; }
+    .video-ratio { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
+    .video-ratio iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+    /* HOME ABOUT */
+    .home-about { padding: 52px 48px 64px; background: var(--white); }
     .about-label { font-size: 1.1rem; font-weight: 400; color: var(--black); margin-bottom: 20px; letter-spacing: 0.5px; }
     .about-body { font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 400; line-height: 1.55; max-width: 900px; }
 
-    /* ─── DIVIDER ─── */
+    /* DIVIDER */
     .section-divider { height: 2px; background: #f0f0f0; margin: 0 48px; }
 
-    /* ─── ARTWORK SECTION ─── */
+    /* ARTWORK SECTION */
     .artwork-section { padding: 64px 48px; background: var(--black); border-radius: var(--radius-lg); }
     .artwork-section .section-label { color: var(--yellow); font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
     .artwork-section .section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--white); margin-bottom: 48px; }
@@ -96,15 +90,15 @@
     .artwork-placeholder span { font-size: 2.5rem; }
     .artwork-placeholder p { font-size: 0.9rem; text-align: center; line-height: 1.6; }
 
-    /* ─── LIGHTBOX ─── */
+    /* LIGHTBOX */
     .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 500; align-items: center; justify-content: center; padding: 24px; }
     .lightbox.open { display: flex; }
     .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: var(--radius-lg); object-fit: contain; }
     .lightbox-close { position: absolute; top: 24px; right: 32px; font-size: 2.5rem; color: var(--white); cursor: pointer; background: none; border: none; line-height: 1; }
     .lightbox-close:hover { color: var(--yellow); }
 
-    /* ─── ABOUT FULL ─── */
-    .about-full { padding: 72px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    /* ABOUT FULL */
+    .about-full { padding: 72px 48px; background: var(--white); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
     .about-full .section-label { font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #999; margin-bottom: 10px; }
     .about-full .section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; margin-bottom: 28px; }
     .about-full p { font-size: 1.1rem; line-height: 1.75; color: #333; margin-bottom: 20px; }
@@ -116,7 +110,7 @@
     .about-highlight-box li { display: flex; align-items: flex-start; gap: 14px; font-size: 1rem; line-height: 1.5; }
     .about-highlight-box li::before { content: '→'; color: var(--yellow); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
 
-    /* ─── CONTACT ─── */
+    /* CONTACT */
     .contact-section { background: var(--black); border-radius: var(--radius-lg); margin: 0; padding: 72px 48px; }
     .contact-section .section-label { color: var(--yellow); font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
     .contact-section .section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--white); margin-bottom: 12px; }
@@ -135,11 +129,11 @@
     .portfolio-btn { background: var(--yellow); color: var(--black); font-family: 'Exo 2', sans-serif; font-size: 1rem; font-weight: 700; padding: 14px 32px; border-radius: 40px; text-decoration: none; white-space: nowrap; transition: transform 0.2s, box-shadow 0.2s; flex-shrink: 0; }
     .portfolio-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,230,0,0.35); }
 
-    /* ─── FOOTER ─── */
+    /* FOOTER */
     footer { background: var(--black); color: #555; text-align: center; padding: 32px 48px; font-size: 0.88rem; }
     footer span { color: var(--yellow); }
 
-    /* ─── RESPONSIVE ─── */
+    /* RESPONSIVE */
     @media (max-width: 900px) {
       .about-full { grid-template-columns: 1fr; gap: 48px; }
       .contact-grid { grid-template-columns: 1fr; }
@@ -159,6 +153,7 @@
       .artwork-grid { grid-template-columns: 1fr; }
       .artwork-section { border-radius: 0; }
       .contact-section { border-radius: 0; }
+      .video-inner { max-width: 100%; }
     }
   </style>
 </head>
@@ -173,7 +168,7 @@
     <a href="#contact" onclick="closeMenu()">Contact</a>
   </nav>
 
-  <!-- FIXED HEADER WRAPPER — keeps fade working on GitHub Pages -->
+  <!-- FIXED HEADER WRAPPER -->
   <div id="headerWrapper">
     <header id="siteHeader">
       <img src="peaces logo BW TransparentBG.png" alt="Peaces Design logo" class="logo-svg" />
@@ -184,7 +179,6 @@
     </header>
   </div>
 
-  <!-- Spacer so content doesn't hide under fixed header -->
   <div id="pagePush"></div>
 
   <!-- HERO -->
@@ -193,40 +187,28 @@
       <div class="hero-text">
         <h1>Drawn to the heart.<br>Designed with a pulse.</h1>
       </div>
-      <!-- FIX: image is now correctly inside .hero-image div -->
       <div class="hero-image">
         <img src="abstract2.PNG" alt="Artwork" />
       </div>
     </div>
   </section>
-<!-- YOUTUBE VIDEO -->
-<div style="
-  background: var(--black);
-  padding: 0 48px 48px;
-  border-radius: 0 0 40px 40px;
-  margin-top: -2px;
-">
-  <div style="
-    max-width: 55%;
-    margin: 0 auto;
-  ">
-  <div style="
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    border-radius: 24px;
-    overflow: hidden;
-  ">
-    <iframe
-      src="https://www.youtube.com/embed/Qx0MGaEHbYw?si=FI2qcJgya8DFB6XI"
-      title="My First Mural"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-    ></iframe>
+
+  <!-- YOUTUBE VIDEO — sits in its own black box, fully closed -->
+  <div class="video-wrapper">
+    <div class="video-inner">
+      <div class="video-ratio">
+        <iframe
+          src="https://www.youtube.com/embed/Qx0MGaEHbYw?si=FI2qcJgya8DFB6XI"
+          title="My First Mural"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
   </div>
-</div>
+  <!-- FIX: video wrapper is now properly closed before the white sections begin -->
+
   <!-- HOME ABOUT SNIPPET -->
   <section class="home-about">
     <p class="about-label">A quote//</p>
@@ -244,7 +226,6 @@
 
     <div class="artwork-grid">
 
-      <!-- FIX: lightbox src filenames now match the img src filenames exactly -->
       <div class="artwork-card" onclick="openLightbox('The fall off.jpg', 'The Fall Off')">
         <img src="The fall off.jpg" alt="The Fall Off" />
         <div class="artwork-card-info">
@@ -280,8 +261,6 @@
           <span class="artwork-card-tag">Logo</span>
         </div>
       </div>
-
-      <!-- Add more cards here — copy a block above and change the filenames and text -->
 
       <div class="artwork-placeholder">
         <span>🖼️</span>
@@ -393,17 +372,15 @@
       document.body.style.overflow = '';
     }
 
-    /* ── Scroll Effects ──
-       FIX: header is now inside a fixed wrapper div, so opacity/transform
-       are applied to the <header> element itself and work on all hosts. */
+    /* ── Scroll Effects ── */
     const header       = document.getElementById('siteHeader');
     const heroParallax = document.getElementById('heroParallax');
     const HEADER_FADE_PX = 125;
     const PARALLAX_SPEED = 0.30;
 
     function applyScrollEffects() {
-      const scrollY    = window.scrollY;
-      const progress   = Math.min(scrollY / HEADER_FADE_PX, 1);
+      const scrollY  = window.scrollY;
+      const progress = Math.min(scrollY / HEADER_FADE_PX, 1);
       header.style.opacity   = 1 - progress;
       header.style.transform = `translateY(-${progress * 24}px)`;
       heroParallax.style.transform = `translateY(-${scrollY * PARALLAX_SPEED}px)`;
