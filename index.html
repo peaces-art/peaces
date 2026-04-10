@@ -12,19 +12,33 @@
       --black:  #111111;
       --white:  #ffffff;
       --radius-lg: 40px;
+      --radius-md: 24px;
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Exo 2', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
 
-    /* HEADER */
+    /* ─── HEADER WRAPPER ───
+       FIX: We wrap the header in a fixed-position container so the
+       fade/slide JS works correctly on GitHub Pages. The header itself
+       is no longer sticky — the wrapper handles positioning instead. */
+    #headerWrapper {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      pointer-events: none; /* lets clicks pass through when invisible */
+    }
     header {
       background-color: var(--yellow);
       border-radius: 0 0 var(--radius-lg) var(--radius-lg);
       padding: 18px 32px;
       display: flex; align-items: center; gap: 20px;
-      position: sticky; top: 0; z-index: 100;
+      pointer-events: all; /* restore clicks on the header itself */
       will-change: opacity, transform;
     }
+
+    /* Push page content down so it doesn't hide under the fixed header */
+    #pagePush { height: 116px; }
+
     .logo-svg { width: 80px; height: 80px; flex-shrink: 0; }
     .site-title { font-size: clamp(1.6rem, 4vw, 2.8rem); font-weight: 700; color: var(--black); flex: 1; letter-spacing: -0.5px; }
     .hamburger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 6px; padding: 8px; flex-shrink: 0; }
@@ -33,32 +47,40 @@
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-9.5px) rotate(-45deg); }
 
-    /* NAV */
-    nav { position: fixed; top: 0; right: -320px; width: 280px; height: 100vh; background: var(--black); z-index: 200; display: flex; flex-direction: column; justify-content: center; transition: right 0.4s cubic-bezier(0.4,0,0.2,1); border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
+    /* ─── NAV MENU ─── */
+    nav {
+      position: fixed; top: 0; right: -320px;
+      width: 280px; height: 100vh;
+      background: var(--black); z-index: 200;
+      display: flex; flex-direction: column; justify-content: center;
+      transition: right 0.4s cubic-bezier(0.4,0,0.2,1);
+      border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+    }
     nav.open { right: 0; }
     nav a { font-size: 1.6rem; font-weight: 600; color: var(--white); text-decoration: none; padding: 20px 40px; transition: color 0.2s, background 0.2s; border-left: 4px solid transparent; }
     nav a:hover { color: var(--yellow); border-left-color: var(--yellow); background: rgba(255,230,0,0.05); }
     .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 150; }
     .nav-overlay.open { display: block; }
 
-    /* HERO */
+    /* ─── HERO ───
+       FIX: hero-image is now properly inside hero-parallax as a flex child */
     .hero-wrapper { position: relative; background: var(--black); border-radius: 0 0 var(--radius-lg) var(--radius-lg); overflow: hidden; min-height: 460px; }
     .hero-parallax { display: flex; align-items: stretch; min-height: 580px; will-change: transform; }
     .hero-text { flex: 1; padding: 60px 48px; display: flex; align-items: center; }
     .hero-text h1 { font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 400; color: var(--white); line-height: 1.2; letter-spacing: -0.5px; }
-    .hero-image { flex: 0.5; min-height: 420px; border-radius: var(--radius-lg); overflow: hidden; margin: 16px 16px 16px 0; }
+    .hero-image { flex: 0.65; min-height: 420px; border-radius: var(--radius-lg); overflow: hidden; margin: 16px 16px 16px 0; }
     .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    /* HOME ABOUT SNIPPET */
+    /* ─── HOME ABOUT ─── */
     .home-about { padding: 52px 48px 64px; }
     .about-label { font-size: 1.1rem; font-weight: 400; color: var(--black); margin-bottom: 20px; letter-spacing: 0.5px; }
     .about-body { font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 400; line-height: 1.55; max-width: 900px; }
 
-    /* SECTION DIVIDERS */
+    /* ─── DIVIDER ─── */
     .section-divider { height: 2px; background: #f0f0f0; margin: 0 48px; }
 
-    /* ARTWORK SECTION */
-    .artwork-section { padding: 64px 48px; background: var(--black); border-radius: var(--radius-lg); margin: 0 0 0 0; }
+    /* ─── ARTWORK SECTION ─── */
+    .artwork-section { padding: 64px 48px; background: var(--black); border-radius: var(--radius-lg); }
     .artwork-section .section-label { color: var(--yellow); font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
     .artwork-section .section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--white); margin-bottom: 48px; }
     .artwork-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
@@ -70,20 +92,18 @@
     .artwork-card-title { font-size: 1.15rem; font-weight: 600; color: var(--white); margin-bottom: 6px; }
     .artwork-card-meta { font-size: 0.88rem; color: #888; }
     .artwork-card-tag { display: inline-block; background: var(--yellow); color: var(--black); font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-top: 10px; letter-spacing: 0.5px; }
-
-    /* ADD MORE ARTWORK PLACEHOLDER */
     .artwork-placeholder { border: 2px dashed #333; border-radius: var(--radius-lg); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 260px; color: #444; gap: 12px; }
     .artwork-placeholder span { font-size: 2.5rem; }
     .artwork-placeholder p { font-size: 0.9rem; text-align: center; line-height: 1.6; }
 
-    /* LIGHTBOX */
+    /* ─── LIGHTBOX ─── */
     .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 500; align-items: center; justify-content: center; padding: 24px; }
     .lightbox.open { display: flex; }
     .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: var(--radius-lg); object-fit: contain; }
     .lightbox-close { position: absolute; top: 24px; right: 32px; font-size: 2.5rem; color: var(--white); cursor: pointer; background: none; border: none; line-height: 1; }
     .lightbox-close:hover { color: var(--yellow); }
 
-    /* ABOUT FULL SECTION */
+    /* ─── ABOUT FULL ─── */
     .about-full { padding: 72px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
     .about-full .section-label { font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #999; margin-bottom: 10px; }
     .about-full .section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; margin-bottom: 28px; }
@@ -96,7 +116,7 @@
     .about-highlight-box li { display: flex; align-items: flex-start; gap: 14px; font-size: 1rem; line-height: 1.5; }
     .about-highlight-box li::before { content: '→'; color: var(--yellow); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
 
-    /* CONTACT SECTION */
+    /* ─── CONTACT ─── */
     .contact-section { background: var(--black); border-radius: var(--radius-lg); margin: 0; padding: 72px 48px; }
     .contact-section .section-label { color: var(--yellow); font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
     .contact-section .section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--white); margin-bottom: 12px; }
@@ -104,7 +124,6 @@
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     .contact-card { background: #1a1a1a; border-radius: var(--radius-md); padding: 32px; display: flex; align-items: flex-start; gap: 20px; transition: background 0.2s; }
     .contact-card:hover { background: #222; }
-    .contact-card a { text-decoration: none; }
     .contact-icon { width: 48px; height: 48px; background: var(--yellow); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
     .contact-info-label { font-size: 0.8rem; color: #666; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
     .contact-info-value { font-size: 1.05rem; color: var(--white); font-weight: 500; }
@@ -116,23 +135,24 @@
     .portfolio-btn { background: var(--yellow); color: var(--black); font-family: 'Exo 2', sans-serif; font-size: 1rem; font-weight: 700; padding: 14px 32px; border-radius: 40px; text-decoration: none; white-space: nowrap; transition: transform 0.2s, box-shadow 0.2s; flex-shrink: 0; }
     .portfolio-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,230,0,0.35); }
 
-    /* FOOTER */
+    /* ─── FOOTER ─── */
     footer { background: var(--black); color: #555; text-align: center; padding: 32px 48px; font-size: 0.88rem; }
     footer span { color: var(--yellow); }
 
-    /* RESPONSIVE */
+    /* ─── RESPONSIVE ─── */
     @media (max-width: 900px) {
       .about-full { grid-template-columns: 1fr; gap: 48px; }
       .contact-grid { grid-template-columns: 1fr; }
       .contact-portfolio { flex-direction: column; align-items: flex-start; }
     }
     @media (max-width: 768px) {
+      #pagePush { height: 88px; }
       header { padding: 14px 20px; border-radius: 0 0 28px 28px; }
       .logo-svg { width: 60px; height: 60px; }
       .hero-wrapper { border-radius: 0 0 28px 28px; min-height: 380px; }
       .hero-parallax { flex-direction: column; min-height: 520px; }
       .hero-text { padding: 40px 28px 24px; }
-      .hero-image { min-height: 220px; margin: 0 16px 16px; border-radius: 20px; }
+      .hero-image { flex: none; min-height: 220px; margin: 0 16px 16px; border-radius: 20px; }
       .home-about { padding: 36px 24px 48px; }
       .section-divider { margin: 0 24px; }
       .artwork-section, .about-full, .contact-section { padding: 52px 24px; }
@@ -153,18 +173,19 @@
     <a href="#contact" onclick="closeMenu()">Contact</a>
   </nav>
 
-  <!-- HEADER -->
-  <header id="siteHeader">
-    <!--
-      Replace the SVG with your own logo:
-      <img src="your-logo.png" alt="Peaces Design logo" class="logo-svg" />
-    -->
-    <img src="peaces logo BW TransparentBG.png" alt="Peaces Design logo" class="logo-svg" />
-    <h2 class="site-title">Peaces Design &amp; Illustration</h2>
-    <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </header>
+  <!-- FIXED HEADER WRAPPER — keeps fade working on GitHub Pages -->
+  <div id="headerWrapper">
+    <header id="siteHeader">
+      <img src="peaces logo BW TransparentBG.png" alt="Peaces Design logo" class="logo-svg" />
+      <h2 class="site-title">Peaces Design &amp; Illustration</h2>
+      <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+  </div>
+
+  <!-- Spacer so content doesn't hide under fixed header -->
+  <div id="pagePush"></div>
 
   <!-- HERO -->
   <section class="hero-wrapper" id="home">
@@ -172,36 +193,32 @@
       <div class="hero-text">
         <h1>Drawn to the heart.<br>Designed with a pulse.</h1>
       </div>
-      <img src="abstract 2.png" alt="Artwork reimagined with GPT" />
-        <!--
-          Replace with your hero image:
-          <img src="your-hero-image.jpg" alt="Artwork display" />
-        -->
-        
+      <!-- FIX: image is now correctly inside .hero-image div -->
+      <div class="hero-image">
+        <img src="abstract 2.png" alt="Artwork" />
+      </div>
+    </div>
   </section>
 
   <!-- HOME ABOUT SNIPPET -->
   <section class="home-about">
     <p class="about-label">About me//</p>
     <p class="about-body">
-      Born in December of 1994, my first drawing was a trapezoid. I like
-      space and drawing for as long as I can remember.
+      "Work hard for what you have, and learn to love the process of creation."
     </p>
   </section>
 
   <div class="section-divider"></div>
 
-  <!-- ══════════════════════════════════
-       ARTWORK SECTION
-  ══════════════════════════════════ -->
+  <!-- ARTWORK SECTION -->
   <section id="artwork" class="artwork-section">
     <p class="section-label">Portfolio</p>
     <h2 class="section-title">Artwork &amp; Illustration</h2>
 
     <div class="artwork-grid">
 
-      <!-- Card 1 — The Fall Off -->
-      <div class="artwork-card" onclick="openLightbox('The_fall_off.jpg', 'The Fall Off')">
+      <!-- FIX: lightbox src filenames now match the img src filenames exactly -->
+      <div class="artwork-card" onclick="openLightbox('The fall off.jpg', 'The Fall Off')">
         <img src="The fall off.jpg" alt="The Fall Off" />
         <div class="artwork-card-info">
           <p class="artwork-card-title">The Fall Off</p>
@@ -209,15 +226,17 @@
           <span class="artwork-card-tag">Painting</span>
         </div>
       </div>
-      <div class="artwork-card" onclick="openLightbox('L hat.jpg', 'L hat')">
-        <img src="L hat.jpg" alt="Lynnnwood Hat" />
+
+      <div class="artwork-card" onclick="openLightbox('L hat.jpg', 'Custom Embroidered Dad Hat')">
+        <img src="L hat.jpg" alt="Lynnwood Hat" />
         <div class="artwork-card-info">
           <p class="artwork-card-title">Custom Embroidered Dad Hat</p>
           <p class="artwork-card-meta">Custom Apparel · Hat</p>
           <span class="artwork-card-tag">Apparel</span>
         </div>
       </div>
-      <div class="artwork-card" onclick="openLightbox('sblx.jpg', 'SBLX')">
+
+      <div class="artwork-card" onclick="openLightbox('sblx.png', 'Custom Super Bowl Tee Graphic')">
         <img src="sblx.png" alt="Super Bowl LX Champs" />
         <div class="artwork-card-info">
           <p class="artwork-card-title">Custom Super Bowl Tee Graphic</p>
@@ -225,32 +244,18 @@
           <span class="artwork-card-tag">Apparel</span>
         </div>
       </div>
-      <div class="artwork-card" onclick="openLightbox('Hawks Logo.jpg', 'Hawks Logo Redesign')">
+
+      <div class="artwork-card" onclick="openLightbox('Hawks.png', 'Custom Flyer Logo')">
         <img src="Hawks.png" alt="Terrace Hawks Logo Redesign" />
         <div class="artwork-card-info">
           <p class="artwork-card-title">Custom Flyer Logo</p>
-          <p class="artwork-card-meta">Custom Apparel · Hat</p>
-          <span class="artwork-card-tag">Apparel</span>
+          <p class="artwork-card-meta">Logo Design · Digital</p>
+          <span class="artwork-card-tag">Logo</span>
         </div>
       </div>
 
-      <!--
-        ══ ADD YOUR NEXT ARTWORK BELOW ══
-        Copy one of these card blocks, paste it here,
-        change the image filename, title and media.
-        Put the image file in the same folder as index.html.
+      <!-- Add more cards here — copy a block above and change the filenames and text -->
 
-      <div class="artwork-card" onclick="openLightbox('your-image.jpg', 'Your Title')">
-        <img src="your-image.jpg" alt="Your Title" />
-        <div class="artwork-card-info">
-          <p class="artwork-card-title">Your Title</p>
-          <p class="artwork-card-meta">Medium · Year</p>
-          <span class="artwork-card-tag">Illustration</span>
-        </div>
-      </div>
-      -->
-
-      <!-- Placeholder card — shows until you add more images -->
       <div class="artwork-placeholder">
         <span>🖼️</span>
         <p>More artwork coming soon.<br>Drop your images into this folder<br>and copy the card template above.</p>
@@ -265,9 +270,7 @@
     <img id="lightboxImg" src="" alt="" />
   </div>
 
-  <!-- ══════════════════════════════════
-       ABOUT SECTION
-  ══════════════════════════════════ -->
+  <!-- ABOUT SECTION -->
   <section id="about" class="about-full">
     <div>
       <p class="section-label">Who I am</p>
@@ -301,16 +304,13 @@
 
   <div class="section-divider"></div>
 
-  <!-- ══════════════════════════════════
-       CONTACT SECTION
-  ══════════════════════════════════ -->
+  <!-- CONTACT SECTION -->
   <section id="contact" class="contact-section">
     <p class="section-label">Get in touch</p>
     <h2 class="section-title">Let's Work Together</h2>
     <p class="contact-sub">Available for commissions, freelance projects, and collaborations.</p>
 
     <div class="contact-grid">
-
       <div class="contact-card">
         <div class="contact-icon">📞</div>
         <div>
@@ -318,7 +318,6 @@
           <p class="contact-info-value"><a href="tel:+14257912306">425 791 2306</a></p>
         </div>
       </div>
-
       <div class="contact-card">
         <div class="contact-icon">✉️</div>
         <div>
@@ -326,7 +325,6 @@
           <p class="contact-info-value"><a href="mailto:tyeesparza@gmail.com">tyeesparza@gmail.com</a></p>
         </div>
       </div>
-
       <div class="contact-portfolio">
         <div class="contact-portfolio-text">
           <h3>View my full portfolio on Behance</h3>
@@ -336,7 +334,6 @@
           Visit Portfolio →
         </a>
       </div>
-
     </div>
   </section>
 
@@ -357,9 +354,10 @@
 
     /* ── Lightbox ── */
     function openLightbox(src, alt) {
-      const lb = document.getElementById('lightbox');
+      const lb  = document.getElementById('lightbox');
       const img = document.getElementById('lightboxImg');
-      img.src = src; img.alt = alt;
+      img.src = src;
+      img.alt = alt;
       lb.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -368,6 +366,32 @@
       document.body.style.overflow = '';
     }
 
-    /* ── Scroll Effects ── */
+    /* ── Scroll Effects ──
+       FIX: header is now inside a fixed wrapper div, so opacity/transform
+       are applied to the <header> element itself and work on all hosts. */
     const header       = document.getElementById('siteHeader');
-    const heroParallax = document.g
+    const heroParallax = document.getElementById('heroParallax');
+    const HEADER_FADE_PX = 125;
+    const PARALLAX_SPEED = 0.30;
+
+    function applyScrollEffects() {
+      const scrollY    = window.scrollY;
+      const progress   = Math.min(scrollY / HEADER_FADE_PX, 1);
+      header.style.opacity   = 1 - progress;
+      header.style.transform = `translateY(-${progress * 24}px)`;
+      heroParallax.style.transform = `translateY(-${scrollY * PARALLAX_SPEED}px)`;
+    }
+
+    let rafPending = false;
+    window.addEventListener('scroll', () => {
+      if (!rafPending) {
+        requestAnimationFrame(() => { applyScrollEffects(); rafPending = false; });
+        rafPending = true;
+      }
+    }, { passive: true });
+
+    applyScrollEffects();
+  </script>
+
+</body>
+</html>
