@@ -13,7 +13,6 @@
       --white:  #ffffff;
       --radius-lg: 40px;
       --radius-md: 24px;
-      --header-bg: linear-gradient(to right, #FFE600, #FF6B00);
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Exo 2', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
@@ -29,7 +28,7 @@
       pointer-events: none; /* lets clicks pass through when invisible */
     }
    header {
-  background: var(--header-bg);
+  background: linear-gradient(to right, #FFE600, #FF6B00)
   border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   padding: 18px 32px;
   display: flex; align-items: center; gap: 20px;
