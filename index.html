@@ -449,57 +449,7 @@
     }, { passive: true });
 
     applyScrollEffects();
-    /* ── Gyroscope Hero Pan (mobile only) ── */
-const heroImg = document.querySelector('.hero-image img');
-let gyroPermissionGranted = false;
 
-function applyGyro(e) {
-  // beta  = front-back tilt (-180 to 180)
-  // gamma = left-right tilt (-90 to 90)
-  const tiltX = Math.max(-20, Math.min(20, e.gamma)); // left/right
-  const tiltY = Math.max(-20, Math.min(20, e.beta));  // up/down
-
-  const moveX = (tiltX / 20) * -8; // max 8% movement left/right
-  const moveY = (tiltY / 20) * -5; // max 5% movement up/down
-
-  heroImg.style.transform = `translate(${moveX}px, ${moveY}px)`;
-}
-
-// iOS 13+ requires permission request on user gesture
-function requestGyro() {
-  if (typeof DeviceOrientationEvent !== 'undefined' &&
-      typeof DeviceOrientationEvent.requestPermission === 'function') {
-    // iOS 13+ — needs a tap to grant permission
-    DeviceOrientationEvent.requestPermission()
-      .then(state => {
-        if (state === 'granted') {
-          window.addEventListener('deviceorientation', applyGyro);
-          gyroPermissionGranted = true;
-        }
-      })
-      .catch(console.error);
-  } else {
-    // Android and older iOS — no permission needed
-    window.addEventListener('deviceorientation', applyGyro);
-  }
-}
-
-// Try to start automatically on Android
-if (window.innerWidth <= 768) {
-  if (typeof DeviceOrientationEvent !== 'undefined' &&
-      typeof DeviceOrientationEvent.requestPermission !== 'function') {
-    window.addEventListener('deviceorientation', applyGyro);
-  } else {
-    // iOS — attach permission request to first tap anywhere on hero
-    const heroSection = document.querySelector('.hero-wrapper');
-    if (heroSection) {
-      heroSection.addEventListener('touchstart', function onFirstTouch() {
-        if (!gyroPermissionGranted) requestGyro();
-        heroSection.removeEventListener('touchstart', onFirstTouch);
-      });
-    }
-  }
-}
   </script>
 
 </body>
