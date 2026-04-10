@@ -25,7 +25,7 @@
       pointer-events: none;
     }
     header {
-      background: linear-gradient(to right, #FFE600, #FF6B00); /* FIX: added missing semicolon after gradient */
+      background: linear-gradient(to right, #FFE600, #FF6B00);
       border-radius: 0 0 var(--radius-lg) var(--radius-lg);
       padding: 18px 32px;
       display: flex; align-items: center; gap: 20px;
@@ -36,33 +36,35 @@
     #pagePush { height: 0px; }
 
     .logo-svg { width: 80px; height: 80px; flex-shrink: 0; }
-    .site-title {
-  font-size: clamp(1.6rem, 4vw, 2.8rem);
-  font-weight: 700;
-  flex: 1;
-  letter-spacing: -0.5px;
-  color: var(--black);
-  background: linear-gradient(
-    105deg,
-    var(--black)   0%,
-    var(--black)   40%,
-    #ffffff        48%,
-    #fffde0        50%,
-    #ffffff        52%,
-    var(--black)   60%,
-    var(--black)   100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmer 3.5s linear infinite;
-}
 
-@keyframes shimmer {
-  0%   { background-position: 200% center; }
-  100% { background-position: -200% center; }
-}
+    .site-title {
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 700;
+      flex: 1;
+      letter-spacing: -0.5px;
+      color: var(--black);
+      background: linear-gradient(
+        105deg,
+        var(--black)   0%,
+        var(--black)   40%,
+        #ffffff        48%,
+        #fffde0        50%,
+        #ffffff        52%,
+        var(--black)   60%,
+        var(--black)   100%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3.5s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 200% center; }
+      100% { background-position: -200% center; }
+    }
+
     .hamburger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 6px; padding: 8px; flex-shrink: 0; }
     .hamburger span { display: block; width: 34px; height: 3.5px; background: var(--black); border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; }
     .hamburger.open span:nth-child(1) { transform: translateY(9.5px) rotate(45deg); }
@@ -83,14 +85,29 @@
     .hero-text { flex: 1; padding: 60px 48px; display: flex; align-items: center; }
     .hero-text h1 { font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 400; color: var(--white); line-height: 1.2; letter-spacing: -0.5px; }
     .hero-image { flex: 0.65; min-height: 420px; border-radius: var(--radius-lg); overflow: hidden; margin: 16px 16px 16px 0; }
+
+    /* DESKTOP: panning keyframe animation */
     .hero-image img {
-  width: 110%;
-  height: 110%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.3s ease-out;
-  will-change: transform;
-}
+      width: 110%;
+      height: 110%;
+      object-fit: cover;
+      display: block;
+      animation: heroPan 7s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    @keyframes heroPan {
+      0%   { transform: translateX(0%); }
+      100% { transform: translateX(-9%); }
+    }
+
+    /* MOBILE: gyroscope takes over — disable the CSS pan animation */
+    @media (max-width: 768px) {
+      .hero-image img {
+        animation: none;
+        transition: transform 0.3s ease-out;
+      }
+    }
 
     /* VIDEO */
     .video-wrapper { background: var(--black); padding: 0 48px 48px; border-radius: 0 0 40px 40px; }
@@ -143,11 +160,11 @@
     .about-highlight-box li { display: flex; align-items: flex-start; gap: 14px; font-size: 1rem; line-height: 1.5; }
     .about-highlight-box li::before { content: '→'; color: var(--yellow); font-weight: 700; flex-shrink: 0; margin-top: 1px; display: inline-block; animation: arrowBounce 1.5s ease-in-out infinite; }
 
-@keyframes arrowBounce {
-  0%   { transform: translateX(0px); }
-  50%  { transform: translateX(6px); }
-  100% { transform: translateX(0px); }
-}
+    @keyframes arrowBounce {
+      0%   { transform: translateX(0px); }
+      50%  { transform: translateX(6px); }
+      100% { transform: translateX(0px); }
+    }
 
     /* CONTACT */
     .contact-section { background: var(--black); border-radius: var(--radius-lg); margin: 0; padding: 72px 48px; }
@@ -185,11 +202,14 @@
       .hero-wrapper { border-radius: 0; min-height: 380px; padding-top: 88px; }
       .hero-parallax { flex-direction: column; min-height: 520px; }
       .hero-text { padding: 40px 28px 24px; }
-     .hero-image { flex: none; min-height: 220px; margin: 0; border-radius: 0; }
+      .hero-image { flex: none; min-height: 220px; margin: 0; border-radius: 0; }
       .home-about { padding: 36px 24px 48px; }
       .section-divider { margin: 0 24px; }
       .artwork-section, .about-full, .contact-section { padding: 52px 24px; }
       .artwork-grid { grid-template-columns: 1fr 1fr; }
+      .artwork-card-info { padding: 12px 14px 16px; }
+      .artwork-card-title { font-size: 0.95rem; }
+      .artwork-card-meta { font-size: 0.75rem; }
       .artwork-section { border-radius: 0; }
       .contact-section { border-radius: 0; }
       .video-inner { max-width: 100%; }
@@ -227,12 +247,12 @@
         <h1>Drawn to the heart.<br>Designed with a pulse.</h1>
       </div>
       <div class="hero-image">
-        <img src="abstract2.PNG" alt="Artwork" />
+        <img src="abstract2.PNG" alt="Artwork" id="heroImg" />
       </div>
     </div>
   </section>
 
-  <!-- YOUTUBE VIDEO — sits in its own black box, fully closed -->
+  <!-- YOUTUBE VIDEO -->
   <div class="video-wrapper">
     <div class="video-inner">
       <div class="video-ratio">
@@ -246,7 +266,6 @@
       </div>
     </div>
   </div>
-  <!-- FIX: video wrapper is now properly closed before the white sections begin -->
 
   <!-- HOME ABOUT SNIPPET -->
   <section class="home-about">
@@ -346,19 +365,13 @@
       </div>
 
       <!-- PICTURE UNDER WHAT I DO BEST -->
-      <div style="
-        margin-top: 24px;
-        border-radius: 24px;
-        overflow: hidden;
-      ">
+      <div style="margin-top: 24px; border-radius: 24px; overflow: hidden;">
         <img
           src="xeno.PNG"
           alt="Americana Xenomorph Tattoo Illustration"
           style="width: 100%; display: block; object-fit: cover;"
         />
       </div>
-
-    </div>
     </div>
   </section>
 
@@ -449,6 +462,56 @@
     }, { passive: true });
 
     applyScrollEffects();
+
+    /* ── Gyroscope Hero Pan (mobile only) ──
+       On desktop the CSS keyframe heroPan handles the panning.
+       On mobile (<=768px) we disable that animation and use the
+       device gyroscope to move the image with tilt instead. */
+    const heroImg = document.getElementById('heroImg');
+    let gyroPermissionGranted = false;
+
+    function applyGyro(e) {
+      const tiltX = Math.max(-20, Math.min(20, e.gamma)); // left/right tilt
+      const tiltY = Math.max(-20, Math.min(20, e.beta));  // front/back tilt
+      const moveX = (tiltX / 20) * -8; // up to 8px left/right
+      const moveY = (tiltY / 20) * -5; // up to 5px up/down
+      heroImg.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    }
+
+    function requestGyro() {
+      if (typeof DeviceOrientationEvent !== 'undefined' &&
+          typeof DeviceOrientationEvent.requestPermission === 'function') {
+        // iOS 13+ requires a user gesture to grant permission
+        DeviceOrientationEvent.requestPermission()
+          .then(state => {
+            if (state === 'granted') {
+              window.addEventListener('deviceorientation', applyGyro);
+              gyroPermissionGranted = true;
+            }
+          })
+          .catch(console.error);
+      } else {
+        // Android — no permission needed
+        window.addEventListener('deviceorientation', applyGyro);
+      }
+    }
+
+    if (window.innerWidth <= 768) {
+      if (typeof DeviceOrientationEvent !== 'undefined' &&
+          typeof DeviceOrientationEvent.requestPermission !== 'function') {
+        // Android — start automatically
+        window.addEventListener('deviceorientation', applyGyro);
+      } else {
+        // iOS — activate on first tap of the hero section
+        const heroSection = document.querySelector('.hero-wrapper');
+        if (heroSection) {
+          heroSection.addEventListener('touchstart', function onFirstTouch() {
+            if (!gyroPermissionGranted) requestGyro();
+            heroSection.removeEventListener('touchstart', onFirstTouch);
+          });
+        }
+      }
+    }
   </script>
 
 </body>
