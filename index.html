@@ -232,6 +232,35 @@ header::before {
     footer { background: var(--black); color: #555; text-align: center; padding: 32px 48px; font-size: 0.88rem; }
     footer span { color: var(--yellow); }
 
+    /* LAWN MOWER ANIMATION */
+.lawnmower-stage {
+  position: relative;
+  height: 48px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  border-radius: 12px 12px 0 0;
+}
+
+.lawnmower-figure {
+  position: absolute;
+  bottom: 0;
+  left: -120px;
+  display: flex;
+  align-items: flex-end;
+  gap: 0px;
+  animation: mowAcross 6.5s linear infinite;
+}
+
+@keyframes mowAcross {
+  0%   { left: -120px; }
+  100% { left: 110%;   }
+}
+
+.lawnmower-figure svg {
+  width: 90px;
+  height: 48px;
+}
+    
     /* RESPONSIVE */
     @media (max-width: 900px) {
       .about-full { grid-template-columns: 1fr; gap: 48px; }
