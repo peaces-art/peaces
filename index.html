@@ -78,7 +78,7 @@
     .nav-overlay.open { display: block; }
 
     /* HERO */
-    .hero-wrapper { position: relative; background: var(--black); border-radius: 0; overflow: hidden; min-height: 460px; }
+    .hero-wrapper { position: relative; background: var(--black); border-radius: 0; overflow: hidden; min-height: 460px; padding-top: 116px; }
     .hero-parallax { display: flex; align-items: stretch; min-height: 580px; will-change: transform; }
     .hero-text { flex: 1; padding: 60px 48px; display: flex; align-items: center; }
     .hero-text h1 { font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 400; color: var(--white); line-height: 1.2; letter-spacing: -0.5px; }
@@ -172,10 +172,10 @@
       .contact-portfolio { flex-direction: column; align-items: flex-start; }
     }
     @media (max-width: 768px) {
-      #pagePush { height: 88px; }
+      #pagePush { height: 0px; }
       header { padding: 14px 20px; border-radius: 0 0 28px 28px; }
       .logo-svg { width: 60px; height: 60px; }
-      .hero-wrapper { border-radius: 0 0 28px 28px; min-height: 380px; }
+      .hero-wrapper { border-radius: 0 0 28px 28px; min-height: 380px; padding-top: 88px; }
       .hero-parallax { flex-direction: column; min-height: 520px; }
       .hero-text { padding: 40px 28px 24px; }
       .hero-image { flex: none; min-height: 220px; margin: 0 16px 16px; border-radius: 20px; }
