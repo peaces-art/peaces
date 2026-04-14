@@ -123,6 +123,72 @@ header::before {
     .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 150; }
     .nav-overlay.open { display: block; }
 
+    /* ── BRICK BREAKER GAME ── */
+#gameOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 600;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+}
+#gameOverlay.open { display: flex; }
+
+#gameCanvas {
+  border-radius: 16px;
+  border: 2px solid rgba(59,139,255,0.4);
+  box-shadow: 0 0 40px rgba(81,202,245,0.2);
+  max-width: 95vw;
+  max-height: 75vh;
+  display: block;
+}
+
+#gameUI {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 480px;
+  max-width: 95vw;
+  font-family: 'Exo 2', sans-serif;
+}
+
+#gameScore {
+  color: #51caf5;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+#gameLives {
+  color: #3b8bff;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+#gameMessage {
+  color: var(--white);
+  font-size: 0.85rem;
+  opacity: 0.6;
+  font-family: 'Exo 2', sans-serif;
+  text-align: center;
+}
+
+#gameCloseBtn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--white);
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.9rem;
+  padding: 8px 24px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+#gameCloseBtn:hover { border-color: #51caf5; color: #51caf5; }
+
     /* HERO */
     .hero-wrapper { position: relative; background: var(--black); border-radius: 0; overflow: hidden; min-height: 460px; padding-top: 116px; }
     .hero-parallax { display: flex; align-items: stretch; min-height: 580px; will-change: transform; }
@@ -303,7 +369,7 @@ header::before {
   <!-- FIXED HEADER WRAPPER -->
   <div id="headerWrapper">
     <header id="siteHeader">
-      <img src="peaces logo BW TransparentBG.png" alt="Peaces Design logo" class="logo-svg" />
+      <img src="peaces logo BW TransparentBG.png" alt="Peaces Design logo" class="logo-svg" onclick="openGame()" style="cursor:pointer;" title="Play Brick Breaker" />
       <h2 class="site-title">Peaces Design &amp; Illustration</h2>
       <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Open menu">
         <span></span><span></span><span></span>
@@ -525,7 +591,20 @@ header::before {
   <footer>
     &copy; 2025 <span>Peaces Design &amp; Illustration</span> · Tye Esparza · All rights reserved
   </footer>
-
+  
+<!-- BRICK BREAKER GAME OVERLAY -->
+<div id="gameOverlay">
+  <div id="gameUI">
+    <span id="gameScore">SCORE: 0</span>
+    <span id="gameLives">❤️❤️❤️</span>
+  </div>
+  <canvas id="gameCanvas" width="480" height="520"></canvas>
+  <div id="gameMessage">
+    Desktop: ← → arrow keys &nbsp;|&nbsp; Mobile: tilt your phone
+  </div>
+  <button id="gameCloseBtn" onclick="closeGame()">✕ Close</button>
+</div>
+  
   <script>
     /* ── Menu ── */
     function toggleMenu() {
@@ -623,6 +702,267 @@ header::before {
         }
       }
     }
+    /* ── BRICK BREAKER GAME ── */
+function openGame() {
+  document.getElementById('gameOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  startGame();
+}
+
+function closeGame() {
+  document.getElementById('gameOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  cancelAnimationFrame(gameRAF);
+  gameRunning = false;
+  if (gyroActive) {
+    window.removeEventListener('deviceorientation', gameGyroHandler);
+    gyroActive = false;
+  }
+}
+
+let gameRAF, gameRunning = false, gyroActive = false;
+
+function startGame() {
+  const canvas = document.getElementById('gameCanvas');
+  const ctx    = canvas.getContext('2d');
+
+  const W = canvas.width;
+  const H = canvas.height;
+
+  // ── Colours matching site palette ──
+  const COL_BG      = '#111111';
+  const COL_PADDLE  = '#3b8bff';
+  const COL_BALL    = '#51caf5';
+  const COL_GLOW    = 'rgba(81,202,245,0.35)';
+  const BRICK_COLS  = ['#3b8bff','#51caf5','#2a6fd4','#6dd5fa','#1a4fa0'];
+
+  // ── Paddle ──
+  const paddle = { w: 90, h: 12, x: W/2 - 45, y: H - 30, speed: 7 };
+
+  // ── Ball ──
+  const ball = { x: W/2, y: H - 60, r: 8, dx: 3.5, dy: -3.5 };
+
+  // ── Bricks ──
+  const COLS = 7, ROWS = 5;
+  const brickW = Math.floor((W - 48) / COLS);
+  const brickH = 22;
+  const brickPad = 6;
+  const brickOffX = 24;
+  const brickOffY = 52;
+
+  let bricks = [];
+  function buildBricks() {
+    bricks = [];
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        bricks.push({
+          x: brickOffX + c * (brickW + brickPad),
+          y: brickOffY + r * (brickH + brickPad),
+          w: brickW, h: brickH,
+          alive: true,
+          col: BRICK_COLS[(r + c) % BRICK_COLS.length]
+        });
+      }
+    }
+  }
+  buildBricks();
+
+  // ── State ──
+  let score = 0, lives = 3, level = 1;
+  let keys  = { left: false, right: false };
+  let paddleTarget = paddle.x;
+  gameRunning = true;
+
+  function setScore() {
+    document.getElementById('gameScore').textContent = `SCORE: ${score}  LVL: ${level}`;
+    const hearts = '❤️'.repeat(Math.max(lives,0));
+    document.getElementById('gameLives').textContent = hearts || 'GAME OVER';
+  }
+  setScore();
+
+  // ── Keyboard ──
+  function onKey(e, down) {
+    if (e.key === 'ArrowLeft')  keys.left  = down;
+    if (e.key === 'ArrowRight') keys.right = down;
+  }
+  document.addEventListener('keydown', e => onKey(e, true));
+  document.addEventListener('keyup',   e => onKey(e, false));
+
+  // ── Gyroscope ──
+  function gameGyroHandler(e) {
+    const tilt = Math.max(-30, Math.min(30, e.gamma));
+    paddleTarget = ((tilt + 30) / 60) * (W - paddle.w);
+  }
+
+  function setupGyro() {
+    if (typeof DeviceOrientationEvent !== 'undefined' &&
+        typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission()
+        .then(state => {
+          if (state === 'granted') {
+            window.addEventListener('deviceorientation', gameGyroHandler);
+            gyroActive = true;
+          }
+        }).catch(console.error);
+    } else {
+      window.addEventListener('deviceorientation', gameGyroHandler);
+      gyroActive = true;
+    }
+  }
+
+  if (window.innerWidth <= 768) setupGyro();
+
+  // ── Draw helpers ──
+  function drawBall() {
+    ctx.save();
+    ctx.shadowColor = COL_BALL;
+    ctx.shadowBlur  = 14;
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
+    ctx.fillStyle = COL_BALL;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawPaddle() {
+    ctx.save();
+    ctx.shadowColor = COL_PADDLE;
+    ctx.shadowBlur  = 16;
+    const grad = ctx.createLinearGradient(paddle.x, 0, paddle.x + paddle.w, 0);
+    grad.addColorStop(0, '#3b8bff');
+    grad.addColorStop(1, '#51caf5');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.roundRect(paddle.x, paddle.y, paddle.w, paddle.h, 6);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawBricks() {
+    bricks.forEach(b => {
+      if (!b.alive) return;
+      ctx.save();
+      ctx.shadowColor = b.col;
+      ctx.shadowBlur  = 8;
+      ctx.fillStyle   = b.col;
+      ctx.beginPath();
+      ctx.roundRect(b.x, b.y, b.w, b.h, 4);
+      ctx.fill();
+      ctx.restore();
+    });
+  }
+
+  function drawBackground() {
+    ctx.fillStyle = COL_BG;
+    ctx.fillRect(0, 0, W, H);
+    // subtle grid lines
+    ctx.strokeStyle = 'rgba(59,139,255,0.04)';
+    ctx.lineWidth = 1;
+    for (let x = 0; x < W; x += 24) {
+      ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke();
+    }
+    for (let y = 0; y < H; y += 24) {
+      ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
+    }
+  }
+
+  // ── Game loop ──
+  function loop() {
+    if (!gameRunning) return;
+
+    drawBackground();
+    drawBricks();
+    drawPaddle();
+    drawBall();
+
+    // Paddle movement — keyboard
+    if (keys.left)  paddle.x = Math.max(0, paddle.x - paddle.speed);
+    if (keys.right) paddle.x = Math.min(W - paddle.w, paddle.x + paddle.speed);
+
+    // Paddle movement — gyroscope (smooth lerp)
+    if (gyroActive) {
+      paddle.x += (paddleTarget - paddle.x) * 0.15;
+      paddle.x  = Math.max(0, Math.min(W - paddle.w, paddle.x));
+    }
+
+    // Ball movement
+    ball.x += ball.dx;
+    ball.y += ball.dy;
+
+    // Wall bounce
+    if (ball.x - ball.r <= 0 || ball.x + ball.r >= W) ball.dx *= -1;
+    if (ball.y - ball.r <= 0) ball.dy *= -1;
+
+    // Paddle collision
+    if (
+      ball.y + ball.r >= paddle.y &&
+      ball.y + ball.r <= paddle.y + paddle.h &&
+      ball.x >= paddle.x &&
+      ball.x <= paddle.x + paddle.w
+    ) {
+      // Angle based on where it hits the paddle
+      const hitPos = (ball.x - paddle.x) / paddle.w; // 0 to 1
+      const angle  = (hitPos - 0.5) * 2.4; // -1.2 to 1.2 radians
+      const speed  = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
+      ball.dx = speed * Math.sin(angle);
+      ball.dy = -Math.abs(ball.dy);
+    }
+
+    // Brick collision
+    bricks.forEach(b => {
+      if (!b.alive) return;
+      if (
+        ball.x + ball.r > b.x &&
+        ball.x - ball.r < b.x + b.w &&
+        ball.y + ball.r > b.y &&
+        ball.y - ball.r < b.y + b.h
+      ) {
+        b.alive = false;
+        ball.dy *= -1;
+        score  += 10;
+        setScore();
+      }
+    });
+
+    // Level complete
+    if (bricks.every(b => !b.alive)) {
+      level++;
+      ball.dx *= 1.1;
+      ball.dy *= 1.1;
+      buildBricks();
+      ball.x = W/2; ball.y = H - 60;
+      setScore();
+    }
+
+    // Ball lost
+    if (ball.y - ball.r > H) {
+      lives--;
+      setScore();
+      if (lives <= 0) {
+        gameRunning = false;
+        drawBackground();
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 32px Exo 2, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('GAME OVER', W/2, H/2 - 20);
+        ctx.font = '18px Exo 2, sans-serif';
+        ctx.fillStyle = '#51caf5';
+        ctx.fillText(`Final Score: ${score}`, W/2, H/2 + 20);
+        ctx.font = '14px Exo 2, sans-serif';
+        ctx.fillStyle = '#888';
+        ctx.fillText('Close and click the logo to play again', W/2, H/2 + 55);
+        return;
+      }
+      ball.x = W/2; ball.y = H - 60;
+      ball.dx = 3.5; ball.dy = -3.5;
+    }
+
+    gameRAF = requestAnimationFrame(loop);
+  }
+
+  cancelAnimationFrame(gameRAF);
+  loop();
+}
   </script>
 
 </body>
