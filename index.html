@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,110 +12,58 @@
       --yellow: #FFE600;
       --black:  #111111;
       --white:  #ffffff;
+      --blue1:  #3b8bff;
+      --blue2:  #51caf5;
       --radius-lg: 40px;
       --radius-md: 24px;
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Exo 2', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
-
+ 
     /* HEADER WRAPPER */
-    #headerWrapper {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      pointer-events: none;
-    }
+    #headerWrapper { position: fixed; top: 0; left: 0; right: 0; z-index: 100; pointer-events: none; }
     header {
-background: linear-gradient(to right, #3b8bff, #51caf5);
-  border-radius: 0;
-  padding: 18px 32px;
-  display: flex; align-items: center; gap: 20px;
-  pointer-events: all;
-  will-change: opacity, transform;
-  position: relative;
-}
-
-header::after {
-  content: '';
-  position: absolute;
-  bottom: -18px;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 18px;
-  background: linear-gradient(to right, #3b8bff, #51caf5);
-border-radius: 0 0 50% 50% / 0 0 100% 100%;
-  border-radius: 0 0 50% 50% / 0 0 100% 100%;
-  z-index: -1;
-}
-
-header::before {
-  content: '';
-  position: absolute;
-  bottom: -26px;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 8px;
-  background: linear-gradient(
-  to right,
-  rgba(59,139,255,0)     0%,
-  rgba(59,139,255,0.6)  25%,
-  rgba(180,230,255,1)   50%,
-  rgba(81,202,245,0.6)  75%,
-  rgba(81,202,245,0)    100%
-  );
-  border-radius: 50%;
-  filter: blur(4px);
-  z-index: -1;
-  animation: glowPulse 2.5s ease-in-out infinite;
-}
-
-@keyframes glowPulse {
-  0%   { opacity: 0.5; transform: scaleX(0.95); }
-  50%  { opacity: 1;   transform: scaleX(1);    }
-  100% { opacity: 0.5; transform: scaleX(0.95); }
-}
-}
-
+      background: linear-gradient(to right, var(--blue1), var(--blue2));
+      border-radius: 0;
+      padding: 18px 32px;
+      display: flex; align-items: center; gap: 20px;
+      pointer-events: all;
+      will-change: opacity, transform;
+      position: relative;
+    }
+    header::after {
+      content: ''; position: absolute; bottom: -18px; left: 0; right: 0; width: 100%; height: 18px;
+      background: linear-gradient(to right, var(--blue1), var(--blue2));
+      border-radius: 0 0 50% 50% / 0 0 100% 100%; z-index: -1;
+    }
+    header::before {
+      content: ''; position: absolute; bottom: -26px; left: 0; right: 0; width: 100%; height: 8px;
+      background: linear-gradient(to right, rgba(59,139,255,0) 0%, rgba(59,139,255,0.6) 25%, rgba(180,230,255,1) 50%, rgba(81,202,245,0.6) 75%, rgba(81,202,245,0) 100%);
+      border-radius: 50%; filter: blur(4px); z-index: -1; animation: glowPulse 2.5s ease-in-out infinite;
+    }
+    @keyframes glowPulse {
+      0%   { opacity: 0.5; transform: scaleX(0.95); }
+      50%  { opacity: 1;   transform: scaleX(1);    }
+      100% { opacity: 0.5; transform: scaleX(0.95); }
+    }
+ 
     #pagePush { height: 0px; }
-
-    .logo-svg { width: 80px; height: 80px; flex-shrink: 0; }
-
+    .logo-svg { width: 80px; height: 80px; flex-shrink: 0; cursor: pointer; }
+ 
     .site-title {
-      font-size: clamp(1.6rem, 4vw, 2.8rem);
-      font-weight: 700;
-      flex: 1;
-      letter-spacing: -0.5px;
-      color: var(--black);
-      background: linear-gradient(
-        105deg,
-        var(--black)   0%,
-        var(--black)   40%,
-        #ffffff        48%,
-#e0f4ff        50%,
-#ffffff        52%,
-        var(--black)   60%,
-        var(--black)   100%
-      );
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-size: clamp(1.6rem, 4vw, 2.8rem); font-weight: 700; flex: 1; letter-spacing: -0.5px; color: var(--black);
+      background: linear-gradient(105deg, var(--black) 0%, var(--black) 40%, #ffffff 48%, #e0f4ff 50%, #ffffff 52%, var(--black) 60%, var(--black) 100%);
+      background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       animation: shimmer 3.5s linear infinite;
     }
-
-    @keyframes shimmer {
-      0%   { background-position: 200% center; }
-      100% { background-position: -200% center; }
-    }
-
+    @keyframes shimmer { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+ 
     .hamburger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 6px; padding: 8px; flex-shrink: 0; }
     .hamburger span { display: block; width: 34px; height: 3.5px; background: var(--black); border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; }
     .hamburger.open span:nth-child(1) { transform: translateY(9.5px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-9.5px) rotate(-45deg); }
-
+ 
     /* NAV */
     nav { position: fixed; top: 0; right: -320px; width: 280px; height: 100vh; background: var(--black); z-index: 200; display: flex; flex-direction: column; justify-content: center; transition: right 0.4s cubic-bezier(0.4,0,0.2,1); border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
     nav.open { right: 0; }
@@ -122,119 +71,34 @@ header::before {
     nav a:hover { color: var(--yellow); border-left-color: var(--yellow); background: rgba(255,230,0,0.05); }
     .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 150; }
     .nav-overlay.open { display: block; }
-
-    /* ── BRICK BREAKER GAME ── */
-#gameOverlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.92);
-  z-index: 600;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 16px;
-}
-#gameOverlay.open { display: flex; }
-
-#gameCanvas {
-  border-radius: 16px;
-  border: 2px solid rgba(59,139,255,0.4);
-  box-shadow: 0 0 40px rgba(81,202,245,0.2);
-  max-width: 95vw;
-  max-height: 75vh;
-  display: block;
-}
-
-#gameUI {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 480px;
-  max-width: 95vw;
-  font-family: 'Exo 2', sans-serif;
-}
-
-#gameScore {
-  color: #51caf5;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-#gameLives {
-  color: #3b8bff;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-#gameMessage {
-  color: var(--white);
-  font-size: 0.85rem;
-  opacity: 0.6;
-  font-family: 'Exo 2', sans-serif;
-  text-align: center;
-}
-
-#gameCloseBtn {
-  background: none;
-  border: 1px solid rgba(255,255,255,0.2);
-  color: var(--white);
-  font-family: 'Exo 2', sans-serif;
-  font-size: 0.9rem;
-  padding: 8px 24px;
-  border-radius: 40px;
-  cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
-}
-#gameCloseBtn:hover { border-color: #51caf5; color: #51caf5; }
-
+ 
     /* HERO */
     .hero-wrapper { position: relative; background: var(--black); border-radius: 0; overflow: hidden; min-height: 460px; padding-top: 116px; }
     .hero-parallax { display: flex; align-items: stretch; min-height: 580px; will-change: transform; }
     .hero-text { flex: 1; padding: 60px 48px; display: flex; align-items: center; }
     .hero-text h1 { font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 400; color: var(--white); line-height: 1.2; letter-spacing: -0.5px; }
     .hero-image { flex: 0.65; min-height: 420px; border-radius: var(--radius-lg); overflow: hidden; margin: 16px 16px 16px 0; }
-
-    /* DESKTOP: panning keyframe animation */
-    .hero-image img {
-      width: 110%;
-      height: 110%;
-      object-fit: cover;
-      display: block;
-      animation: heroPan 7s ease-in-out infinite alternate;
-      will-change: transform;
-    }
-
-    @keyframes heroPan {
-      0%   { transform: translateX(0%); }
-      100% { transform: translateX(-9%); }
-    }
-
-    /* MOBILE: gyroscope takes over — disable the CSS pan animation */
-    @media (max-width: 768px) {
-      .hero-image img {
-        animation: none;
-        transition: transform 0.3s ease-out;
-      }
-    }
-
+    .hero-image img { width: 110%; height: 110%; object-fit: cover; display: block; animation: heroPan 7s ease-in-out infinite alternate; will-change: transform; }
+    @keyframes heroPan { 0% { transform: translateX(0%); } 100% { transform: translateX(-9%); } }
+    @media (max-width: 768px) { .hero-image img { animation: none; transition: transform 0.3s ease-out; } }
+ 
     /* VIDEO */
     .video-wrapper { background: var(--black); padding: 0 48px 48px; border-radius: 0 0 40px 40px; }
     .video-inner { max-width: 55%; margin: 0 auto; }
     .video-ratio { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
     .video-ratio iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-
+ 
     /* HOME ABOUT */
     .home-about { padding: 52px 48px 64px; background: var(--white); }
     .about-label { font-size: 1.1rem; font-weight: 400; color: var(--black); margin-bottom: 20px; letter-spacing: 0.5px; }
     .about-body { font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 400; line-height: 1.55; max-width: 900px; }
-
+ 
     /* DIVIDER */
     .section-divider { height: 2px; background: #f0f0f0; margin: 0 48px; }
-
+ 
     /* ARTWORK SECTION */
     .artwork-section { padding: 64px 48px; background: var(--black); border-radius: var(--radius-lg); }
+    /* "Portfolio" label — yellow */
     .artwork-section .section-label { color: var(--yellow); font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
     .artwork-section .section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--white); margin-bottom: 48px; }
     .artwork-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
@@ -245,45 +109,52 @@ header::before {
     .artwork-card-info { padding: 20px 24px 24px; }
     .artwork-card-title { font-size: 1.15rem; font-weight: 600; color: var(--white); margin-bottom: 6px; }
     .artwork-card-meta { font-size: 0.88rem; color: #888; }
+    /* Artwork tags — yellow */
     .artwork-card-tag { display: inline-block; background: var(--yellow); color: var(--black); font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-top: 10px; letter-spacing: 0.5px; }
     .artwork-placeholder { border: 2px dashed #333; border-radius: var(--radius-lg); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 260px; color: #444; gap: 12px; }
     .artwork-placeholder span { font-size: 2.5rem; }
     .artwork-placeholder p { font-size: 0.9rem; text-align: center; line-height: 1.6; }
-
+ 
     /* LIGHTBOX */
     .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 500; align-items: center; justify-content: center; padding: 24px; }
     .lightbox.open { display: flex; }
     .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: var(--radius-lg); object-fit: contain; }
     .lightbox-close { position: absolute; top: 24px; right: 32px; font-size: 2.5rem; color: var(--white); cursor: pointer; background: none; border: none; line-height: 1; }
     .lightbox-close:hover { color: var(--yellow); }
-
+ 
     /* ABOUT FULL */
     .about-full { padding: 72px 48px; background: var(--white); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
     .about-full .section-label { font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #999; margin-bottom: 10px; }
     .about-full .section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; margin-bottom: 28px; }
     .about-full p { font-size: 1.1rem; line-height: 1.75; color: #333; margin-bottom: 20px; }
     .skills-list { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+    /* Skill chips — yellow */
     .skill-chip { background: var(--yellow); color: var(--black); font-weight: 700; font-size: 0.85rem; padding: 7px 18px; border-radius: 40px; letter-spacing: 0.3px; }
     .about-highlight-box { background: var(--black); border-radius: var(--radius-lg); padding: 40px; color: var(--white); }
+    /* What I do best heading — yellow */
     .about-highlight-box h3 { font-size: 1.3rem; font-weight: 700; color: var(--yellow); margin-bottom: 20px; }
     .about-highlight-box ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
     .about-highlight-box li { display: flex; align-items: flex-start; gap: 14px; font-size: 1rem; line-height: 1.5; }
+    /* Arrows — yellow */
     .about-highlight-box li::before { content: '→'; color: var(--yellow); font-weight: 700; flex-shrink: 0; margin-top: 1px; display: inline-block; animation: arrowBounce 1.5s ease-in-out infinite; }
-
-    @keyframes arrowBounce {
-      0%   { transform: translateX(0px); }
-      50%  { transform: translateX(6px); }
-      100% { transform: translateX(0px); }
-    }
-
+    @keyframes arrowBounce { 0% { transform: translateX(0px); } 50% { transform: translateX(6px); } 100% { transform: translateX(0px); } }
+ 
+    /* LAWN MOWER */
+    .lawnmower-stage { position: relative; height: 48px; overflow: hidden; margin-bottom: 16px; border-radius: 12px 12px 0 0; }
+    .lawnmower-figure { position: absolute; bottom: 0; left: -120px; display: flex; align-items: flex-end; animation: mowAcross 6.5s linear infinite; }
+    @keyframes mowAcross { 0% { left: -120px; } 100% { left: 110%; } }
+    .lawnmower-figure svg { width: 90px; height: 48px; }
+ 
     /* CONTACT */
     .contact-section { background: var(--black); border-radius: var(--radius-lg); margin: 0; padding: 72px 48px; }
+    /* "Get in touch" label — yellow */
     .contact-section .section-label { color: var(--yellow); font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
     .contact-section .section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--white); margin-bottom: 12px; }
     .contact-section .contact-sub { font-size: 1.1rem; color: #888; margin-bottom: 52px; }
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     .contact-card { background: #1a1a1a; border-radius: var(--radius-md); padding: 32px; display: flex; align-items: flex-start; gap: 20px; transition: background 0.2s; }
     .contact-card:hover { background: #222; }
+    /* Contact icons — yellow */
     .contact-icon { width: 48px; height: 48px; background: var(--yellow); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
     .contact-info-label { font-size: 0.8rem; color: #666; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
     .contact-info-value { font-size: 1.05rem; color: var(--white); font-weight: 500; }
@@ -292,42 +163,15 @@ header::before {
     .contact-portfolio { grid-column: 1 / -1; background: linear-gradient(135deg, #1a1a1a, #222); border-radius: var(--radius-md); padding: 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
     .contact-portfolio-text h3 { font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
     .contact-portfolio-text p { font-size: 0.95rem; color: #888; }
-    .portfolio-btn { background: linear-gradient(to right, #3b8bff, #51caf5); color: var(--black); font-family: 'Exo 2', sans-serif; font-size: 1rem; font-weight: 700; padding: 14px 32px; border-radius: 40px; text-decoration: none; white-space: nowrap; transition: transform 0.2s, box-shadow 0.2s; flex-shrink: 0; }
-    .portfolio-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,230,0,0.35); }
-
+    /* Portfolio button — blue gradient (intentional) */
+    .portfolio-btn { background: linear-gradient(to right, var(--blue1), var(--blue2)); color: var(--white); font-family: 'Exo 2', sans-serif; font-size: 1rem; font-weight: 700; padding: 14px 32px; border-radius: 40px; text-decoration: none; white-space: nowrap; transition: transform 0.2s, box-shadow 0.2s; flex-shrink: 0; }
+    .portfolio-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(81,202,245,0.35); }
+ 
     /* FOOTER */
     footer { background: var(--black); color: #555; text-align: center; padding: 32px 48px; font-size: 0.88rem; }
+    /* Footer brand name — yellow */
     footer span { color: var(--yellow); }
-
-    /* LAWN MOWER ANIMATION */
-.lawnmower-stage {
-  position: relative;
-  height: 48px;
-  overflow: hidden;
-  margin-bottom: 16px;
-  border-radius: 12px 12px 0 0;
-}
-
-.lawnmower-figure {
-  position: absolute;
-  bottom: 0;
-  left: -120px;
-  display: flex;
-  align-items: flex-end;
-  gap: 0px;
-  animation: mowAcross 6.5s linear infinite;
-}
-
-@keyframes mowAcross {
-  0%   { left: -120px; }
-  100% { left: 110%;   }
-}
-
-.lawnmower-figure svg {
-  width: 90px;
-  height: 48px;
-}
-    
+ 
     /* RESPONSIVE */
     @media (max-width: 900px) {
       .about-full { grid-template-columns: 1fr; gap: 48px; }
@@ -356,29 +200,28 @@ header::before {
   </style>
 </head>
 <body>
-
+ 
   <div class="nav-overlay" id="navOverlay" onclick="closeMenu()"></div>
-
+ 
   <nav id="sideNav">
     <a href="#home"    onclick="closeMenu()">Home</a>
     <a href="#artwork" onclick="closeMenu()">Artwork</a>
     <a href="#about"   onclick="closeMenu()">About</a>
     <a href="#contact" onclick="closeMenu()">Contact</a>
   </nav>
-
-  <!-- FIXED HEADER WRAPPER -->
+ 
   <div id="headerWrapper">
     <header id="siteHeader">
-      <img src="peaces logo BW TransparentBG.png" alt="Peaces Design logo" class="logo-svg" onclick="openGame()" style="cursor:pointer;" title="Play Brick Breaker" />
+      <img src="peaces logo BW TransparentBG.png" alt="Peaces Design logo" class="logo-svg" />
       <h2 class="site-title">Peaces Design &amp; Illustration</h2>
       <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
     </header>
   </div>
-
+ 
   <div id="pagePush"></div>
-
+ 
   <!-- HERO -->
   <section class="hero-wrapper" id="home">
     <div class="hero-parallax" id="heroParallax">
@@ -390,39 +233,35 @@ header::before {
       </div>
     </div>
   </section>
-
+ 
   <!-- YOUTUBE VIDEO -->
   <div class="video-wrapper">
     <div class="video-inner">
       <div class="video-ratio">
         <iframe
           src="https://www.youtube.com/embed/Qx0MGaEHbYw?si=FI2qcJgya8DFB6XI"
-          title="My First Mural"
-          frameborder="0"
+          title="My First Mural" frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
         </iframe>
       </div>
     </div>
   </div>
-
-  <!-- HOME ABOUT SNIPPET -->
+ 
+  <!-- HOME ABOUT -->
   <section class="home-about">
     <p class="about-label">A quote//</p>
-    <p class="about-body">
-      "Work hard for what you have, and learn to love the process of creation."
-    </p>
+    <p class="about-body">"Work hard for what you have, and learn to love the process of creation."</p>
   </section>
-
+ 
   <div class="section-divider"></div>
-
+ 
   <!-- ARTWORK SECTION -->
   <section id="artwork" class="artwork-section">
     <p class="section-label">Portfolio</p>
     <h2 class="section-title">Artwork &amp; Illustration</h2>
-
     <div class="artwork-grid">
-
+ 
       <div class="artwork-card" onclick="openLightbox('The fall off.jpg', 'The Fall Off')">
         <img src="The fall off.jpg" alt="The Fall Off" />
         <div class="artwork-card-info">
@@ -431,7 +270,7 @@ header::before {
           <span class="artwork-card-tag">Painting</span>
         </div>
       </div>
-
+ 
       <div class="artwork-card" onclick="openLightbox('L hat.jpg', 'Custom Embroidered Dad Hat')">
         <img src="L hat.jpg" alt="Lynnwood Hat" />
         <div class="artwork-card-info">
@@ -440,7 +279,7 @@ header::before {
           <span class="artwork-card-tag">Apparel</span>
         </div>
       </div>
-
+ 
       <div class="artwork-card" onclick="openLightbox('sblx.PNG', 'Custom Super Bowl Tee Graphic')">
         <img src="sblx.PNG" alt="Super Bowl LX Champs" />
         <div class="artwork-card-info">
@@ -449,7 +288,7 @@ header::before {
           <span class="artwork-card-tag">Apparel</span>
         </div>
       </div>
-
+ 
       <div class="artwork-card" onclick="openLightbox('Hawks.PNG', 'Custom Flyer Logo')">
         <img src="Hawks.PNG" alt="Terrace Hawks Logo Redesign" />
         <div class="artwork-card-info">
@@ -458,21 +297,21 @@ header::before {
           <span class="artwork-card-tag">Logo</span>
         </div>
       </div>
-
+ 
       <div class="artwork-placeholder">
         <span>🖼️</span>
         <p>More artwork coming soon.<br>Drop your images into this folder<br>and copy the card template above.</p>
       </div>
-
+ 
     </div>
   </section>
-
+ 
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <button class="lightbox-close" onclick="closeLightbox()">✕</button>
     <img id="lightboxImg" src="" alt="" />
   </div>
-
+ 
   <!-- ABOUT SECTION -->
   <section id="about" class="about-full">
     <div>
@@ -493,45 +332,28 @@ header::before {
     </div>
     <div>
       <div class="about-highlight-box">
-  <div class="lawnmower-stage">
-    <div class="lawnmower-figure">
-      <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
-
-        <!-- MOWER BODY -->
-        <rect x="52" y="34" width="38" height="12" rx="3" fill="#FFE600"/>
-        <rect x="58" y="28" width="26" height="8" rx="2" fill="#FFE600"/>
-
-        <!-- MOWER WHEELS -->
-        <circle cx="57" cy="46" r="6" fill="none" stroke="#FFE600" stroke-width="3"/>
-        <circle cx="84" cy="46" r="6" fill="none" stroke="#FFE600" stroke-width="3"/>
-
-        <!-- HANDLE -->
-        <line x1="52" y1="34" x2="38" y2="18" stroke="#FFE600" stroke-width="3" stroke-linecap="round"/>
-        <line x1="38" y1="18" x2="34" y2="18" stroke="#FFE600" stroke-width="3" stroke-linecap="round"/>
-
-        <!-- GRASS SPRAY -->
-        <line x1="52" y1="40" x2="44" y2="32" stroke="#FFE600" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
-        <line x1="52" y1="40" x2="42" y2="36" stroke="#FFE600" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-        <line x1="52" y1="40" x2="43" y2="42" stroke="#FFE600" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
-
-        <!-- PERSON BODY -->
-        <!-- Head -->
-        <circle cx="32" cy="12" r="6" fill="#FFE600"/>
-        <!-- Torso -->
-        <line x1="32" y1="18" x2="32" y2="34" stroke="#FFE600" stroke-width="3" stroke-linecap="round"/>
-        <!-- Left arm pushing -->
-        <line x1="32" y1="22" x2="38" y2="18" stroke="#FFE600" stroke-width="2.5" stroke-linecap="round"/>
-        <!-- Right arm pushing -->
-        <line x1="32" y1="24" x2="38" y2="20" stroke="#FFE600" stroke-width="2.5" stroke-linecap="round"/>
-        <!-- Left leg -->
-        <line x1="32" y1="34" x2="26" y2="46" stroke="#FFE600" stroke-width="2.5" stroke-linecap="round"/>
-        <!-- Right leg mid stride -->
-        <line x1="32" y1="34" x2="36" y2="46" stroke="#FFE600" stroke-width="2.5" stroke-linecap="round"/>
-
-      </svg>
-    </div>
-  </div>
-  <h3>What I do best//</h3>
+        <div class="lawnmower-stage">
+          <div class="lawnmower-figure">
+            <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+              <rect x="52" y="34" width="38" height="12" rx="3" fill="#FFE600"/>
+              <rect x="58" y="28" width="26" height="8" rx="2" fill="#FFE600"/>
+              <circle cx="57" cy="46" r="6" fill="none" stroke="#FFE600" stroke-width="3"/>
+              <circle cx="84" cy="46" r="6" fill="none" stroke="#FFE600" stroke-width="3"/>
+              <line x1="52" y1="34" x2="38" y2="18" stroke="#FFE600" stroke-width="3" stroke-linecap="round"/>
+              <line x1="38" y1="18" x2="34" y2="18" stroke="#FFE600" stroke-width="3" stroke-linecap="round"/>
+              <line x1="52" y1="40" x2="44" y2="32" stroke="#FFE600" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+              <line x1="52" y1="40" x2="42" y2="36" stroke="#FFE600" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+              <line x1="52" y1="40" x2="43" y2="42" stroke="#FFE600" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+              <circle cx="32" cy="12" r="6" fill="#FFE600"/>
+              <line x1="32" y1="18" x2="32" y2="34" stroke="#FFE600" stroke-width="3" stroke-linecap="round"/>
+              <line x1="32" y1="22" x2="38" y2="18" stroke="#FFE600" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="32" y1="24" x2="38" y2="20" stroke="#FFE600" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="32" y1="34" x2="26" y2="46" stroke="#FFE600" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="32" y1="34" x2="36" y2="46" stroke="#FFE600" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <h3>What I do best//</h3>
         <ul>
           <li>Custom paintings of musicians, athletes, and cultural icons</li>
           <li>T-shirt graphics and apparel design from concept to print-ready files</li>
@@ -540,26 +362,19 @@ header::before {
           <li>Surreal, narrative-driven fine art with mixed themes of space, culture, and identity</li>
         </ul>
       </div>
-
-      <!-- PICTURE UNDER WHAT I DO BEST -->
       <div style="margin-top: 24px; border-radius: 24px; overflow: hidden;">
-        <img
-          src="xeno.PNG"
-          alt="Americana Xenomorph Tattoo Illustration"
-          style="width: 100%; display: block; object-fit: cover;"
-        />
+        <img src="xeno.PNG" alt="Americana Xenomorph Tattoo Illustration" style="width: 100%; display: block; object-fit: cover;" />
       </div>
     </div>
   </section>
-
+ 
   <div class="section-divider"></div>
-
+ 
   <!-- CONTACT SECTION -->
   <section id="contact" class="contact-section">
     <p class="section-label">Get in touch</p>
     <h2 class="section-title">Let's Work Together</h2>
     <p class="contact-sub">Available for commissions, freelance projects, and collaborations.</p>
-
     <div class="contact-grid">
       <div class="contact-card">
         <div class="contact-icon">📞</div>
@@ -580,31 +395,16 @@ header::before {
           <h3>View my full portfolio on Behance</h3>
           <p>See the complete range of my work — illustrations, paintings, logos, and more.</p>
         </div>
-        <a class="portfolio-btn" href="https://www.behance.net/tye_esparza" target="_blank" rel="noopener">
-          Visit Portfolio →
-        </a>
+        <a class="portfolio-btn" href="https://www.behance.net/tye_esparza" target="_blank" rel="noopener">Visit Portfolio →</a>
       </div>
     </div>
   </section>
-
+ 
   <!-- FOOTER -->
   <footer>
     &copy; 2025 <span>Peaces Design &amp; Illustration</span> · Tye Esparza · All rights reserved
   </footer>
-  
-<!-- BRICK BREAKER GAME OVERLAY -->
-<div id="gameOverlay">
-  <div id="gameUI">
-    <span id="gameScore">SCORE: 0</span>
-    <span id="gameLives">❤️❤️❤️</span>
-  </div>
-  <canvas id="gameCanvas" width="480" height="520"></canvas>
-  <div id="gameMessage">
-    Desktop: ← → arrow keys &nbsp;|&nbsp; Mobile: tilt your phone
-  </div>
-  <button id="gameCloseBtn" onclick="closeGame()">✕ Close</button>
-</div>
-  
+ 
   <script>
     /* ── Menu ── */
     function toggleMenu() {
@@ -613,14 +413,13 @@ header::before {
     function closeMenu() {
       ['sideNav','hamburgerBtn','navOverlay'].forEach(id => document.getElementById(id).classList.remove('open'));
     }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMenu(); closeLightbox(); } });
-
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+ 
     /* ── Lightbox ── */
     function openLightbox(src, alt) {
-      const lb  = document.getElementById('lightbox');
+      const lb = document.getElementById('lightbox');
       const img = document.getElementById('lightboxImg');
-      img.src = src;
-      img.alt = alt;
+      img.src = src; img.alt = alt;
       lb.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -628,13 +427,13 @@ header::before {
       document.getElementById('lightbox').classList.remove('open');
       document.body.style.overflow = '';
     }
-
+ 
     /* ── Scroll Effects ── */
     const header       = document.getElementById('siteHeader');
     const heroParallax = document.getElementById('heroParallax');
     const HEADER_FADE_PX = 125;
     const PARALLAX_SPEED = 0.30;
-
+ 
     function applyScrollEffects() {
       const scrollY  = window.scrollY;
       const progress = Math.min(scrollY / HEADER_FADE_PX, 1);
@@ -642,7 +441,7 @@ header::before {
       header.style.transform = `translateY(-${progress * 24}px)`;
       heroParallax.style.transform = `translateY(-${scrollY * PARALLAX_SPEED}px)`;
     }
-
+ 
     let rafPending = false;
     window.addEventListener('scroll', () => {
       if (!rafPending) {
@@ -650,49 +449,39 @@ header::before {
         rafPending = true;
       }
     }, { passive: true });
-
+ 
     applyScrollEffects();
-
-    /* ── Gyroscope Hero Pan (mobile only) ──
-       On desktop the CSS keyframe heroPan handles the panning.
-       On mobile (<=768px) we disable that animation and use the
-       device gyroscope to move the image with tilt instead. */
+ 
+    /* ── Gyroscope Hero Pan (mobile only) ── */
     const heroImg = document.getElementById('heroImg');
     let gyroPermissionGranted = false;
-
+ 
     function applyGyro(e) {
-      const tiltX = Math.max(-20, Math.min(20, e.gamma)); // left/right tilt
-      const tiltY = Math.max(-20, Math.min(20, e.beta));  // front/back tilt
-      const moveX = (tiltX / 20) * -8; // up to 8px left/right
-      const moveY = (tiltY / 20) * -5; // up to 5px up/down
-      heroImg.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      const tiltX = Math.max(-20, Math.min(20, e.gamma));
+      const tiltY = Math.max(-20, Math.min(20, e.beta));
+      heroImg.style.transform = `translate(${(tiltX/20)*-8}px, ${(tiltY/20)*-5}px)`;
     }
-
+ 
     function requestGyro() {
       if (typeof DeviceOrientationEvent !== 'undefined' &&
           typeof DeviceOrientationEvent.requestPermission === 'function') {
-        // iOS 13+ requires a user gesture to grant permission
         DeviceOrientationEvent.requestPermission()
           .then(state => {
             if (state === 'granted') {
               window.addEventListener('deviceorientation', applyGyro);
               gyroPermissionGranted = true;
             }
-          })
-          .catch(console.error);
+          }).catch(console.error);
       } else {
-        // Android — no permission needed
         window.addEventListener('deviceorientation', applyGyro);
       }
     }
-
+ 
     if (window.innerWidth <= 768) {
       if (typeof DeviceOrientationEvent !== 'undefined' &&
           typeof DeviceOrientationEvent.requestPermission !== 'function') {
-        // Android — start automatically
         window.addEventListener('deviceorientation', applyGyro);
       } else {
-        // iOS — activate on first tap of the hero section
         const heroSection = document.querySelector('.hero-wrapper');
         if (heroSection) {
           heroSection.addEventListener('touchstart', function onFirstTouch() {
@@ -702,268 +491,7 @@ header::before {
         }
       }
     }
-    /* ── BRICK BREAKER GAME ── */
-function openGame() {
-  document.getElementById('gameOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  startGame();
-}
-
-function closeGame() {
-  document.getElementById('gameOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-  cancelAnimationFrame(gameRAF);
-  gameRunning = false;
-  if (gyroActive) {
-    window.removeEventListener('deviceorientation', gameGyroHandler);
-    gyroActive = false;
-  }
-}
-
-let gameRAF, gameRunning = false, gyroActive = false;
-
-function startGame() {
-  const canvas = document.getElementById('gameCanvas');
-  const ctx    = canvas.getContext('2d');
-
-  const W = canvas.width;
-  const H = canvas.height;
-
-  // ── Colours matching site palette ──
-  const COL_BG      = '#111111';
-  const COL_PADDLE  = '#3b8bff';
-  const COL_BALL    = '#51caf5';
-  const COL_GLOW    = 'rgba(81,202,245,0.35)';
-  const BRICK_COLS  = ['#3b8bff','#51caf5','#2a6fd4','#6dd5fa','#1a4fa0'];
-
-  // ── Paddle ──
-  const paddle = { w: 90, h: 12, x: W/2 - 45, y: H - 30, speed: 7 };
-
-  // ── Ball ──
-  const ball = { x: W/2, y: H - 60, r: 8, dx: 3.5, dy: -3.5 };
-
-  // ── Bricks ──
-  const COLS = 7, ROWS = 5;
-  const brickW = Math.floor((W - 48) / COLS);
-  const brickH = 22;
-  const brickPad = 6;
-  const brickOffX = 24;
-  const brickOffY = 52;
-
-  let bricks = [];
-  function buildBricks() {
-    bricks = [];
-    for (let r = 0; r < ROWS; r++) {
-      for (let c = 0; c < COLS; c++) {
-        bricks.push({
-          x: brickOffX + c * (brickW + brickPad),
-          y: brickOffY + r * (brickH + brickPad),
-          w: brickW, h: brickH,
-          alive: true,
-          col: BRICK_COLS[(r + c) % BRICK_COLS.length]
-        });
-      }
-    }
-  }
-  buildBricks();
-
-  // ── State ──
-  let score = 0, lives = 3, level = 1;
-  let keys  = { left: false, right: false };
-  let paddleTarget = paddle.x;
-  gameRunning = true;
-
-  function setScore() {
-    document.getElementById('gameScore').textContent = `SCORE: ${score}  LVL: ${level}`;
-    const hearts = '❤️'.repeat(Math.max(lives,0));
-    document.getElementById('gameLives').textContent = hearts || 'GAME OVER';
-  }
-  setScore();
-
-  // ── Keyboard ──
-  function onKey(e, down) {
-    if (e.key === 'ArrowLeft')  keys.left  = down;
-    if (e.key === 'ArrowRight') keys.right = down;
-  }
-  document.addEventListener('keydown', e => onKey(e, true));
-  document.addEventListener('keyup',   e => onKey(e, false));
-
-  // ── Gyroscope ──
-  function gameGyroHandler(e) {
-    const tilt = Math.max(-30, Math.min(30, e.gamma));
-    paddleTarget = ((tilt + 30) / 60) * (W - paddle.w);
-  }
-
-  function setupGyro() {
-    if (typeof DeviceOrientationEvent !== 'undefined' &&
-        typeof DeviceOrientationEvent.requestPermission === 'function') {
-      DeviceOrientationEvent.requestPermission()
-        .then(state => {
-          if (state === 'granted') {
-            window.addEventListener('deviceorientation', gameGyroHandler);
-            gyroActive = true;
-          }
-        }).catch(console.error);
-    } else {
-      window.addEventListener('deviceorientation', gameGyroHandler);
-      gyroActive = true;
-    }
-  }
-
-  if (window.innerWidth <= 768) setupGyro();
-
-  // ── Draw helpers ──
-  function drawBall() {
-    ctx.save();
-    ctx.shadowColor = COL_BALL;
-    ctx.shadowBlur  = 14;
-    ctx.beginPath();
-    ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
-    ctx.fillStyle = COL_BALL;
-    ctx.fill();
-    ctx.restore();
-  }
-
-  function drawPaddle() {
-    ctx.save();
-    ctx.shadowColor = COL_PADDLE;
-    ctx.shadowBlur  = 16;
-    const grad = ctx.createLinearGradient(paddle.x, 0, paddle.x + paddle.w, 0);
-    grad.addColorStop(0, '#3b8bff');
-    grad.addColorStop(1, '#51caf5');
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.roundRect(paddle.x, paddle.y, paddle.w, paddle.h, 6);
-    ctx.fill();
-    ctx.restore();
-  }
-
-  function drawBricks() {
-    bricks.forEach(b => {
-      if (!b.alive) return;
-      ctx.save();
-      ctx.shadowColor = b.col;
-      ctx.shadowBlur  = 8;
-      ctx.fillStyle   = b.col;
-      ctx.beginPath();
-      ctx.roundRect(b.x, b.y, b.w, b.h, 4);
-      ctx.fill();
-      ctx.restore();
-    });
-  }
-
-  function drawBackground() {
-    ctx.fillStyle = COL_BG;
-    ctx.fillRect(0, 0, W, H);
-    // subtle grid lines
-    ctx.strokeStyle = 'rgba(59,139,255,0.04)';
-    ctx.lineWidth = 1;
-    for (let x = 0; x < W; x += 24) {
-      ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke();
-    }
-    for (let y = 0; y < H; y += 24) {
-      ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
-    }
-  }
-
-  // ── Game loop ──
-  function loop() {
-    if (!gameRunning) return;
-
-    drawBackground();
-    drawBricks();
-    drawPaddle();
-    drawBall();
-
-    // Paddle movement — keyboard
-    if (keys.left)  paddle.x = Math.max(0, paddle.x - paddle.speed);
-    if (keys.right) paddle.x = Math.min(W - paddle.w, paddle.x + paddle.speed);
-
-    // Paddle movement — gyroscope (smooth lerp)
-    if (gyroActive) {
-      paddle.x += (paddleTarget - paddle.x) * 0.15;
-      paddle.x  = Math.max(0, Math.min(W - paddle.w, paddle.x));
-    }
-
-    // Ball movement
-    ball.x += ball.dx;
-    ball.y += ball.dy;
-
-    // Wall bounce
-    if (ball.x - ball.r <= 0 || ball.x + ball.r >= W) ball.dx *= -1;
-    if (ball.y - ball.r <= 0) ball.dy *= -1;
-
-    // Paddle collision
-    if (
-      ball.y + ball.r >= paddle.y &&
-      ball.y + ball.r <= paddle.y + paddle.h &&
-      ball.x >= paddle.x &&
-      ball.x <= paddle.x + paddle.w
-    ) {
-      // Angle based on where it hits the paddle
-      const hitPos = (ball.x - paddle.x) / paddle.w; // 0 to 1
-      const angle  = (hitPos - 0.5) * 2.4; // -1.2 to 1.2 radians
-      const speed  = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
-      ball.dx = speed * Math.sin(angle);
-      ball.dy = -Math.abs(ball.dy);
-    }
-
-    // Brick collision
-    bricks.forEach(b => {
-      if (!b.alive) return;
-      if (
-        ball.x + ball.r > b.x &&
-        ball.x - ball.r < b.x + b.w &&
-        ball.y + ball.r > b.y &&
-        ball.y - ball.r < b.y + b.h
-      ) {
-        b.alive = false;
-        ball.dy *= -1;
-        score  += 10;
-        setScore();
-      }
-    });
-
-    // Level complete
-    if (bricks.every(b => !b.alive)) {
-      level++;
-      ball.dx *= 1.1;
-      ball.dy *= 1.1;
-      buildBricks();
-      ball.x = W/2; ball.y = H - 60;
-      setScore();
-    }
-
-    // Ball lost
-    if (ball.y - ball.r > H) {
-      lives--;
-      setScore();
-      if (lives <= 0) {
-        gameRunning = false;
-        drawBackground();
-        ctx.fillStyle = '#fff';
-        ctx.font = 'bold 32px Exo 2, sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('GAME OVER', W/2, H/2 - 20);
-        ctx.font = '18px Exo 2, sans-serif';
-        ctx.fillStyle = '#51caf5';
-        ctx.fillText(`Final Score: ${score}`, W/2, H/2 + 20);
-        ctx.font = '14px Exo 2, sans-serif';
-        ctx.fillStyle = '#888';
-        ctx.fillText('Close and click the logo to play again', W/2, H/2 + 55);
-        return;
-      }
-      ball.x = W/2; ball.y = H - 60;
-      ball.dx = 3.5; ball.dy = -3.5;
-    }
-
-    gameRAF = requestAnimationFrame(loop);
-  }
-
-  cancelAnimationFrame(gameRAF);
-  loop();
-}
   </script>
-
+ 
 </body>
 </html>
