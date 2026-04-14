@@ -172,8 +172,8 @@ header::before {
     .artwork-section .section-label { color: var(--yellow); font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
     .artwork-section .section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--white); margin-bottom: 48px; }
     .artwork-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
-    .artwork-card { border-radius: var(--radius-lg); overflow: hidden; background: #1a1a1a; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; }
-    .artwork-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+    .artwork-card { border-radius: var(--radius-lg); overflow: hidden; background: #1a1a1a; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; box-shadow: 0 0 0 1px rgba(59,139,255,0.25), 0 0 12px rgba(81,202,245,0.15); }
+    .artwork-card:hover { transform: translateY(-6px); box-shadow: 0 0 0 1px rgba(59,139,255,0.5), 0 0 20px rgba(81,202,245,0.35), 0 20px 60px rgba(0,0,0,0.6); }
     .artwork-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; transition: transform 0.4s ease; }
     .artwork-card:hover img { transform: scale(1.04); }
     .artwork-card-info { padding: 20px 24px 24px; }
