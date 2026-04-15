@@ -23,18 +23,26 @@
     /* HEADER WRAPPER */
     #headerWrapper { position: fixed; top: 0; left: 0; right: 0; z-index: 100; pointer-events: none; }
     header {
-      background: linear-gradient(to right, var(--blue1), var(--blue2));
-      border-radius: 0;
-      padding: 18px 32px;
-      display: flex; align-items: center; gap: 20px;
-      pointer-events: all;
-      will-change: opacity, transform;
-      position: relative;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeBlend in='SourceGraphic' mode='overlay'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Ccircle cx='1' cy='1' r='0.8' fill='rgba(255,255,255,0.07)'/%3E%3Ccircle cx='3' cy='3' r='0.8' fill='rgba(0,0,0,0.06)'/%3E%3C/svg%3E"),
+    linear-gradient(to right, var(--blue1), var(--blue2));
+  background-size: 200px 200px, 4px 4px, 100%;
+  border-radius: 0;
+  padding: 18px 32px;
+  display: flex; align-items: center; gap: 20px;
+  pointer-events: all;
+  will-change: opacity, transform;
+  position: relative;
     }
     header::after {
-      content: ''; position: absolute; bottom: -18px; left: 0; right: 0; width: 100%; height: 18px;
-      background: linear-gradient(to right, var(--blue1), var(--blue2));
-      border-radius: 0 0 50% 50% / 0 0 100% 100%; z-index: -1;
+  content: ''; position: absolute; bottom: -18px; left: 0; right: 0; width: 100%; height: 18px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Ccircle cx='1' cy='1' r='0.8' fill='rgba(255,255,255,0.07)'/%3E%3Ccircle cx='3' cy='3' r='0.8' fill='rgba(0,0,0,0.06)'/%3E%3C/svg%3E"),
+    linear-gradient(to right, var(--blue1), var(--blue2));
+  background-size: 4px 4px, 100%;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%; z-index: -1;
+}
     }
     header::before {
       content: ''; position: absolute; bottom: -26px; left: 0; right: 0; width: 100%; height: 8px;
