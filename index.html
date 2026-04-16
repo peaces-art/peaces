@@ -38,35 +38,6 @@
       border-radius: 50%; filter: blur(4px); z-index: -1;
       animation: glowPulse 2.5s ease-in-out infinite;
     }
-    @keyframes oceanRing {
-      0%   { transform: scale(0.9); opacity: 0.6; }
-      50%  { transform: scale(1.05); opacity: 1; }
-      100% { transform: scale(0.9); opacity: 0.6; }
-    }
-
-    .ocean-card-bg {
-      width: 100%; aspect-ratio: 4/3;
-      background: linear-gradient(135deg, #0a1628 0%, #0d2b4a 40%, #0a3d6b 70%, #1a6b8a 100%);
-      display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
-    }
-    .ocean-ring {
-      position: absolute; border-radius: 50%;
-      border: 1px solid rgba(81,202,245,0.2);
-      animation: oceanRing 3s ease-in-out infinite;
-    }
-    .ocean-ring-1 { width: 200px; height: 200px; border-color: rgba(81,202,245,0.15); }
-    .ocean-ring-2 { width: 140px; height: 140px; border-color: rgba(81,202,245,0.2);  animation-delay: 0.6s; }
-    .ocean-ring-3 { width: 80px;  height: 80px;  border-color: rgba(81,202,245,0.3);  animation-delay: 1.2s; }
-    .ocean-card-label {
-      text-align: center; position: relative; z-index: 1;
-    }
-    .ocean-card-label span {
-      display: block; font-family: 'Exo 2',sans-serif; font-size: 0.85rem;
-      font-weight: 700; color: rgba(81,202,245,0.9);
-      margin-top: 8px; letter-spacing: 2px; text-transform: uppercase;
-    }scale(0.9); opacity: 0.6; }
-    }
     @keyframes glowPulse { 0%,100%{opacity:.5;transform:scaleX(.95);}50%{opacity:1;transform:scaleX(1);} }
 
     #pagePush { height: 0; }
@@ -103,27 +74,7 @@
     .hero-image img { width: 110%; height: 110%; object-fit: cover; display: block; animation: heroPan 7s ease-in-out infinite alternate; will-change: transform; }
     @keyframes heroPan { 0%{transform:translateX(0%);}100%{transform:translateX(-9%);} }
     @media(max-width:768px){ .hero-image img { animation: none; transition: transform 0.3s ease-out; } }
-#paintStatus {
-        position: fixed;
-        bottom: 0; left: 0; right: 0;
-        z-index: 800;
-        border-radius: 0;
-        padding: 10px 16px;
-        background: #0d1018;
-        border-top: 1px solid #3b8bff;
-        box-shadow: 0 -4px 20px rgba(0,0,0,0.6);
-      }
-      #paintCanvasWrap {
-        padding-bottom: 52px;
-      }
-      #paintCoords, #paintCanvasSize {
-        display: none;
-      }
-      #paintExitBtn {
-        margin-left: auto;
-        padding: 6px 20px;
-        font-size: 0.85rem;
-      }
+
     /* Portfolio button inside hero */
     .portfolio-hero-btn {
       display: inline-flex; align-items: center; gap: 10px;
@@ -238,122 +189,39 @@
     #resumeLightboxClose:hover { color: var(--yellow); }
     #resumeLightboxHint { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); font-family: 'Exo 2',sans-serif; font-size: 0.78rem; color: rgba(255,255,255,0.28); letter-spacing: 1px; pointer-events: none; white-space: nowrap; }
 
-    /* ── MS PAINT — NIGHT MODE ── */
-    #paintOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 700; align-items: center; justify-content: center; }
+    /* ── MS PAINT ── */
+    #paintOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 700; align-items: center; justify-content: center; }
     #paintOverlay.open { display: flex; }
-    #paintApp {
-      background: #1a1f2e;
-      border: 1px solid #2a3550;
-      border-radius: 8px;
-      display: flex; flex-direction: column;
-      width: min(96vw,900px); height: min(92vh,660px);
-      font-family: 'Exo 2',sans-serif;
-      box-shadow: 0 0 0 1px rgba(59,139,255,0.2), 0 24px 80px rgba(0,0,0,0.8), 0 0 40px rgba(59,139,255,0.08);
-    }
-    #paintTitleBar {
-      background: linear-gradient(to right, #0d1220, #1a2340);
-      color: #7eb8ff; padding: 8px 12px;
-      display: flex; align-items: center; justify-content: space-between;
-      border-radius: 8px 8px 0 0; cursor: move; user-select: none;
-      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px;
-      border-bottom: 1px solid #2a3550;
-    }
+    #paintApp { background: #c0c0c0; border: 3px solid #fff; border-right-color: #444; border-bottom-color: #444; border-radius: 4px; display: flex; flex-direction: column; width: min(96vw,900px); height: min(92vh,660px); font-family: 'Exo 2',sans-serif; box-shadow: 4px 4px 20px rgba(0,0,0,0.6); }
+    #paintTitleBar { background: #3b8bff; color: white; padding: 6px 10px; display: flex; align-items: center; justify-content: space-between; border-radius: 2px 2px 0 0; cursor: move; user-select: none; font-size: 0.85rem; font-weight: 700; }
     #paintTitleBar .title-left { display: flex; align-items: center; gap: 8px; }
-    #paintCloseBtn {
-      background: #3d1a1a; border: 1px solid #ff4444;
-      color: #ff6666; width: 20px; height: 20px;
-      border-radius: 50%; cursor: pointer; font-size: 0.7rem;
-      display: flex; align-items: center; justify-content: center; font-weight: 700;
-    }
-    #paintCloseBtn:hover { background: #ff2222; color: white; box-shadow: 0 0 8px rgba(255,50,50,0.6); }
-    #paintMenuBar {
-      background: #141928; padding: 3px 8px;
-      display: flex; border-bottom: 1px solid #2a3550; font-size: 0.78rem;
-    }
-    .paint-menu-item { padding: 4px 12px; cursor: pointer; border-radius: 3px; color: #8aa8cc; }
-    .paint-menu-item:hover { background: rgba(59,139,255,0.15); color: #51caf5; }
+    #paintCloseBtn { background: #c0392b; border: 1px solid #fff; color: white; width: 20px; height: 20px; border-radius: 2px; cursor: pointer; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+    #paintCloseBtn:hover { background: #e74c3c; }
+    #paintMenuBar { background: #c0c0c0; padding: 2px 6px; display: flex; border-bottom: 2px solid #888; font-size: 0.78rem; }
+    .paint-menu-item { padding: 3px 10px; cursor: pointer; border-radius: 2px; }
+    .paint-menu-item:hover { background: #3b8bff; color: white; }
     #paintMain { display: flex; flex: 1; overflow: hidden; }
-    #paintToolbar {
-      width: 52px; background: #141928;
-      border-right: 1px solid #2a3550;
-      display: flex; flex-direction: column; align-items: center;
-      padding: 8px 4px; gap: 4px; overflow-y: auto;
-    }
-    .tool-btn {
-      width: 40px; height: 40px;
-      background: #1e2638;
-      border: 1px solid #2a3550;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; border-radius: 6px; flex-shrink: 0;
-      transition: background 0.15s, box-shadow 0.15s;
-    }
-    .tool-btn:hover { background: #253045; box-shadow: 0 0 8px rgba(59,139,255,0.3); border-color: #3b8bff; }
-    .tool-btn.active { background: rgba(59,139,255,0.2); border-color: #3b8bff; box-shadow: 0 0 10px rgba(59,139,255,0.4); }
-    .tool-separator { width: 36px; height: 1px; background: #2a3550; margin: 4px 0; }
-    #sizePicker { display: flex; flex-direction: column; gap: 6px; align-items: center; padding: 4px 0; }
-    .size-dot-btn { cursor: pointer; border-radius: 50%; background: #51caf5; border: 1px solid #2a3550; transition: box-shadow 0.15s; }
-    .size-dot-btn.active { box-shadow: 0 0 8px rgba(81,202,245,0.8); outline: 2px solid #51caf5; }
-    #paintCanvasWrap {
-      flex: 1; overflow: auto;
-      background: #0d1018;
-      display: flex; align-items: flex-start; justify-content: flex-start; padding: 12px;
-    }
-    #paintCanvas {
-      cursor: crosshair; display: block;
-      box-shadow: 0 0 0 1px rgba(59,139,255,0.3), 0 0 30px rgba(0,0,0,0.6);
-      border-radius: 2px;
-    }
-    #paintColorPanel {
-      width: 58px; background: #141928;
-      border-left: 1px solid #2a3550;
-      display: flex; flex-direction: column;
-      padding: 8px 4px; gap: 7px; align-items: center;
-    }
-    #paintColorPanel label { font-size: 0.6rem; color: #4a6080; text-align: center; text-transform: uppercase; letter-spacing: 0.5px; }
-    #colorSwatch,#bgColorSwatch {
-      width: 36px; height: 36px;
-      border: 1px solid #2a3550; border-radius: 4px; cursor: pointer;
-      box-shadow: 0 0 6px rgba(0,0,0,0.4);
-      transition: box-shadow 0.15s;
-    }
-    #colorSwatch:hover,#bgColorSwatch:hover { box-shadow: 0 0 10px rgba(59,139,255,0.5); border-color: #3b8bff; }
+    #paintToolbar { width: 52px; background: #c0c0c0; border-right: 2px solid #888; display: flex; flex-direction: column; align-items: center; padding: 6px 4px; gap: 3px; overflow-y: auto; }
+    .tool-btn { width: 40px; height: 40px; background: #c0c0c0; border: 2px solid #888; border-right-color: #fff; border-bottom-color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; border-radius: 2px; flex-shrink: 0; }
+    .tool-btn:hover { background: #d4d4d4; }
+    .tool-btn.active { border-color: #fff; border-right-color: #666; border-bottom-color: #666; background: #a8a8a8; }
+    .tool-separator { width: 36px; height: 2px; background: #888; margin: 4px 0; }
+    #sizePicker { display: flex; flex-direction: column; gap: 5px; align-items: center; padding: 4px 0; }
+    .size-dot-btn { cursor: pointer; border-radius: 50%; background: #111; border: 1px solid #666; }
+    .size-dot-btn.active { outline: 2px solid #3b8bff; }
+    #paintCanvasWrap { flex: 1; overflow: auto; background: #808080; display: flex; align-items: flex-start; justify-content: flex-start; padding: 8px; }
+    #paintCanvas { cursor: crosshair; display: block; box-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
+    #paintColorPanel { width: 56px; background: #c0c0c0; border-left: 2px solid #888; display: flex; flex-direction: column; padding: 6px 4px; gap: 6px; align-items: center; }
+    #paintColorPanel label { font-size: 0.6rem; color: #444; text-align: center; }
+    #colorSwatch,#bgColorSwatch { width: 36px; height: 36px; border: 2px solid #444; border-right-color: #fff; border-bottom-color: #fff; border-radius: 2px; cursor: pointer; }
     #colorPicker,#bgColorPicker { opacity: 0; width: 0; height: 0; position: absolute; }
-    .palette-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 4px; }
-    .pal-color {
-      width: 18px; height: 18px; border-radius: 3px; cursor: pointer;
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: transform 0.1s, box-shadow 0.1s;
-    }
-    .pal-color:hover { transform: scale(1.25); box-shadow: 0 0 8px currentColor; border-color: rgba(255,255,255,0.4); }
-    #paintStatus {
-      background: #0d1018; border-top: 1px solid #2a3550;
-      padding: 4px 12px; font-size: 0.72rem; color: #3a5070;
-      display: flex; gap: 20px; border-radius: 0 0 8px 8px;
-      flex-shrink: 0;
-    }
-    }
-    #paintDownloadBtn {
-      background: rgba(59,139,255,0.15); color: #51caf5;
-      border: 1px solid #3b8bff; padding: 5px 10px; border-radius: 4px;
-      cursor: pointer; font-family: 'Exo 2',sans-serif; font-size: 0.75rem; font-weight: 600;
-      transition: background 0.15s, box-shadow 0.15s;
-    }
-    #paintDownloadBtn:hover { background: rgba(59,139,255,0.3); box-shadow: 0 0 10px rgba(59,139,255,0.4); }
-    #paintClearBtn {
-      background: rgba(255,50,50,0.1); color: #ff6666;
-      border: 1px solid #ff3333; padding: 5px 8px; border-radius: 4px;
-      cursor: pointer; font-family: 'Exo 2',sans-serif; font-size: 0.75rem; font-weight: 600;
-      margin-top: 4px; transition: background 0.15s, box-shadow 0.15s;
-    }
-    #paintClearBtn:hover { background: rgba(255,50,50,0.25); box-shadow: 0 0 10px rgba(255,50,50,0.3); }
-    #paintExitBtn {
-      background: rgba(255,50,50,0.1); color: #ff6666;
-      border: 1px solid #ff3333; padding: 3px 14px; border-radius: 4px;
-      cursor: pointer; font-family: 'Exo 2',sans-serif; font-size: 0.75rem; font-weight: 600;
-      margin-left: auto;
-      transition: background 0.15s, box-shadow 0.15s;
-    }
-    #paintExitBtn:hover { background: rgba(255,50,50,0.25); box-shadow: 0 0 10px rgba(255,50,50,0.3); }
+    .palette-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 3px; }
+    .pal-color { width: 18px; height: 18px; border-radius: 2px; cursor: pointer; border: 1px solid #666; }
+    .pal-color:hover { transform: scale(1.2); border-color: #111; }
+    #paintStatus { background: #c0c0c0; border-top: 2px solid #888; padding: 3px 10px; font-size: 0.72rem; color: #444; display: flex; gap: 20px; }
+    #paintDownloadBtn { background: #3b8bff; color: white; border: none; padding: 5px 14px; border-radius: 3px; cursor: pointer; font-family: 'Exo 2',sans-serif; font-size: 0.78rem; font-weight: 600; }
+    #paintClearBtn { background: #c0392b; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-family: 'Exo 2',sans-serif; font-size: 0.78rem; font-weight: 600; }
+
     /* ── FROGGER ── */
     #froggerOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 600; align-items: center; justify-content: center; flex-direction: column; gap: 14px; }
     #froggerOverlay.open { display: flex; }
@@ -459,37 +327,6 @@
         <img src="Hawks.PNG" alt="Terrace Hawks Logo Redesign" />
         <div class="artwork-card-info"><p class="artwork-card-title">Custom Flyer Logo</p><p class="artwork-card-meta">Logo Design · Digital</p><span class="artwork-card-tag">Logo</span></div>
       </div>
-      <!-- OCEAN PROJECT LINK CARD -->
-      <div class="artwork-card" onclick="window.open('https://peaces-art.github.io/Ocean/','_blank')">
-        <div class="ocean-card-bg">
-          <div class="ocean-ring ocean-ring-1"></div>
-          <div class="ocean-ring ocean-ring-2"></div>
-          <div class="ocean-ring ocean-ring-3"></div>
-          <div class="ocean-card-label">
-            <div style="font-size:2.4rem;">🌊</div>
-            <span>View Project</span>
-          </div>
-        </div>
-        <div class="artwork-card-info">
-          <p class="artwork-card-title">Ocean</p>
-          <p class="artwork-card-meta">Interactive Web Project · Live Site</p>
-          <span class="artwork-card-tag">Web</span>
-        </div>
-      </div>
-          <!-- Animated ocean rings -->
-          <div style="position:absolute;width:200px;height:200px;border-radius:50%;border:1px solid rgba(81,202,245,0.15);animation:oceanRing 3s ease-in-out infinite;"></div>
-          <div style="position:absolute;width:140px;height:140px;border-radius:50%;border:1px solid rgba(81,202,245,0.2);animation:oceanRing 3s ease-in-out infinite 0.6s;"></div>
-          <div style="position:absolute;width:80px;height:80px;border-radius:50%;border:1px solid rgba(81,202,245,0.3);animation:oceanRing 3s ease-in-out infinite 1.2s;"></div>
-          <div style="text-align:center;">
-            <div style="font-size:2.4rem;">🌊</div>
-            <div style="font-family:'Exo 2',sans-serif;font-size:0.85rem;font-weight:700;color:rgba(81,202,245,0.9);margin-top:8px;letter-spacing:2px;text-transform:uppercase;">View Project</div>
-          </div>
-        </div>
-        <div class="artwork-card-info">
-          <p class="artwork-card-title">Ocean</p>
-          <p class="artwork-card-meta">Interactive Web Project · Live Site</p>
-          <span class="artwork-card-tag">Web</span>
-        </div>
     </div>
   </section>
 
@@ -582,6 +419,7 @@
     <div id="paintApp">
       <div id="paintTitleBar">
         <div class="title-left"><span>🎨</span><span>Peaces Paint — untitled.png</span></div>
+        <button id="paintCloseBtn" onclick="closePaint()">✕</button>
       </div>
       <div id="paintMenuBar">
         <span class="paint-menu-item" onclick="clearCanvas()">File › New</span>
@@ -621,18 +459,18 @@
           <div class="tool-separator" style="width:36px;margin:2px 0;"></div>
           <label>Palette</label>
           <div class="palette-grid">
+            <div class="pal-color" style="background:#000000" onclick="updateFgColor('#000000')"></div>
             <div class="pal-color" style="background:#ffffff" onclick="updateFgColor('#ffffff')"></div>
-            <div class="pal-color" style="background:#0d1018" onclick="updateFgColor('#0d1018')"></div>
-            <div class="pal-color" style="background:#ff2d55" onclick="updateFgColor('#ff2d55')"></div>
-            <div class="pal-color" style="background:#ff6b2d" onclick="updateFgColor('#ff6b2d')"></div>
-            <div class="pal-color" style="background:#ffe600" onclick="updateFgColor('#ffe600')"></div>
-            <div class="pal-color" style="background:#39ff14" onclick="updateFgColor('#39ff14')"></div>
-            <div class="pal-color" style="background:#00f5ff" onclick="updateFgColor('#00f5ff')"></div>
-            <div class="pal-color" style="background:#3b8bff" onclick="updateFgColor('#3b8bff')"></div>
-            <div class="pal-color" style="background:#bf00ff" onclick="updateFgColor('#bf00ff')"></div>
-            <div class="pal-color" style="background:#ff00cc" onclick="updateFgColor('#ff00cc')"></div>
-            <div class="pal-color" style="background:#ff9500" onclick="updateFgColor('#ff9500')"></div>
-            <div class="pal-color" style="background:#00ff9f" onclick="updateFgColor('#00ff9f')"></div>
+            <div class="pal-color" style="background:#ff0000" onclick="updateFgColor('#ff0000')"></div>
+            <div class="pal-color" style="background:#ff8800" onclick="updateFgColor('#ff8800')"></div>
+            <div class="pal-color" style="background:#FFE600" onclick="updateFgColor('#FFE600')"></div>
+            <div class="pal-color" style="background:#00cc00" onclick="updateFgColor('#00cc00')"></div>
+            <div class="pal-color" style="background:#0066ff" onclick="updateFgColor('#0066ff')"></div>
+            <div class="pal-color" style="background:#51caf5" onclick="updateFgColor('#51caf5')"></div>
+            <div class="pal-color" style="background:#9900cc" onclick="updateFgColor('#9900cc')"></div>
+            <div class="pal-color" style="background:#ff66aa" onclick="updateFgColor('#ff66aa')"></div>
+            <div class="pal-color" style="background:#884400" onclick="updateFgColor('#884400')"></div>
+            <div class="pal-color" style="background:#aaaaaa" onclick="updateFgColor('#aaaaaa')"></div>
           </div>
           <div class="tool-separator" style="width:36px;margin:6px 0;"></div>
           <button id="paintDownloadBtn" onclick="downloadPainting()">💾 Save</button>
@@ -643,8 +481,8 @@
         <span id="paintCoords">0, 0</span>
         <span id="paintToolName">Tool: Pencil</span>
         <span id="paintCanvasSize">700 × 500</span>
-        <button id="paintExitBtn" onclick="closePaint()">✕ Exit Paint</button>
       </div>
+    </div>
   </div>
 
   <!-- FROGGER OVERLAY -->
