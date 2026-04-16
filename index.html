@@ -74,7 +74,27 @@
     .hero-image img { width: 110%; height: 110%; object-fit: cover; display: block; animation: heroPan 7s ease-in-out infinite alternate; will-change: transform; }
     @keyframes heroPan { 0%{transform:translateX(0%);}100%{transform:translateX(-9%);} }
     @media(max-width:768px){ .hero-image img { animation: none; transition: transform 0.3s ease-out; } }
-
+#paintStatus {
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        z-index: 800;
+        border-radius: 0;
+        padding: 10px 16px;
+        background: #0d1018;
+        border-top: 1px solid #3b8bff;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.6);
+      }
+      #paintCanvasWrap {
+        padding-bottom: 52px;
+      }
+      #paintCoords, #paintCanvasSize {
+        display: none;
+      }
+      #paintExitBtn {
+        margin-left: auto;
+        padding: 6px 20px;
+        font-size: 0.85rem;
+      }
     /* Portfolio button inside hero */
     .portfolio-hero-btn {
       display: inline-flex; align-items: center; gap: 10px;
