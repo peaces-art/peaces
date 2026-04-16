@@ -327,8 +327,12 @@
       box-shadow: 0 8px 40px rgba(0,0,0,0.6),
                   0 0 0 1px rgba(59,139,255,0.15);
     }
-    .resume-page img {
-      width: 100%; display: block;
+    <!-- Full screen page lightbox -->
+<div id="resumePageLightbox" onclick="closeResumeLightbox()">
+  <button id="resumeLightboxClose" onclick="closeResumeLightbox()">✕</button>
+  <img id="resumeLightboxImg" src="" alt="Resume full screen" />
+  <div id="resumeLightboxHint">Click or tap anywhere to close</div>
+</div>
     }
 
     /* Loading state */
@@ -627,7 +631,7 @@
     /* ── Menu ── */
     function toggleMenu(){ ['sideNav','hamburgerBtn','navOverlay'].forEach(id=>document.getElementById(id).classList.toggle('open')); }
     function closeMenu(){ ['sideNav','hamburgerBtn','navOverlay'].forEach(id=>document.getElementById(id).classList.remove('open')); }
-    document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeMenu(); closePaint(); closeFrogger(); closeResume(); } });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeResumeLightbox(); closeMenu(); closePaint(); closeFrogger(); closeResume(); } });
 
     /* ════════════════════════════════════════
        RESUME VIEWER
@@ -698,7 +702,21 @@
           img.alt      = `Resume page ${pageNum}`;
           img.loading  = 'lazy';
 
-          pageDiv.appendChild(img);
+          // Click to fullscreen
+img.addEventListener('click', () => openResumeLightbox(img.src));
+
+// Long press / haptic hold on mobile
+let holdTimer;
+img.addEventListener('touchstart', () => {
+  holdTimer = setTimeout(() => {
+    if (navigator.vibrate) navigator.vibrate(40);
+    openResumeLightbox(img.src);
+  }, 500);
+}, { passive: true });
+img.addEventListener('touchend',   () => clearTimeout(holdTimer));
+img.addEventListener('touchmove',  () => clearTimeout(holdTimer));
+
+pageDiv.appendChild(img);
           viewport.appendChild(pageDiv);
         }
       } catch (err) {
@@ -999,6 +1017,20 @@
       cancelAnimationFrame(frogRAF);
       frogRAF=requestAnimationFrame(loop);
     }
+    /* ── Resume page lightbox ── */
+function openResumeLightbox(src) {
+  const lb  = document.getElementById('resumePageLightbox');
+  const img = document.getElementById('resumeLightboxImg');
+  img.src = src;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeResumeLightbox() {
+  document.getElementById('resumePageLightbox').classList.remove('open');
+  document.getElementById('resumeLightboxImg').src = '';
+  document.body.style.overflow = 'hidden'; // keep resume overlay scroll locked
+}
   </script>
 </body>
 </html>
