@@ -43,6 +43,30 @@
       50%  { transform: scale(1.05); opacity: 1; }
       100% { transform: scale(0.9); opacity: 0.6; }
     }
+
+    .ocean-card-bg {
+      width: 100%; aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #0a1628 0%, #0d2b4a 40%, #0a3d6b 70%, #1a6b8a 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .ocean-ring {
+      position: absolute; border-radius: 50%;
+      border: 1px solid rgba(81,202,245,0.2);
+      animation: oceanRing 3s ease-in-out infinite;
+    }
+    .ocean-ring-1 { width: 200px; height: 200px; border-color: rgba(81,202,245,0.15); }
+    .ocean-ring-2 { width: 140px; height: 140px; border-color: rgba(81,202,245,0.2);  animation-delay: 0.6s; }
+    .ocean-ring-3 { width: 80px;  height: 80px;  border-color: rgba(81,202,245,0.3);  animation-delay: 1.2s; }
+    .ocean-card-label {
+      text-align: center; position: relative; z-index: 1;
+    }
+    .ocean-card-label span {
+      display: block; font-family: 'Exo 2',sans-serif; font-size: 0.85rem;
+      font-weight: 700; color: rgba(81,202,245,0.9);
+      margin-top: 8px; letter-spacing: 2px; text-transform: uppercase;
+    }scale(0.9); opacity: 0.6; }
+    }
     @keyframes glowPulse { 0%,100%{opacity:.5;transform:scaleX(.95);}50%{opacity:1;transform:scaleX(1);} }
 
     #pagePush { height: 0; }
@@ -436,14 +460,22 @@
         <div class="artwork-card-info"><p class="artwork-card-title">Custom Flyer Logo</p><p class="artwork-card-meta">Logo Design · Digital</p><span class="artwork-card-tag">Logo</span></div>
       </div>
       <!-- OCEAN PROJECT LINK CARD -->
-      <div class="artwork-card" onclick="window.open('https://peaces-art.github.io/Ocean/','_blank')"
-           style="cursor:pointer;">
-        <div style="
-          width:100%; aspect-ratio:4/3;
-          background: linear-gradient(135deg, #0a1628 0%, #0d2b4a 40%, #0a3d6b 70%, #1a6b8a 100%);
-          display:flex; align-items:center; justify-content:center;
-          position:relative; overflow:hidden;
-        ">
+      <div class="artwork-card" onclick="window.open('https://peaces-art.github.io/Ocean/','_blank')">
+        <div class="ocean-card-bg">
+          <div class="ocean-ring ocean-ring-1"></div>
+          <div class="ocean-ring ocean-ring-2"></div>
+          <div class="ocean-ring ocean-ring-3"></div>
+          <div class="ocean-card-label">
+            <div style="font-size:2.4rem;">🌊</div>
+            <span>View Project</span>
+          </div>
+        </div>
+        <div class="artwork-card-info">
+          <p class="artwork-card-title">Ocean</p>
+          <p class="artwork-card-meta">Interactive Web Project · Live Site</p>
+          <span class="artwork-card-tag">Web</span>
+        </div>
+      </div>
           <!-- Animated ocean rings -->
           <div style="position:absolute;width:200px;height:200px;border-radius:50%;border:1px solid rgba(81,202,245,0.15);animation:oceanRing 3s ease-in-out infinite;"></div>
           <div style="position:absolute;width:140px;height:140px;border-radius:50%;border:1px solid rgba(81,202,245,0.2);animation:oceanRing 3s ease-in-out infinite 0.6s;"></div>
