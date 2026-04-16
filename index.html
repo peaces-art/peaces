@@ -260,6 +260,94 @@
       font-size: 0.78rem; font-weight: 600;
     }
 
+    /* ── RESUME OVERLAY ── */
+    #resumeOverlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.96);
+      z-index: 700; flex-direction: column;
+      align-items: center; justify-content: flex-start;
+    }
+    #resumeOverlay.open { display: flex; }
+
+    #resumeTopBar {
+      width: 100%; display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: var(--black);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
+      gap: 16px;
+    }
+    #resumeTopBar .resume-title {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--white); letter-spacing: 0.5px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    #resumeTopBar .resume-title span { color: var(--yellow); }
+
+    #resumeDownloadBtn {
+      background: linear-gradient(to right, var(--blue1), var(--blue2));
+      color: var(--white); border: none;
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.9rem; font-weight: 700;
+      padding: 10px 24px; border-radius: 40px;
+      cursor: pointer; text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    #resumeDownloadBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(81,202,245,0.4); }
+
+    #resumeCloseBtn {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white); font-family: 'Exo 2', sans-serif;
+      font-size: 0.9rem; padding: 10px 20px;
+      border-radius: 40px; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s; flex-shrink: 0;
+    }
+    #resumeCloseBtn:hover { border-color: var(--yellow); color: var(--yellow); }
+
+    #resumeViewport {
+      flex: 1; width: 100%;
+      overflow-y: auto; overflow-x: hidden;
+      display: flex; flex-direction: column;
+      align-items: center;
+      padding: 32px 16px 48px;
+      background: #1a1a1a;
+    }
+
+    /* PDF rendered as image pages */
+    .resume-page {
+      width: 100%;
+      max-width: 860px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6),
+                  0 0 0 1px rgba(59,139,255,0.15);
+    }
+    .resume-page img {
+      width: 100%; display: block;
+    }
+
+    /* Loading state */
+    #resumeLoading {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 16px; padding: 80px 0;
+      font-family: 'Exo 2', sans-serif;
+      color: rgba(255,255,255,0.4); font-size: 1rem;
+    }
+    .resume-spinner {
+      width: 40px; height: 40px;
+      border: 3px solid rgba(59,139,255,0.2);
+      border-top-color: #3b8bff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
     /* FROGGER OVERLAY */
     #froggerOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 600; align-items: center; justify-content: center; flex-direction: column; gap: 14px; }
     #froggerOverlay.open { display: flex; }
@@ -299,6 +387,7 @@
     <a href="#artwork" onclick="closeMenu()">Artwork</a>
     <a href="#about"   onclick="closeMenu()">About</a>
     <a href="#contact" onclick="closeMenu()">Contact</a>
+    <a href="#" onclick="closeMenu(); openResume();">Resume</a>
   </nav>
 
   <div id="headerWrapper">
@@ -499,6 +588,30 @@
     </div>
   </div>
 
+  <!-- ══ RESUME OVERLAY ══ -->
+  <div id="resumeOverlay">
+    <div id="resumeTopBar">
+      <div class="resume-title">
+        📄 <span>Tye Esparza</span> — Resume 2026
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <a id="resumeDownloadBtn"
+           href="Tye_Esparza_Resume_2026.pdf"
+           download="Tye_Esparza_Resume_2026.pdf">
+          ⬇ Download PDF
+        </a>
+        <button id="resumeCloseBtn" onclick="closeResume()">✕ Close</button>
+      </div>
+    </div>
+    <div id="resumeViewport">
+      <div id="resumeLoading">
+        <div class="resume-spinner"></div>
+        <span>Loading resume...</span>
+      </div>
+      <!-- PDF pages rendered here by JS -->
+    </div>
+  </div>
+
   <!-- FROGGER OVERLAY -->
   <div id="froggerOverlay">
     <div id="froggerUI">
@@ -514,7 +627,104 @@
     /* ── Menu ── */
     function toggleMenu(){ ['sideNav','hamburgerBtn','navOverlay'].forEach(id=>document.getElementById(id).classList.toggle('open')); }
     function closeMenu(){ ['sideNav','hamburgerBtn','navOverlay'].forEach(id=>document.getElementById(id).classList.remove('open')); }
-    document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeMenu(); closePaint(); closeFrogger(); } });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeMenu(); closePaint(); closeFrogger(); closeResume(); } });
+
+    /* ════════════════════════════════════════
+       RESUME VIEWER
+       Uses PDF.js (from CDN via script tag)
+       to render each PDF page as a canvas,
+       then exports them as high-quality images.
+    ════════════════════════════════════════ */
+    let resumeLoaded = false;
+
+    function openResume() {
+      document.getElementById('resumeOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (!resumeLoaded) loadResumePDF();
+    }
+
+    function closeResume() {
+      document.getElementById('resumeOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function loadResumePDF() {
+      // Dynamically load PDF.js from CDN
+      if (window.pdfjsLib) { renderResume(); return; }
+
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+      script.onload = () => {
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+          'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        renderResume();
+      };
+      script.onerror = () => {
+        // Fallback: show PDF directly in an iframe if CDN blocked
+        showResumeFallback();
+      };
+      document.head.appendChild(script);
+    }
+
+    async function renderResume() {
+      const viewport = document.getElementById('resumeViewport');
+      const loading  = document.getElementById('resumeLoading');
+
+      try {
+        const pdf = await pdfjsLib.getDocument('Tye_Esparza_Resume_2026.pdf').promise;
+        loading.style.display = 'none';
+        resumeLoaded = true;
+
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+          const page   = await pdf.getPage(pageNum);
+          // Render at 2x scale for crisp high-DPI display
+          const scale  = 2.0;
+          const vp     = page.getViewport({ scale });
+
+          const canvas  = document.createElement('canvas');
+          canvas.width  = vp.width;
+          canvas.height = vp.height;
+
+          const ctx = canvas.getContext('2d');
+          await page.render({ canvasContext: ctx, viewport: vp }).promise;
+
+          // Wrap in a styled page div
+          const pageDiv = document.createElement('div');
+          pageDiv.className = 'resume-page';
+
+          // Convert canvas to sharp image
+          const img    = document.createElement('img');
+          img.src      = canvas.toDataURL('image/png');
+          img.alt      = `Resume page ${pageNum}`;
+          img.loading  = 'lazy';
+
+          pageDiv.appendChild(img);
+          viewport.appendChild(pageDiv);
+        }
+      } catch (err) {
+        console.warn('PDF.js render error:', err);
+        showResumeFallback();
+      }
+    }
+
+    function showResumeFallback() {
+      // If PDF.js fails (e.g. no network for CDN), show embedded iframe instead
+      const viewport = document.getElementById('resumeViewport');
+      const loading  = document.getElementById('resumeLoading');
+      loading.style.display = 'none';
+      resumeLoaded = true;
+
+      const wrapper = document.createElement('div');
+      wrapper.style.cssText = 'width:100%;max-width:860px;height:80vh;border-radius:12px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.6);';
+
+      const iframe = document.createElement('iframe');
+      iframe.src   = 'Tye_Esparza_Resume_2026.pdf';
+      iframe.style.cssText = 'width:100%;height:100%;border:none;';
+      iframe.title = 'Tye Esparza Resume';
+
+      wrapper.appendChild(iframe);
+      viewport.appendChild(wrapper);
+    }
 
     /* ── Lightbox ── */
     function openLightbox(src,alt){ const lb=document.getElementById('lightbox'),img=document.getElementById('lightboxImg'); img.src=src; img.alt=alt; lb.classList.add('open'); document.body.style.overflow='hidden'; }
