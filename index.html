@@ -4,35 +4,61 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Peaces Design & Illustration</title>
-  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --yellow: #FFE600; --black: #111111; --white: #ffffff;
-      --blue1: #3b8bff; --blue2: #51caf5;
+      --blue1: #3b8bff;  --blue2: #51caf5;
       --radius-lg: 40px; --radius-md: 24px;
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Exo 2', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
 
-    /* HEADER */
+    /* ── HEADER ── */
     #headerWrapper { position: fixed; top: 0; left: 0; right: 0; z-index: 100; pointer-events: none; }
-    header { background: linear-gradient(to right, var(--blue1), var(--blue2)); border-radius: 0; padding: 18px 32px; display: flex; align-items: center; gap: 20px; pointer-events: all; will-change: opacity, transform; position: relative; }
-    header::after { content: ''; position: absolute; bottom: -18px; left: 0; right: 0; width: 100%; height: 18px; background: linear-gradient(to right, var(--blue1), var(--blue2)); border-radius: 0 0 50% 50% / 0 0 100% 100%; z-index: -1; }
-    header::before { content: ''; position: absolute; bottom: -26px; left: 0; right: 0; width: 100%; height: 8px; background: linear-gradient(to right, rgba(59,139,255,0) 0%, rgba(59,139,255,0.6) 25%, rgba(180,230,255,1) 50%, rgba(81,202,245,0.6) 75%, rgba(81,202,245,0) 100%); border-radius: 50%; filter: blur(4px); z-index: -1; animation: glowPulse 2.5s ease-in-out infinite; }
-    @keyframes glowPulse { 0%,100% { opacity:.5; transform:scaleX(.95); } 50% { opacity:1; transform:scaleX(1); } }
+    header {
+      background: linear-gradient(to right, var(--blue1), var(--blue2));
+      border-radius: 0; padding: 18px 32px;
+      display: flex; align-items: center; gap: 20px;
+      pointer-events: all; will-change: opacity, transform; position: relative;
+    }
+    header::after {
+      content: ''; position: absolute; bottom: -18px; left: 0; right: 0;
+      width: 100%; height: 18px;
+      background: linear-gradient(to right, var(--blue1), var(--blue2));
+      border-radius: 0 0 50% 50% / 0 0 100% 100%; z-index: -1;
+    }
+    header::before {
+      content: ''; position: absolute; bottom: -26px; left: 0; right: 0;
+      width: 100%; height: 8px;
+      background: linear-gradient(to right,
+        rgba(59,139,255,0) 0%, rgba(59,139,255,0.6) 25%,
+        rgba(180,230,255,1) 50%, rgba(81,202,245,0.6) 75%, rgba(81,202,245,0) 100%);
+      border-radius: 50%; filter: blur(4px); z-index: -1;
+      animation: glowPulse 2.5s ease-in-out infinite;
+    }
+    @keyframes glowPulse { 0%,100%{opacity:.5;transform:scaleX(.95);}50%{opacity:1;transform:scaleX(1);} }
+
     #pagePush { height: 0; }
     .logo-svg { width: 80px; height: 80px; flex-shrink: 0; cursor: pointer; transition: transform 0.2s; }
     .logo-svg:hover { transform: scale(1.08); }
-    .site-title { font-size: clamp(1.6rem,4vw,2.8rem); font-weight: 700; flex: 1; letter-spacing: -0.5px; background: linear-gradient(105deg, var(--black) 0%, var(--black) 40%, #fff 48%, #e0f4ff 50%, #fff 52%, var(--black) 60%, var(--black) 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 3.5s linear infinite; }
-    @keyframes shimmer { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+
+    .site-title {
+      font-size: clamp(1.6rem,4vw,2.8rem); font-weight: 700; flex: 1; letter-spacing: -0.5px;
+      background: linear-gradient(105deg, var(--black) 0%, var(--black) 40%, #fff 48%, #e0f4ff 50%, #fff 52%, var(--black) 60%, var(--black) 100%);
+      background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: shimmer 3.5s linear infinite;
+    }
+    @keyframes shimmer { 0%{background-position:200% center;}100%{background-position:-200% center;} }
+
     .hamburger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 6px; padding: 8px; flex-shrink: 0; }
     .hamburger span { display: block; width: 34px; height: 3.5px; background: var(--black); border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; }
     .hamburger.open span:nth-child(1) { transform: translateY(9.5px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-9.5px) rotate(-45deg); }
 
-    /* NAV */
+    /* ── NAV ── */
     nav { position: fixed; top: 0; right: -320px; width: 280px; height: 100vh; background: var(--black); z-index: 200; display: flex; flex-direction: column; justify-content: center; transition: right 0.4s cubic-bezier(0.4,0,0.2,1); border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
     nav.open { right: 0; }
     nav a { font-size: 1.6rem; font-weight: 600; color: var(--white); text-decoration: none; padding: 20px 40px; transition: color 0.2s, background 0.2s; border-left: 4px solid transparent; }
@@ -40,34 +66,34 @@
     .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 150; }
     .nav-overlay.open { display: block; }
 
-    /* HERO */
+    /* ── HERO ── */
     .hero-wrapper { position: relative; background: var(--black); border-radius: 0; overflow: hidden; min-height: 460px; padding-top: 116px; }
     .hero-parallax { display: flex; align-items: stretch; min-height: 580px; will-change: transform; }
     .hero-text { flex: 1; padding: 60px 48px; display: flex; align-items: center; }
     .hero-text h1 { font-size: clamp(2rem,4.5vw,3.4rem); font-weight: 400; color: var(--white); line-height: 1.2; letter-spacing: -0.5px; }
     .hero-image { flex: 0.65; min-height: 420px; border-radius: var(--radius-lg); overflow: hidden; margin: 16px 16px 16px 0; }
     .hero-image img { width: 110%; height: 110%; object-fit: cover; display: block; animation: heroPan 7s ease-in-out infinite alternate; will-change: transform; }
-    @keyframes heroPan { 0% { transform: translateX(0%); } 100% { transform: translateX(-9%); } }
+    @keyframes heroPan { 0%{transform:translateX(0%);}100%{transform:translateX(-9%);} }
     @media(max-width:768px){ .hero-image img { animation: none; transition: transform 0.3s ease-out; } }
 
-    /* VIDEO */
+    /* ── VIDEO ── */
     .video-wrapper { background: var(--black); padding: 0 48px 48px; border-radius: 0 0 40px 40px; }
     .video-inner { max-width: 55%; margin: 0 auto; }
     .video-ratio { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 24px; overflow: hidden; }
     .video-ratio iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-    /* HOME ABOUT */
+    /* ── HOME ABOUT ── */
     .home-about { padding: 52px 48px 64px; background: var(--white); }
     .about-label { font-size: 1.1rem; font-weight: 400; color: var(--black); margin-bottom: 20px; letter-spacing: 0.5px; }
     .about-body { font-size: clamp(1.1rem,2vw,1.5rem); font-weight: 400; line-height: 1.55; max-width: 900px; }
     .section-divider { height: 2px; background: #f0f0f0; margin: 0 48px; }
 
-    /* ARTWORK */
+    /* ── ARTWORK ── */
     .artwork-section { padding: 64px 48px; background: var(--black); border-radius: var(--radius-lg); }
     .artwork-section .section-label { color: var(--yellow); font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
     .artwork-section .section-title { font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 700; color: var(--white); margin-bottom: 48px; }
     .artwork-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(320px,1fr)); gap: 24px; }
-    .artwork-card { border-radius: var(--radius-lg); overflow: hidden; background: #1a1a1a; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; box-shadow: 0 0 0 1px rgba(59,139,255,0.25), 0 0 12px rgba(81,202,245,0.15); }
+    .artwork-card { border-radius: var(--radius-lg); overflow: hidden; background: #1a1a1a; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 0 0 1px rgba(59,139,255,0.25), 0 0 12px rgba(81,202,245,0.15); }
     .artwork-card:hover { transform: translateY(-6px); box-shadow: 0 0 0 1px rgba(59,139,255,0.5), 0 0 20px rgba(81,202,245,0.35), 0 20px 60px rgba(0,0,0,0.6); }
     .artwork-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; transition: transform 0.4s ease; }
     .artwork-card:hover img { transform: scale(1.04); }
@@ -79,14 +105,14 @@
     .artwork-placeholder span { font-size: 2.5rem; }
     .artwork-placeholder p { font-size: 0.9rem; text-align: center; line-height: 1.6; }
 
-    /* LIGHTBOX */
+    /* ── LIGHTBOX ── */
     .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 500; align-items: center; justify-content: center; padding: 24px; }
     .lightbox.open { display: flex; }
     .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: var(--radius-lg); object-fit: contain; }
     .lightbox-close { position: absolute; top: 24px; right: 32px; font-size: 2.5rem; color: var(--white); cursor: pointer; background: none; border: none; line-height: 1; }
     .lightbox-close:hover { color: var(--yellow); }
 
-    /* ABOUT */
+    /* ── ABOUT ── */
     .about-full { padding: 72px 48px; background: var(--white); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
     .about-full .section-label { font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #999; margin-bottom: 10px; }
     .about-full .section-title { font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 700; margin-bottom: 28px; }
@@ -98,14 +124,14 @@
     .about-highlight-box ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
     .about-highlight-box li { display: flex; align-items: flex-start; gap: 14px; font-size: 1rem; line-height: 1.5; }
     .about-highlight-box li::before { content: '→'; color: var(--yellow); font-weight: 700; flex-shrink: 0; margin-top: 1px; display: inline-block; animation: arrowBounce 1.5s ease-in-out infinite; }
-    @keyframes arrowBounce { 0%,100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+    @keyframes arrowBounce { 0%,100%{transform:translateX(0);}50%{transform:translateX(6px);} }
     .lawnmower-stage { position: relative; height: 48px; overflow: hidden; margin-bottom: 16px; border-radius: 12px 12px 0 0; }
     .lawnmower-figure { position: absolute; bottom: 0; left: -120px; display: flex; align-items: flex-end; animation: mowAcross 6.5s linear infinite; }
-    @keyframes mowAcross { 0% { left: -120px; } 100% { left: 110%; } }
+    @keyframes mowAcross { 0%{left:-120px;}100%{left:110%;} }
     .lawnmower-figure svg { width: 90px; height: 48px; }
 
-    /* CONTACT */
-    .contact-section { background: var(--black); border-radius: var(--radius-lg); margin: 0; padding: 72px 48px; }
+    /* ── CONTACT ── */
+    .contact-section { background: var(--black); border-radius: var(--radius-lg); padding: 72px 48px; }
     .contact-section .section-label { color: var(--yellow); font-size: 0.85rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
     .contact-section .section-title { font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 700; color: var(--white); margin-bottom: 12px; }
     .contact-section .contact-sub { font-size: 1.1rem; color: #888; margin-bottom: 52px; }
@@ -120,150 +146,19 @@
     .contact-portfolio { grid-column: 1/-1; background: linear-gradient(135deg,#1a1a1a,#222); border-radius: var(--radius-md); padding: 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
     .contact-portfolio-text h3 { font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
     .contact-portfolio-text p { font-size: 0.95rem; color: #888; }
-    .portfolio-btn { background: linear-gradient(to right, var(--blue1), var(--blue2)); color: var(--white); font-family: 'Exo 2', sans-serif; font-size: 1rem; font-weight: 700; padding: 14px 32px; border-radius: 40px; text-decoration: none; white-space: nowrap; transition: transform 0.2s, box-shadow 0.2s; flex-shrink: 0; }
+    .portfolio-btn { background: linear-gradient(to right, var(--blue1), var(--blue2)); color: var(--white); font-family: 'Exo 2',sans-serif; font-size: 1rem; font-weight: 700; padding: 14px 32px; border-radius: 40px; text-decoration: none; white-space: nowrap; transition: transform 0.2s, box-shadow 0.2s; flex-shrink: 0; }
     .portfolio-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(81,202,245,0.35); }
+
+    /* ── FOOTER ── */
     footer { background: var(--black); color: #555; text-align: center; padding: 32px 48px; font-size: 0.88rem; }
     footer span { color: var(--yellow); }
 
-    /* ── MS PAINT OVERLAY ── */
-    #paintOverlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.88);
-      z-index: 700; align-items: center; justify-content: center;
-    }
-    #paintOverlay.open { display: flex; }
-    #paintApp {
-      background: #c0c0c0;
-      border: 3px solid #fff;
-      border-right-color: #444; border-bottom-color: #444;
-      border-radius: 4px;
-      display: flex; flex-direction: column;
-      width: min(96vw, 900px);
-      height: min(92vh, 660px);
-      font-family: 'Exo 2', sans-serif;
-      box-shadow: 4px 4px 20px rgba(0,0,0,0.6);
-    }
-    /* Title bar */
-    #paintTitleBar {
-      background: linear-gradient(to right, var(--blue1), var(--blue2));
-      color: white; padding: 6px 10px;
-      display: flex; align-items: center; justify-content: space-between;
-      border-radius: 2px 2px 0 0; cursor: move; user-select: none;
-      font-size: 0.85rem; font-weight: 700;
-    }
-    #paintTitleBar .title-left { display: flex; align-items: center; gap: 8px; }
-    #paintTitleBar .title-icon { font-size: 1rem; }
-    #paintCloseBtn {
-      background: #c0392b; border: 1px solid #fff;
-      color: white; width: 20px; height: 20px;
-      border-radius: 2px; cursor: pointer; font-size: 0.75rem;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 700; line-height: 1;
-    }
-    #paintCloseBtn:hover { background: #e74c3c; }
-    /* Menu bar */
-    #paintMenuBar {
-      background: #c0c0c0; padding: 2px 6px;
-      display: flex; gap: 0;
-      border-bottom: 2px solid #888;
-      font-size: 0.78rem;
-    }
-    .paint-menu-item {
-      padding: 3px 10px; cursor: pointer; border-radius: 2px;
-      position: relative;
-    }
-    .paint-menu-item:hover { background: var(--blue1); color: white; }
-    /* Main area */
-    #paintMain {
-      display: flex; flex: 1; overflow: hidden;
-    }
-    /* Toolbar */
-    #paintToolbar {
-      width: 52px; background: #c0c0c0;
-      border-right: 2px solid #888;
-      display: flex; flex-direction: column; align-items: center;
-      padding: 6px 4px; gap: 3px; overflow-y: auto;
-    }
-    .tool-btn {
-      width: 40px; height: 40px;
-      background: #c0c0c0;
-      border: 2px solid #888; border-right-color: #fff; border-bottom-color: #fff;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; border-radius: 2px; transition: background 0.1s;
-      flex-shrink: 0;
-    }
-    .tool-btn:hover { background: #d4d4d4; }
-    .tool-btn.active {
-      border-color: #fff; border-right-color: #666; border-bottom-color: #666;
-      background: #a8a8a8;
-    }
-    .tool-separator { width: 36px; height: 2px; background: #888; margin: 4px 0; }
-    /* Size picker */
-    #sizePicker { display: flex; flex-direction: column; gap: 5px; align-items: center; padding: 4px 0; }
-    .size-dot-btn { cursor: pointer; border-radius: 50%; background: #111; border: 1px solid #666; }
-    .size-dot-btn.active { outline: 2px solid var(--blue1); }
-    /* Canvas area */
-    #paintCanvasWrap {
-      flex: 1; overflow: auto;
-      background: #808080;
-      display: flex; align-items: flex-start; justify-content: flex-start;
-      padding: 8px;
-    }
-    #paintCanvas {
-      cursor: crosshair;
-      display: block;
-      box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-    }
-    /* Color panel */
-    #paintColorPanel {
-      width: 56px; background: #c0c0c0;
-      border-left: 2px solid #888;
-      display: flex; flex-direction: column;
-      padding: 6px 4px; gap: 6px; align-items: center;
-    }
-    #paintColorPanel label { font-size: 0.6rem; color: #444; text-align: center; }
-    #colorSwatch {
-      width: 36px; height: 36px;
-      border: 2px solid #444; border-right-color: #fff; border-bottom-color: #fff;
-      border-radius: 2px; cursor: pointer;
-    }
-    #bgColorSwatch {
-      width: 36px; height: 36px;
-      border: 2px solid #444; border-right-color: #fff; border-bottom-color: #fff;
-      border-radius: 2px; cursor: pointer; background: white;
-    }
-    #colorPicker { width: 36px; height: 28px; border: none; padding: 0; cursor: pointer; border-radius: 2px; }
-    #bgColorPicker { width: 36px; height: 28px; border: none; padding: 0; cursor: pointer; border-radius: 2px; }
-    .palette-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; }
-    .pal-color {
-      width: 18px; height: 18px; border-radius: 2px; cursor: pointer;
-      border: 1px solid #666;
-    }
-    .pal-color:hover { transform: scale(1.2); border-color: #111; }
-    /* Status bar */
-    #paintStatus {
-      background: #c0c0c0; border-top: 2px solid #888;
-      padding: 3px 10px; font-size: 0.72rem; color: #444;
-      display: flex; gap: 20px;
-    }
-    /* Download btn */
-    #paintDownloadBtn {
-      background: linear-gradient(to right, var(--blue1), var(--blue2));
-      color: white; border: none; padding: 5px 14px;
-      border-radius: 3px; cursor: pointer; font-family: 'Exo 2', sans-serif;
-      font-size: 0.78rem; font-weight: 600;
-    }
-    #paintDownloadBtn:hover { opacity: 0.9; }
-    #paintClearBtn {
-      background: #c0392b; color: white; border: none; padding: 5px 10px;
-      border-radius: 3px; cursor: pointer; font-family: 'Exo 2', sans-serif;
-      font-size: 0.78rem; font-weight: 600;
-    }
-
-    /* ── RESUME OVERLAY ── */
+    /* ════════════════════════════════════════
+       RESUME OVERLAY
+    ════════════════════════════════════════ */
     #resumeOverlay {
       display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.96);
+      background: rgba(0,0,0,0.97);
       z-index: 700; flex-direction: column;
       align-items: center; justify-content: flex-start;
     }
@@ -272,114 +167,149 @@
     #resumeTopBar {
       width: 100%; display: flex; align-items: center;
       justify-content: space-between;
-      padding: 16px 32px;
+      padding: 14px 28px;
       background: var(--black);
       border-bottom: 1px solid rgba(255,255,255,0.08);
-      flex-shrink: 0;
-      gap: 16px;
+      flex-shrink: 0; gap: 16px; flex-wrap: wrap;
     }
-    #resumeTopBar .resume-title {
+    .resume-title {
       font-family: 'Exo 2', sans-serif;
       font-size: 1rem; font-weight: 700;
-      color: var(--white); letter-spacing: 0.5px;
-      display: flex; align-items: center; gap: 10px;
+      color: var(--white); display: flex; align-items: center; gap: 10px;
     }
-    #resumeTopBar .resume-title span { color: var(--yellow); }
+    .resume-title span { color: var(--yellow); }
+    .resume-top-btns { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 
     #resumeDownloadBtn {
       background: linear-gradient(to right, var(--blue1), var(--blue2));
       color: var(--white); border: none;
-      font-family: 'Exo 2', sans-serif;
-      font-size: 0.9rem; font-weight: 700;
-      padding: 10px 24px; border-radius: 40px;
-      cursor: pointer; text-decoration: none;
-      transition: transform 0.2s, box-shadow 0.2s;
-      white-space: nowrap; flex-shrink: 0;
+      font-family: 'Exo 2', sans-serif; font-size: 0.9rem; font-weight: 700;
+      padding: 10px 22px; border-radius: 40px; cursor: pointer;
+      text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; white-space: nowrap;
     }
     #resumeDownloadBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(81,202,245,0.4); }
 
     #resumeCloseBtn {
-      background: none;
-      border: 1px solid rgba(255,255,255,0.2);
+      background: none; border: 1px solid rgba(255,255,255,0.2);
       color: var(--white); font-family: 'Exo 2', sans-serif;
-      font-size: 0.9rem; padding: 10px 20px;
-      border-radius: 40px; cursor: pointer;
-      transition: border-color 0.2s, color 0.2s; flex-shrink: 0;
+      font-size: 0.9rem; padding: 10px 20px; border-radius: 40px;
+      cursor: pointer; transition: border-color 0.2s, color 0.2s; white-space: nowrap;
     }
     #resumeCloseBtn:hover { border-color: var(--yellow); color: var(--yellow); }
 
     #resumeViewport {
-      flex: 1; width: 100%;
-      overflow-y: auto; overflow-x: hidden;
-      display: flex; flex-direction: column;
-      align-items: center;
-      padding: 32px 16px 48px;
-      background: #1a1a1a;
+      flex: 1; width: 100%; overflow-y: auto; overflow-x: hidden;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 32px 16px 48px; background: #1a1a1a;
     }
 
-    /* PDF rendered as image pages */
+    /* Tap hint banner */
+    #resumeTapHint {
+      font-family: 'Exo 2', sans-serif; font-size: 0.8rem;
+      color: rgba(255,255,255,0.35); text-align: center;
+      padding: 10px 0 0; letter-spacing: 0.5px;
+    }
+
+    /* Each rendered PDF page */
     .resume-page {
-      width: 100%;
-      max-width: 860px;
-      margin-bottom: 20px;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.6),
-                  0 0 0 1px rgba(59,139,255,0.15);
+      width: 100%; max-width: 860px; margin-bottom: 20px;
+      border-radius: 12px; overflow: hidden; cursor: zoom-in;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(59,139,255,0.15);
+      transition: box-shadow 0.25s;
     }
-    <!-- Full screen page lightbox -->
-<div id="resumePageLightbox" onclick="closeResumeLightbox()">
-  <button id="resumeLightboxClose" onclick="closeResumeLightbox()">✕</button>
-  <img id="resumeLightboxImg" src="" alt="Resume full screen" />
-  <div id="resumeLightboxHint">Click or tap anywhere to close</div>
-</div>
-    }
+    .resume-page:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 0 2px rgba(59,139,255,0.5), 0 0 24px rgba(81,202,245,0.2); }
+    .resume-page img { width: 100%; display: block; transition: transform 0.2s; }
+    .resume-page:hover img { transform: scale(1.005); }
 
-    /* Loading state */
-    #resumeLoading {
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 16px; padding: 80px 0;
-      font-family: 'Exo 2', sans-serif;
-      color: rgba(255,255,255,0.4); font-size: 1rem;
-    }
-    .resume-spinner {
-      width: 40px; height: 40px;
-      border: 3px solid rgba(59,139,255,0.2);
-      border-top-color: #3b8bff;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
+    /* Loading spinner */
+    #resumeLoading { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 80px 0; font-family: 'Exo 2', sans-serif; color: rgba(255,255,255,0.4); font-size: 1rem; }
+    .resume-spinner { width: 40px; height: 40px; border: 3px solid rgba(59,139,255,0.2); border-top-color: var(--blue1); border-radius: 50%; animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* FROGGER OVERLAY */
+    /* ── RESUME FULL-SCREEN LIGHTBOX ── */
+    #resumePageLightbox {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.98);
+      z-index: 900; align-items: center; justify-content: center;
+      cursor: zoom-out;
+    }
+    #resumePageLightbox.open { display: flex; }
+    #resumePageLightbox img {
+      max-width: 96vw; max-height: 96vh; object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 0 80px rgba(59,139,255,0.15);
+      user-select: none; -webkit-user-drag: none;
+    }
+    #resumeLightboxClose {
+      position: absolute; top: 20px; right: 28px;
+      font-size: 2.2rem; color: var(--white); cursor: pointer;
+      background: none; border: none; line-height: 1; z-index: 910;
+    }
+    #resumeLightboxClose:hover { color: var(--yellow); }
+    #resumeLightboxHint {
+      position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%);
+      font-family: 'Exo 2', sans-serif; font-size: 0.78rem;
+      color: rgba(255,255,255,0.28); letter-spacing: 1px;
+      pointer-events: none; white-space: nowrap;
+    }
+
+    /* ── MS PAINT OVERLAY ── */
+    #paintOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 700; align-items: center; justify-content: center; }
+    #paintOverlay.open { display: flex; }
+    #paintApp { background: #c0c0c0; border: 3px solid #fff; border-right-color: #444; border-bottom-color: #444; border-radius: 4px; display: flex; flex-direction: column; width: min(96vw,900px); height: min(92vh,660px); font-family: 'Exo 2',sans-serif; box-shadow: 4px 4px 20px rgba(0,0,0,0.6); }
+    #paintTitleBar { background: linear-gradient(to right, var(--blue1), var(--blue2)); color: white; padding: 6px 10px; display: flex; align-items: center; justify-content: space-between; border-radius: 2px 2px 0 0; cursor: move; user-select: none; font-size: 0.85rem; font-weight: 700; }
+    #paintTitleBar .title-left { display: flex; align-items: center; gap: 8px; }
+    #paintCloseBtn { background: #c0392b; border: 1px solid #fff; color: white; width: 20px; height: 20px; border-radius: 2px; cursor: pointer; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+    #paintCloseBtn:hover { background: #e74c3c; }
+    #paintMenuBar { background: #c0c0c0; padding: 2px 6px; display: flex; gap: 0; border-bottom: 2px solid #888; font-size: 0.78rem; }
+    .paint-menu-item { padding: 3px 10px; cursor: pointer; border-radius: 2px; }
+    .paint-menu-item:hover { background: var(--blue1); color: white; }
+    #paintMain { display: flex; flex: 1; overflow: hidden; }
+    #paintToolbar { width: 52px; background: #c0c0c0; border-right: 2px solid #888; display: flex; flex-direction: column; align-items: center; padding: 6px 4px; gap: 3px; overflow-y: auto; }
+    .tool-btn { width: 40px; height: 40px; background: #c0c0c0; border: 2px solid #888; border-right-color: #fff; border-bottom-color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; border-radius: 2px; flex-shrink: 0; }
+    .tool-btn:hover { background: #d4d4d4; }
+    .tool-btn.active { border-color: #fff; border-right-color: #666; border-bottom-color: #666; background: #a8a8a8; }
+    .tool-separator { width: 36px; height: 2px; background: #888; margin: 4px 0; }
+    #sizePicker { display: flex; flex-direction: column; gap: 5px; align-items: center; padding: 4px 0; }
+    .size-dot-btn { cursor: pointer; border-radius: 50%; background: #111; border: 1px solid #666; }
+    .size-dot-btn.active { outline: 2px solid var(--blue1); }
+    #paintCanvasWrap { flex: 1; overflow: auto; background: #808080; display: flex; align-items: flex-start; justify-content: flex-start; padding: 8px; }
+    #paintCanvas { cursor: crosshair; display: block; box-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
+    #paintColorPanel { width: 56px; background: #c0c0c0; border-left: 2px solid #888; display: flex; flex-direction: column; padding: 6px 4px; gap: 6px; align-items: center; }
+    #paintColorPanel label { font-size: 0.6rem; color: #444; text-align: center; }
+    #colorSwatch,#bgColorSwatch { width: 36px; height: 36px; border: 2px solid #444; border-right-color: #fff; border-bottom-color: #fff; border-radius: 2px; cursor: pointer; }
+    #colorPicker,#bgColorPicker { width: 36px; height: 28px; border: none; padding: 0; cursor: pointer; border-radius: 2px; opacity: 0; width: 0; height: 0; position: absolute; }
+    .palette-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 3px; }
+    .pal-color { width: 18px; height: 18px; border-radius: 2px; cursor: pointer; border: 1px solid #666; }
+    .pal-color:hover { transform: scale(1.2); border-color: #111; }
+    #paintStatus { background: #c0c0c0; border-top: 2px solid #888; padding: 3px 10px; font-size: 0.72rem; color: #444; display: flex; gap: 20px; }
+    #paintDownloadBtn { background: linear-gradient(to right, var(--blue1), var(--blue2)); color: white; border: none; padding: 5px 14px; border-radius: 3px; cursor: pointer; font-family: 'Exo 2',sans-serif; font-size: 0.78rem; font-weight: 600; }
+    #paintClearBtn { background: #c0392b; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-family: 'Exo 2',sans-serif; font-size: 0.78rem; font-weight: 600; }
+
+    /* ── FROGGER OVERLAY ── */
     #froggerOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 600; align-items: center; justify-content: center; flex-direction: column; gap: 14px; }
     #froggerOverlay.open { display: flex; }
     #froggerCanvas { border-radius: 16px; border: 2px solid rgba(100,200,100,0.4); box-shadow: 0 0 60px rgba(50,180,50,0.25); max-width: 95vw; max-height: 78vh; display: block; image-rendering: pixelated; }
-    #froggerUI { display: flex; align-items: center; justify-content: space-between; width: 420px; max-width: 95vw; font-family: 'Exo 2', sans-serif; }
+    #froggerUI { display: flex; align-items: center; justify-content: space-between; width: 420px; max-width: 95vw; font-family: 'Exo 2',sans-serif; }
     #froggerScore { color: #7eff7e; font-size: 1rem; font-weight: 600; letter-spacing: 1px; }
     #froggerLives { color: var(--yellow); font-size: 1rem; font-weight: 600; }
-    #froggerMsg { color: rgba(255,255,255,0.55); font-size: 0.82rem; font-family: 'Exo 2', sans-serif; text-align: center; }
-    #froggerCloseBtn { background: none; border: 1px solid rgba(255,255,255,0.2); color: var(--white); font-family: 'Exo 2', sans-serif; font-size: 0.9rem; padding: 8px 24px; border-radius: 40px; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+    #froggerMsg { color: rgba(255,255,255,0.55); font-size: 0.82rem; font-family: 'Exo 2',sans-serif; text-align: center; }
+    #froggerCloseBtn { background: none; border: 1px solid rgba(255,255,255,0.2); color: var(--white); font-family: 'Exo 2',sans-serif; font-size: 0.9rem; padding: 8px 24px; border-radius: 40px; cursor: pointer; transition: border-color 0.2s,color 0.2s; }
     #froggerCloseBtn:hover { border-color: #7eff7e; color: #7eff7e; }
 
-    /* RESPONSIVE */
-    @media(max-width:900px){ .about-full { grid-template-columns: 1fr; gap: 48px; } .contact-grid { grid-template-columns: 1fr; } .contact-portfolio { flex-direction: column; align-items: flex-start; } }
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px){ .about-full{grid-template-columns:1fr;gap:48px;} .contact-grid{grid-template-columns:1fr;} .contact-portfolio{flex-direction:column;align-items:flex-start;} }
     @media(max-width:768px){
-      #pagePush { height: 0; } header { padding: 14px 20px; border-radius: 0; }
-      .logo-svg { width: 60px; height: 60px; }
-      .hero-wrapper { border-radius: 0; min-height: 380px; padding-top: 88px; }
-      .hero-parallax { flex-direction: column; min-height: 520px; }
-      .hero-text { padding: 40px 28px 24px; }
-      .hero-image { flex: none; min-height: 220px; margin: 0; border-radius: 0; }
-      .home-about { padding: 36px 24px 48px; } .section-divider { margin: 0 24px; }
-      .artwork-section, .about-full, .contact-section { padding: 52px 24px; }
-      .artwork-grid { grid-template-columns: 1fr 1fr; }
-      .artwork-card-info { padding: 12px 14px 16px; } .artwork-card-title { font-size: 0.95rem; } .artwork-card-meta { font-size: 0.75rem; }
-      .artwork-section { border-radius: 0; } .contact-section { border-radius: 0; } .video-inner { max-width: 100%; }
-      #paintApp { width: 100vw; height: 100vh; border-radius: 0; }
-      #paintColorPanel { width: 44px; }
-      #paintToolbar { width: 44px; }
+      #pagePush{height:0;} header{padding:14px 20px;border-radius:0;} .logo-svg{width:60px;height:60px;}
+      .hero-wrapper{border-radius:0;min-height:380px;padding-top:88px;} .hero-parallax{flex-direction:column;min-height:520px;}
+      .hero-text{padding:40px 28px 24px;} .hero-image{flex:none;min-height:220px;margin:0;border-radius:0;}
+      .home-about{padding:36px 24px 48px;} .section-divider{margin:0 24px;}
+      .artwork-section,.about-full,.contact-section{padding:52px 24px;}
+      .artwork-grid{grid-template-columns:1fr 1fr;} .artwork-card-info{padding:12px 14px 16px;}
+      .artwork-card-title{font-size:0.95rem;} .artwork-card-meta{font-size:0.75rem;}
+      .artwork-section{border-radius:0;} .contact-section{border-radius:0;} .video-inner{max-width:100%;}
+      #paintApp{width:100vw;height:100vh;border-radius:0;} #paintColorPanel{width:44px;} #paintToolbar{width:44px;}
+      #resumeTopBar{padding:10px 16px;} .resume-title{font-size:0.85rem;}
     }
   </style>
 </head>
@@ -391,7 +321,7 @@
     <a href="#artwork" onclick="closeMenu()">Artwork</a>
     <a href="#about"   onclick="closeMenu()">About</a>
     <a href="#contact" onclick="closeMenu()">Contact</a>
-    <a href="#" onclick="closeMenu(); openResume();">Resume</a>
+    <a href="#" onclick="closeMenu();openResume();">Resume</a>
   </nav>
 
   <div id="headerWrapper">
@@ -417,10 +347,14 @@
   <!-- VIDEO -->
   <div class="video-wrapper">
     <div class="video-inner"><div class="video-ratio">
-      <iframe src="https://www.youtube.com/embed/Qx0MGaEHbYw?si=FI2qcJgya8DFB6XI" title="My First Mural" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/Qx0MGaEHbYw?si=FI2qcJgya8DFB6XI"
+        title="My First Mural" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
     </div></div>
   </div>
 
+  <!-- HOME ABOUT -->
   <section class="home-about">
     <p class="about-label">A quote//</p>
     <p class="about-body">"Work hard for what you have, and learn to love the process of creation."</p>
@@ -466,7 +400,10 @@
       <p>I've been drawing for as long as I can remember — born in December 1994, my first ever drawing was a trapezoid, and I haven't stopped since.</p>
       <p>My favourite things to design are <strong>t-shirts, logos</strong>, and <strong>custom paintings</strong> — especially portraits of my favourite artists. Every piece I make starts from the heart and is built with intention.</p>
       <div class="skills-list">
-        <span class="skill-chip">Illustration</span><span class="skill-chip">Painting</span><span class="skill-chip">Graphic Design</span><span class="skill-chip">T-Shirt Design</span><span class="skill-chip">Logo Design</span><span class="skill-chip">Custom Portraits</span><span class="skill-chip">Freelance</span>
+        <span class="skill-chip">Illustration</span><span class="skill-chip">Painting</span>
+        <span class="skill-chip">Graphic Design</span><span class="skill-chip">T-Shirt Design</span>
+        <span class="skill-chip">Logo Design</span><span class="skill-chip">Custom Portraits</span>
+        <span class="skill-chip">Freelance</span>
       </div>
     </div>
     <div>
@@ -513,11 +450,38 @@
 
   <footer>&copy; 2025 <span>Peaces Design &amp; Illustration</span> · Tye Esparza · All rights reserved</footer>
 
+  <!-- ══ RESUME OVERLAY ══ -->
+  <div id="resumeOverlay">
+
+    <!-- Full-screen page lightbox -->
+    <div id="resumePageLightbox" onclick="closeResumeLightbox()">
+      <button id="resumeLightboxClose" onclick="closeResumeLightbox()">✕</button>
+      <img id="resumeLightboxImg" src="" alt="Resume full screen" />
+      <div id="resumeLightboxHint">Tap or click anywhere to close</div>
+    </div>
+
+    <div id="resumeTopBar">
+      <div class="resume-title">📄 <span>Tye Esparza</span> — Resume 2026</div>
+      <div class="resume-top-btns">
+        <a id="resumeDownloadBtn" href="Tye_Esparza_Resume_2026.pdf" download="Tye_Esparza_Resume_2026.pdf">⬇ Download PDF</a>
+        <button id="resumeCloseBtn" onclick="closeResume()">✕ Close</button>
+      </div>
+    </div>
+
+    <div id="resumeViewport">
+      <div id="resumeLoading">
+        <div class="resume-spinner"></div>
+        <span>Loading resume...</span>
+      </div>
+      <p id="resumeTapHint" style="display:none;">Click or long-press to view full screen</p>
+    </div>
+  </div>
+
   <!-- ══ MS PAINT APP ══ -->
   <div id="paintOverlay">
     <div id="paintApp">
       <div id="paintTitleBar">
-        <div class="title-left"><span class="title-icon">🎨</span><span>Peaces Paint — untitled.png</span></div>
+        <div class="title-left"><span>🎨</span><span>Peaces Paint — untitled.png</span></div>
         <button id="paintCloseBtn" onclick="closePaint()">✕</button>
       </div>
       <div id="paintMenuBar">
@@ -527,8 +491,6 @@
         <span class="paint-menu-item" onclick="openFrogger()">🐸 Frogger</span>
       </div>
       <div id="paintMain">
-
-        <!-- TOOLBAR LEFT -->
         <div id="paintToolbar">
           <button class="tool-btn active" id="tool-pencil"   onclick="setTool('pencil')"   title="Pencil">✏️</button>
           <button class="tool-btn"        id="tool-brush"    onclick="setTool('brush')"    title="Brush">🖌️</button>
@@ -543,26 +505,20 @@
           <button class="tool-btn"        id="tool-ellfill"  onclick="setTool('ellfill')"  title="Filled Ellipse">⬤</button>
           <div class="tool-separator"></div>
           <div id="sizePicker">
-            <div class="size-dot-btn active" id="sz1" style="width:4px;height:4px;" onclick="setSize(2,'sz1')"></div>
-            <div class="size-dot-btn"        id="sz2" style="width:7px;height:7px;" onclick="setSize(5,'sz2')"></div>
+            <div class="size-dot-btn active" id="sz1" style="width:4px;height:4px;"   onclick="setSize(2,'sz1')"></div>
+            <div class="size-dot-btn"        id="sz2" style="width:7px;height:7px;"   onclick="setSize(5,'sz2')"></div>
             <div class="size-dot-btn"        id="sz3" style="width:11px;height:11px;" onclick="setSize(9,'sz3')"></div>
             <div class="size-dot-btn"        id="sz4" style="width:15px;height:15px;" onclick="setSize(15,'sz4')"></div>
           </div>
         </div>
-
-        <!-- CANVAS -->
-        <div id="paintCanvasWrap">
-          <canvas id="paintCanvas" width="700" height="500"></canvas>
-        </div>
-
-        <!-- COLOR PANEL RIGHT -->
+        <div id="paintCanvasWrap"><canvas id="paintCanvas" width="700" height="500"></canvas></div>
         <div id="paintColorPanel">
           <label>Draw</label>
-          <div id="colorSwatch" style="background:#000000;" onclick="document.getElementById('colorPicker').click()"></div>
-          <input type="color" id="colorPicker" value="#000000" style="opacity:0;width:0;height:0;position:absolute;" onchange="updateFgColor(this.value)" />
+          <div id="colorSwatch"   style="background:#000000;" onclick="document.getElementById('colorPicker').click()"></div>
+          <input type="color" id="colorPicker"   value="#000000" onchange="updateFgColor(this.value)" />
           <label>Fill</label>
           <div id="bgColorSwatch" style="background:#ffffff;" onclick="document.getElementById('bgColorPicker').click()"></div>
-          <input type="color" id="bgColorPicker" value="#ffffff" style="opacity:0;width:0;height:0;position:absolute;" onchange="updateBgColor(this.value)" />
+          <input type="color" id="bgColorPicker" value="#ffffff" onchange="updateBgColor(this.value)" />
           <div class="tool-separator" style="width:36px;margin:2px 0;"></div>
           <label>Palette</label>
           <div class="palette-grid">
@@ -592,31 +548,7 @@
     </div>
   </div>
 
-  <!-- ══ RESUME OVERLAY ══ -->
-  <div id="resumeOverlay">
-    <div id="resumeTopBar">
-      <div class="resume-title">
-        📄 <span>Tye Esparza</span> — Resume 2026
-      </div>
-      <div style="display:flex;gap:12px;align-items:center;">
-        <a id="resumeDownloadBtn"
-           href="Tye_Esparza_Resume_2026.pdf"
-           download="Tye_Esparza_Resume_2026.pdf">
-          ⬇ Download PDF
-        </a>
-        <button id="resumeCloseBtn" onclick="closeResume()">✕ Close</button>
-      </div>
-    </div>
-    <div id="resumeViewport">
-      <div id="resumeLoading">
-        <div class="resume-spinner"></div>
-        <span>Loading resume...</span>
-      </div>
-      <!-- PDF pages rendered here by JS -->
-    </div>
-  </div>
-
-  <!-- FROGGER OVERLAY -->
+  <!-- ══ FROGGER OVERLAY ══ -->
   <div id="froggerOverlay">
     <div id="froggerUI">
       <span id="froggerScore">SCORE: 0</span>
@@ -633,383 +565,194 @@
     function closeMenu(){ ['sideNav','hamburgerBtn','navOverlay'].forEach(id=>document.getElementById(id).classList.remove('open')); }
     document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeResumeLightbox(); closeMenu(); closePaint(); closeFrogger(); closeResume(); } });
 
-    /* ════════════════════════════════════════
-       RESUME VIEWER
-       Uses PDF.js (from CDN via script tag)
-       to render each PDF page as a canvas,
-       then exports them as high-quality images.
-    ════════════════════════════════════════ */
-    let resumeLoaded = false;
+    /* ── Artwork Lightbox ── */
+    function openLightbox(src,alt){ const lb=document.getElementById('lightbox'),img=document.getElementById('lightboxImg'); img.src=src;img.alt=alt;lb.classList.add('open');document.body.style.overflow='hidden'; }
+    function closeLightbox(){ document.getElementById('lightbox').classList.remove('open');document.body.style.overflow=''; }
 
-    function openResume() {
-      document.getElementById('resumeOverlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
-      if (!resumeLoaded) loadResumePDF();
-    }
-
-    function closeResume() {
-      document.getElementById('resumeOverlay').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    function loadResumePDF() {
-      // Dynamically load PDF.js from CDN
-      if (window.pdfjsLib) { renderResume(); return; }
-
-      const script = document.createElement('script');
-      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-      script.onload = () => {
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc =
-          'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-        renderResume();
-      };
-      script.onerror = () => {
-        // Fallback: show PDF directly in an iframe if CDN blocked
-        showResumeFallback();
-      };
-      document.head.appendChild(script);
-    }
-
-    async function renderResume() {
-      const viewport = document.getElementById('resumeViewport');
-      const loading  = document.getElementById('resumeLoading');
-
-      try {
-        const pdf = await pdfjsLib.getDocument('Tye_Esparza_Resume_2026.pdf').promise;
-        loading.style.display = 'none';
-        resumeLoaded = true;
-
-        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-          const page   = await pdf.getPage(pageNum);
-          // Render at 2x scale for crisp high-DPI display
-          const scale  = 2.0;
-          const vp     = page.getViewport({ scale });
-
-          const canvas  = document.createElement('canvas');
-          canvas.width  = vp.width;
-          canvas.height = vp.height;
-
-          const ctx = canvas.getContext('2d');
-          await page.render({ canvasContext: ctx, viewport: vp }).promise;
-
-          // Wrap in a styled page div
-          const pageDiv = document.createElement('div');
-          pageDiv.className = 'resume-page';
-
-          // Convert canvas to sharp image
-          const img    = document.createElement('img');
-          img.src      = canvas.toDataURL('image/png');
-          img.alt      = `Resume page ${pageNum}`;
-          img.loading  = 'lazy';
-
-          // Click to fullscreen
-img.addEventListener('click', () => openResumeLightbox(img.src));
-
-// Long press / haptic hold on mobile
-let holdTimer;
-img.addEventListener('touchstart', () => {
-  holdTimer = setTimeout(() => {
-    if (navigator.vibrate) navigator.vibrate(40);
-    openResumeLightbox(img.src);
-  }, 500);
-}, { passive: true });
-img.addEventListener('touchend',   () => clearTimeout(holdTimer));
-img.addEventListener('touchmove',  () => clearTimeout(holdTimer));
-
-pageDiv.appendChild(img);
-          viewport.appendChild(pageDiv);
-        }
-      } catch (err) {
-        console.warn('PDF.js render error:', err);
-        showResumeFallback();
-      }
-    }
-
-    function showResumeFallback() {
-      // If PDF.js fails (e.g. no network for CDN), show embedded iframe instead
-      const viewport = document.getElementById('resumeViewport');
-      const loading  = document.getElementById('resumeLoading');
-      loading.style.display = 'none';
-      resumeLoaded = true;
-
-      const wrapper = document.createElement('div');
-      wrapper.style.cssText = 'width:100%;max-width:860px;height:80vh;border-radius:12px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.6);';
-
-      const iframe = document.createElement('iframe');
-      iframe.src   = 'Tye_Esparza_Resume_2026.pdf';
-      iframe.style.cssText = 'width:100%;height:100%;border:none;';
-      iframe.title = 'Tye Esparza Resume';
-
-      wrapper.appendChild(iframe);
-      viewport.appendChild(wrapper);
-    }
-
-    /* ── Lightbox ── */
-    function openLightbox(src,alt){ const lb=document.getElementById('lightbox'),img=document.getElementById('lightboxImg'); img.src=src; img.alt=alt; lb.classList.add('open'); document.body.style.overflow='hidden'; }
-    function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow=''; }
-
-    /* ── Scroll ── */
+    /* ── Scroll & Parallax ── */
     const header=document.getElementById('siteHeader'), heroParallax=document.getElementById('heroParallax');
     function applyScrollEffects(){ const s=window.scrollY,p=Math.min(s/125,1); header.style.opacity=1-p; header.style.transform=`translateY(-${p*24}px)`; heroParallax.style.transform=`translateY(-${s*0.3}px)`; }
-    let raf=false; window.addEventListener('scroll',()=>{ if(!raf){ requestAnimationFrame(()=>{ applyScrollEffects(); raf=false; }); raf=true; } },{passive:true});
+    let raf=false; window.addEventListener('scroll',()=>{ if(!raf){ requestAnimationFrame(()=>{ applyScrollEffects();raf=false; });raf=true; } },{passive:true});
     applyScrollEffects();
 
     /* ── Gyroscope hero ── */
     const heroImg=document.getElementById('heroImg'); let heroPerm=false;
     function applyGyro(e){ heroImg.style.transform=`translate(${(Math.max(-20,Math.min(20,e.gamma))/20)*-8}px,${(Math.max(-20,Math.min(20,e.beta))/20)*-5}px)`; }
-    function requestGyro(){ if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){ DeviceOrientationEvent.requestPermission().then(s=>{ if(s==='granted'){ window.addEventListener('deviceorientation',applyGyro); heroPerm=true; } }).catch(console.error); } else { window.addEventListener('deviceorientation',applyGyro); } }
+    function requestGyro(){ if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){ DeviceOrientationEvent.requestPermission().then(s=>{ if(s==='granted'){ window.addEventListener('deviceorientation',applyGyro);heroPerm=true; } }).catch(console.error); } else { window.addEventListener('deviceorientation',applyGyro); } }
     if(window.innerWidth<=768){ if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission!=='function'){ window.addEventListener('deviceorientation',applyGyro); } else { const hs=document.querySelector('.hero-wrapper'); if(hs) hs.addEventListener('touchstart',function f(){ if(!heroPerm) requestGyro(); hs.removeEventListener('touchstart',f); }); } }
+
+    /* ════════════════════════════════════════
+       RESUME VIEWER
+    ════════════════════════════════════════ */
+    let resumeLoaded = false;
+
+    function openResume(){
+      document.getElementById('resumeOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if(!resumeLoaded) loadResumePDF();
+    }
+    function closeResume(){
+      document.getElementById('resumeOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* Full-screen page lightbox */
+    function openResumeLightbox(src){
+      const lb=document.getElementById('resumePageLightbox');
+      document.getElementById('resumeLightboxImg').src=src;
+      lb.classList.add('open');
+    }
+    function closeResumeLightbox(){
+      document.getElementById('resumePageLightbox').classList.remove('open');
+      document.getElementById('resumeLightboxImg').src='';
+    }
+
+    function loadResumePDF(){
+      if(window.pdfjsLib){ renderResume(); return; }
+      const script=document.createElement('script');
+      script.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+      script.onload=()=>{ window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; renderResume(); };
+      script.onerror=()=>showResumeFallback();
+      document.head.appendChild(script);
+    }
+
+    async function renderResume(){
+      const viewport=document.getElementById('resumeViewport');
+      const loading=document.getElementById('resumeLoading');
+      const hint=document.getElementById('resumeTapHint');
+      try {
+        const pdf=await pdfjsLib.getDocument('Tye_Esparza_Resume_2026.pdf').promise;
+        loading.style.display='none';
+        hint.style.display='block';
+        resumeLoaded=true;
+
+        for(let pageNum=1;pageNum<=pdf.numPages;pageNum++){
+          const page=await pdf.getPage(pageNum);
+          const scale=2.0;
+          const vp=page.getViewport({scale});
+          const canvas=document.createElement('canvas');
+          canvas.width=vp.width; canvas.height=vp.height;
+          await page.render({canvasContext:canvas.getContext('2d'),viewport:vp}).promise;
+
+          const pageDiv=document.createElement('div');
+          pageDiv.className='resume-page';
+
+          const img=document.createElement('img');
+          img.src=canvas.toDataURL('image/png');
+          img.alt=`Resume page ${pageNum}`;
+          img.loading='lazy';
+
+          /* Click — open full screen */
+          img.addEventListener('click',()=>openResumeLightbox(img.src));
+
+          /* Long press / haptic hold on mobile */
+          let holdTimer;
+          img.addEventListener('touchstart',()=>{
+            holdTimer=setTimeout(()=>{
+              if(navigator.vibrate) navigator.vibrate(40);
+              openResumeLightbox(img.src);
+            },500);
+          },{passive:true});
+          img.addEventListener('touchend', ()=>clearTimeout(holdTimer));
+          img.addEventListener('touchmove',()=>clearTimeout(holdTimer));
+
+          pageDiv.appendChild(img);
+          viewport.appendChild(pageDiv);
+        }
+      } catch(err){ console.warn('PDF.js error:',err); showResumeFallback(); }
+    }
+
+    function showResumeFallback(){
+      const viewport=document.getElementById('resumeViewport');
+      document.getElementById('resumeLoading').style.display='none';
+      resumeLoaded=true;
+      const wrapper=document.createElement('div');
+      wrapper.style.cssText='width:100%;max-width:860px;height:80vh;border-radius:12px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.6);';
+      const iframe=document.createElement('iframe');
+      iframe.src='Tye_Esparza_Resume_2026.pdf';
+      iframe.style.cssText='width:100%;height:100%;border:none;';
+      iframe.title='Tye Esparza Resume';
+      wrapper.appendChild(iframe);
+      viewport.appendChild(wrapper);
+    }
 
     /* ════════════════════════════════════════
        MS PAINT
     ════════════════════════════════════════ */
-    function openPaint(){
-      document.getElementById('paintOverlay').classList.add('open');
-      document.body.style.overflow='hidden';
-      initPaint();
-    }
-    function closePaint(){
-      document.getElementById('paintOverlay').classList.remove('open');
-      document.body.style.overflow='';
-    }
+    function openPaint(){ document.getElementById('paintOverlay').classList.add('open'); document.body.style.overflow='hidden'; initPaint(); }
+    function closePaint(){ document.getElementById('paintOverlay').classList.remove('open'); document.body.style.overflow=''; }
 
     let paintInited=false;
     function initPaint(){
-      if(paintInited) return;
-      paintInited=true;
-      const canvas=document.getElementById('paintCanvas');
-      const ctx=canvas.getContext('2d');
-
-      // Fill white
+      if(paintInited) return; paintInited=true;
+      const canvas=document.getElementById('paintCanvas'), ctx=canvas.getContext('2d');
       ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,canvas.width,canvas.height);
-
-      let tool='pencil', fgColor='#000000', bgColor='#ffffff';
-      let brushSize=2, drawing=false;
-      let startX=0, startY=0;
-      let snapshot=null;
+      let tool='pencil',fgColor='#000000',bgColor='#ffffff',brushSize=2,drawing=false,startX=0,startY=0,snapshot=null;
       const history=[];
-
       function saveHistory(){ history.push(ctx.getImageData(0,0,canvas.width,canvas.height)); if(history.length>40) history.shift(); }
-
-      window.setTool=function(t){
-        tool=t;
-        document.querySelectorAll('.tool-btn').forEach(b=>b.classList.remove('active'));
-        const el=document.getElementById('tool-'+t);
-        if(el) el.classList.add('active');
-        document.getElementById('paintToolName').textContent='Tool: '+t.charAt(0).toUpperCase()+t.slice(1);
-        canvas.style.cursor=t==='eraser'?'cell':t==='fill'?'crosshair':t==='eyedrop'?'copy':'crosshair';
-      };
-
-      window.setSize=function(s,id){
-        brushSize=s;
-        document.querySelectorAll('.size-dot-btn').forEach(b=>b.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-      };
-
+      window.setTool=function(t){ tool=t; document.querySelectorAll('.tool-btn').forEach(b=>b.classList.remove('active')); const el=document.getElementById('tool-'+t); if(el) el.classList.add('active'); document.getElementById('paintToolName').textContent='Tool: '+t.charAt(0).toUpperCase()+t.slice(1); canvas.style.cursor=t==='eraser'?'cell':'crosshair'; };
+      window.setSize=function(s,id){ brushSize=s; document.querySelectorAll('.size-dot-btn').forEach(b=>b.classList.remove('active')); document.getElementById(id).classList.add('active'); };
       window.updateFgColor=function(c){ fgColor=c; document.getElementById('colorSwatch').style.background=c; document.getElementById('colorPicker').value=c; };
       window.updateBgColor=function(c){ bgColor=c; document.getElementById('bgColorSwatch').style.background=c; document.getElementById('bgColorPicker').value=c; };
-
-      window.undoPaint=function(){ if(history.length>0){ ctx.putImageData(history.pop(),0,0); } };
-
-      window.clearCanvas=function(){
-        saveHistory();
-        ctx.fillStyle=bgColor; ctx.fillRect(0,0,canvas.width,canvas.height);
-      };
-
-      window.downloadPainting=function(){
-        const link=document.createElement('a');
-        link.download='peaces-paint-'+Date.now()+'.png';
-        link.href=canvas.toDataURL('image/png');
-        link.click();
-      };
-
-      function getPos(e){
-        const rect=canvas.getBoundingClientRect();
-        const scaleX=canvas.width/rect.width, scaleY=canvas.height/rect.height;
-        const src=e.touches?e.touches[0]:e;
-        return { x:Math.floor((src.clientX-rect.left)*scaleX), y:Math.floor((src.clientY-rect.top)*scaleY) };
-      }
-
-      function floodFill(x,y,fillCol){
-        const imgData=ctx.getImageData(0,0,canvas.width,canvas.height);
-        const data=imgData.data;
-        const idx=(y*canvas.width+x)*4;
-        const tr=data[idx],tg=data[idx+1],tb=data[idx+2],ta=data[idx+3];
-        const fc=hexToRgb(fillCol);
-        if(tr===fc.r&&tg===fc.g&&tb===fc.b) return;
-        const stack=[[x,y]];
-        while(stack.length){
-          const [cx,cy]=stack.pop();
-          const ci=(cy*canvas.width+cx)*4;
-          if(cx<0||cx>=canvas.width||cy<0||cy>=canvas.height) continue;
-          if(data[ci]!==tr||data[ci+1]!==tg||data[ci+2]!==tb||data[ci+3]!==ta) continue;
-          data[ci]=fc.r; data[ci+1]=fc.g; data[ci+2]=fc.b; data[ci+3]=255;
-          stack.push([cx+1,cy],[cx-1,cy],[cx,cy+1],[cx,cy-1]);
-        }
-        ctx.putImageData(imgData,0,0);
-      }
-
-      function hexToRgb(hex){ const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16); return {r,g,b}; }
-
+      window.undoPaint=function(){ if(history.length>0) ctx.putImageData(history.pop(),0,0); };
+      window.clearCanvas=function(){ saveHistory(); ctx.fillStyle=bgColor; ctx.fillRect(0,0,canvas.width,canvas.height); };
+      window.downloadPainting=function(){ const l=document.createElement('a'); l.download='peaces-paint-'+Date.now()+'.png'; l.href=canvas.toDataURL('image/png'); l.click(); };
+      function getPos(e){ const rect=canvas.getBoundingClientRect(),scaleX=canvas.width/rect.width,scaleY=canvas.height/rect.height,src=e.touches?e.touches[0]:e; return{x:Math.floor((src.clientX-rect.left)*scaleX),y:Math.floor((src.clientY-rect.top)*scaleY)}; }
+      function hexToRgb(hex){ return{r:parseInt(hex.slice(1,3),16),g:parseInt(hex.slice(3,5),16),b:parseInt(hex.slice(5,7),16)}; }
+      function floodFill(x,y,fc){ const id=ctx.getImageData(0,0,canvas.width,canvas.height),d=id.data,idx=(y*canvas.width+x)*4,tr=d[idx],tg=d[idx+1],tb=d[idx+2],ta=d[idx+3],f=hexToRgb(fc); if(tr===f.r&&tg===f.g&&tb===f.b) return; const st=[[x,y]]; while(st.length){ const[cx,cy]=st.pop(),ci=(cy*canvas.width+cx)*4; if(cx<0||cx>=canvas.width||cy<0||cy>=canvas.height) continue; if(d[ci]!==tr||d[ci+1]!==tg||d[ci+2]!==tb||d[ci+3]!==ta) continue; d[ci]=f.r;d[ci+1]=f.g;d[ci+2]=f.b;d[ci+3]=255; st.push([cx+1,cy],[cx-1,cy],[cx,cy+1],[cx,cy-1]); } ctx.putImageData(id,0,0); }
       function pickColor(x,y){ const d=ctx.getImageData(x,y,1,1).data; return '#'+[d[0],d[1],d[2]].map(v=>v.toString(16).padStart(2,'0')).join(''); }
-
-      function drawShape(x,y){
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        ctx.putImageData(snapshot,0,0);
-        ctx.strokeStyle=fgColor; ctx.fillStyle=fgColor; ctx.lineWidth=brushSize; ctx.lineCap='round';
-        const w=x-startX, h=y-startY;
-        if(tool==='line'){ ctx.beginPath(); ctx.moveTo(startX,startY); ctx.lineTo(x,y); ctx.stroke(); }
-        else if(tool==='rect'){ ctx.strokeRect(startX,startY,w,h); }
-        else if(tool==='rectfill'){ ctx.fillRect(startX,startY,w,h); }
-        else if(tool==='ellipse'){ ctx.beginPath(); ctx.ellipse(startX+w/2,startY+h/2,Math.abs(w/2),Math.abs(h/2),0,0,Math.PI*2); ctx.stroke(); }
-        else if(tool==='ellfill'){ ctx.beginPath(); ctx.ellipse(startX+w/2,startY+h/2,Math.abs(w/2),Math.abs(h/2),0,0,Math.PI*2); ctx.fill(); }
-      }
-
-      function onDown(e){
-        e.preventDefault();
-        const {x,y}=getPos(e);
-        if(tool==='fill'){ saveHistory(); floodFill(x,y,fgColor); return; }
-        if(tool==='eyedrop'){ updateFgColor(pickColor(x,y)); return; }
-        saveHistory();
-        drawing=true; startX=x; startY=y;
-        snapshot=ctx.getImageData(0,0,canvas.width,canvas.height);
-        ctx.strokeStyle=tool==='eraser'?bgColor:fgColor;
-        ctx.fillStyle=fgColor; ctx.lineWidth=tool==='eraser'?brushSize*3:brushSize;
-        ctx.lineCap='round'; ctx.lineJoin='round';
-        if(tool==='pencil'||tool==='brush'||tool==='eraser'){
-          ctx.beginPath(); ctx.moveTo(x,y);
-        }
-      }
-
-      function onMove(e){
-        e.preventDefault();
-        const {x,y}=getPos(e);
-        document.getElementById('paintCoords').textContent=x+', '+y;
-        if(!drawing) return;
-        if(tool==='pencil'||tool==='brush'||tool==='eraser'){
-          ctx.lineTo(x,y); ctx.stroke();
-        } else { drawShape(x,y); }
-      }
-
-      function onUp(e){
-        if(!drawing) return;
-        drawing=false;
-        const {x,y}=getPos(e||{clientX:startX,clientY:startY});
-        if(['line','rect','rectfill','ellipse','ellfill'].includes(tool)) drawShape(x,y);
-      }
-
-      canvas.addEventListener('mousedown',onDown);
-      canvas.addEventListener('mousemove',onMove);
-      canvas.addEventListener('mouseup',onUp);
-      canvas.addEventListener('mouseleave',onUp);
-      canvas.addEventListener('touchstart',onDown,{passive:false});
-      canvas.addEventListener('touchmove',onMove,{passive:false});
-      canvas.addEventListener('touchend',onUp,{passive:false});
+      function drawShape(x,y){ ctx.clearRect(0,0,canvas.width,canvas.height); ctx.putImageData(snapshot,0,0); ctx.strokeStyle=fgColor;ctx.fillStyle=fgColor;ctx.lineWidth=brushSize;ctx.lineCap='round'; const w=x-startX,h=y-startY; if(tool==='line'){ctx.beginPath();ctx.moveTo(startX,startY);ctx.lineTo(x,y);ctx.stroke();} else if(tool==='rect'){ctx.strokeRect(startX,startY,w,h);} else if(tool==='rectfill'){ctx.fillRect(startX,startY,w,h);} else if(tool==='ellipse'){ctx.beginPath();ctx.ellipse(startX+w/2,startY+h/2,Math.abs(w/2),Math.abs(h/2),0,0,Math.PI*2);ctx.stroke();} else if(tool==='ellfill'){ctx.beginPath();ctx.ellipse(startX+w/2,startY+h/2,Math.abs(w/2),Math.abs(h/2),0,0,Math.PI*2);ctx.fill();} }
+      function onDown(e){ e.preventDefault(); const{x,y}=getPos(e); if(tool==='fill'){saveHistory();floodFill(x,y,fgColor);return;} if(tool==='eyedrop'){updateFgColor(pickColor(x,y));return;} saveHistory();drawing=true;startX=x;startY=y;snapshot=ctx.getImageData(0,0,canvas.width,canvas.height); ctx.strokeStyle=tool==='eraser'?bgColor:fgColor;ctx.fillStyle=fgColor;ctx.lineWidth=tool==='eraser'?brushSize*3:brushSize;ctx.lineCap='round';ctx.lineJoin='round'; if(['pencil','brush','eraser'].includes(tool)){ctx.beginPath();ctx.moveTo(x,y);} }
+      function onMove(e){ e.preventDefault(); const{x,y}=getPos(e); document.getElementById('paintCoords').textContent=x+', '+y; if(!drawing) return; if(['pencil','brush','eraser'].includes(tool)){ctx.lineTo(x,y);ctx.stroke();} else drawShape(x,y); }
+      function onUp(e){ if(!drawing) return; drawing=false; const{x,y}=getPos(e||{clientX:startX,clientY:startY}); if(['line','rect','rectfill','ellipse','ellfill'].includes(tool)) drawShape(x,y); }
+      canvas.addEventListener('mousedown',onDown); canvas.addEventListener('mousemove',onMove); canvas.addEventListener('mouseup',onUp); canvas.addEventListener('mouseleave',onUp);
+      canvas.addEventListener('touchstart',onDown,{passive:false}); canvas.addEventListener('touchmove',onMove,{passive:false}); canvas.addEventListener('touchend',onUp,{passive:false});
     }
 
     /* ════════════════════════════════════════
        TROPICAL FROGGER
     ════════════════════════════════════════ */
-    let frogRAF, frogRunning=false, frogGyroActive=false;
-    function openFrogger(){ document.getElementById('froggerOverlay').classList.add('open'); document.body.style.overflow='hidden'; startFrogger(); }
-    function closeFrogger(){ document.getElementById('froggerOverlay').classList.remove('open'); document.body.style.overflow=''; frogRunning=false; cancelAnimationFrame(frogRAF); if(frogGyroActive){ window.removeEventListener('deviceorientation',frogGyroHandler); frogGyroActive=false; } }
+    let frogRAF,frogRunning=false,frogGyroActive=false;
+    function openFrogger(){ document.getElementById('froggerOverlay').classList.add('open');document.body.style.overflow='hidden';startFrogger(); }
+    function closeFrogger(){ document.getElementById('froggerOverlay').classList.remove('open');document.body.style.overflow='';frogRunning=false;cancelAnimationFrame(frogRAF);if(frogGyroActive){window.removeEventListener('deviceorientation',frogGyroHandler);frogGyroActive=false;} }
 
     function startFrogger(){
-      const canvas=document.getElementById('froggerCanvas');
-      const ctx=canvas.getContext('2d');
-      const W=canvas.width, H=canvas.height;
-      const CELL=40;
-      const C={ sky:'#0a1a0a',canopy:'#1a4a1a',leaf:'#2d6e2d',road:'#2a2a1a',roadLine:'#4a4a2a',river:'#0a2a4a',riverHi:'#0d3a6a',safe:'#1a3a1a',frog:'#4dff4d',frogDk:'#2db82d',log:'#6b3a1a',logHi:'#8b5a2a',lily:'#2d8b2d',lilyHi:'#3dab3d',jeep:'#8b2020',jeepHi:'#ab3030',truck:'#20508b',truckHi:'#3070ab',snake:'#4a8b1a',snakeHi:'#6aab3a',firefly:'#ffffaa',vine:'#1a5a1a',goal:'#FFE600' };
-      function rowY(r){ return r*CELL; }
-      const vehicles=[
-        {row:12,x:0,  w:70,speed:1.4,col:C.jeep, colHi:C.jeepHi, dir:1},
-        {row:12,x:180,w:70,speed:1.4,col:C.jeep, colHi:C.jeepHi, dir:1},
-        {row:12,x:330,w:70,speed:1.4,col:C.jeep, colHi:C.jeepHi, dir:1},
-        {row:11,x:50, w:90,speed:1.1,col:C.truck,colHi:C.truckHi,dir:-1},
-        {row:11,x:250,w:90,speed:1.1,col:C.truck,colHi:C.truckHi,dir:-1},
-        {row:10,x:0,  w:60,speed:0.9,col:C.snake,colHi:C.snakeHi,dir:1},
-        {row:10,x:200,w:60,speed:0.9,col:C.snake,colHi:C.snakeHi,dir:1},
-        {row:3, x:100,w:70,speed:1.8,col:C.jeep, colHi:C.jeepHi, dir:-1},
-        {row:3, x:310,w:70,speed:1.8,col:C.jeep, colHi:C.jeepHi, dir:-1},
-        {row:2, x:20, w:90,speed:1.3,col:C.truck,colHi:C.truckHi,dir:1},
-        {row:2, x:250,w:90,speed:1.3,col:C.truck,colHi:C.truckHi,dir:1},
-        {row:1, x:0,  w:60,speed:2.2,col:C.jeep, colHi:C.jeepHi, dir:-1},
-        {row:1, x:160,w:60,speed:2.2,col:C.jeep, colHi:C.jeepHi, dir:-1},
-        {row:1, x:320,w:60,speed:2.2,col:C.jeep, colHi:C.jeepHi, dir:-1},
-      ];
-      const logs=[
-        {row:8,x:0,  w:100,speed:1.0,type:'log', dir:1},
-        {row:8,x:200,w:100,speed:1.0,type:'log', dir:1},
-        {row:7,x:50, w:55, speed:0.8,type:'lily',dir:-1},
-        {row:7,x:200,w:55, speed:0.8,type:'lily',dir:-1},
-        {row:7,x:350,w:55, speed:0.8,type:'lily',dir:-1},
-        {row:6,x:30, w:90, speed:1.4,type:'log', dir:1},
-        {row:6,x:230,w:90, speed:1.4,type:'log', dir:1},
-        {row:5,x:0,  w:60, speed:1.1,type:'lily',dir:1},
-        {row:5,x:160,w:60, speed:1.1,type:'lily',dir:1},
-        {row:5,x:310,w:60, speed:1.1,type:'lily',dir:1},
-      ];
+      const canvas=document.getElementById('froggerCanvas'),ctx=canvas.getContext('2d'),W=canvas.width,H=canvas.height,CELL=40;
+      const C={sky:'#0a1a0a',canopy:'#1a4a1a',leaf:'#2d6e2d',road:'#2a2a1a',roadLine:'#4a4a2a',river:'#0a2a4a',riverHi:'#0d3a6a',safe:'#1a3a1a',frog:'#4dff4d',frogDk:'#2db82d',log:'#6b3a1a',logHi:'#8b5a2a',lily:'#2d8b2d',jeep:'#8b2020',jeepHi:'#ab3030',truck:'#20508b',truckHi:'#3070ab',snake:'#4a8b1a',snakeHi:'#6aab3a',firefly:'#ffffaa',vine:'#1a5a1a',goal:'#FFE600'};
+      function rowY(r){return r*CELL;}
+      const vehicles=[{row:12,x:0,w:70,speed:1.4,col:C.jeep,colHi:C.jeepHi,dir:1},{row:12,x:180,w:70,speed:1.4,col:C.jeep,colHi:C.jeepHi,dir:1},{row:12,x:330,w:70,speed:1.4,col:C.jeep,colHi:C.jeepHi,dir:1},{row:11,x:50,w:90,speed:1.1,col:C.truck,colHi:C.truckHi,dir:-1},{row:11,x:250,w:90,speed:1.1,col:C.truck,colHi:C.truckHi,dir:-1},{row:10,x:0,w:60,speed:0.9,col:C.snake,colHi:C.snakeHi,dir:1},{row:10,x:200,w:60,speed:0.9,col:C.snake,colHi:C.snakeHi,dir:1},{row:3,x:100,w:70,speed:1.8,col:C.jeep,colHi:C.jeepHi,dir:-1},{row:3,x:310,w:70,speed:1.8,col:C.jeep,colHi:C.jeepHi,dir:-1},{row:2,x:20,w:90,speed:1.3,col:C.truck,colHi:C.truckHi,dir:1},{row:2,x:250,w:90,speed:1.3,col:C.truck,colHi:C.truckHi,dir:1},{row:1,x:0,w:60,speed:2.2,col:C.jeep,colHi:C.jeepHi,dir:-1},{row:1,x:160,w:60,speed:2.2,col:C.jeep,colHi:C.jeepHi,dir:-1},{row:1,x:320,w:60,speed:2.2,col:C.jeep,colHi:C.jeepHi,dir:-1}];
+      const logs=[{row:8,x:0,w:100,speed:1.0,type:'log',dir:1},{row:8,x:200,w:100,speed:1.0,type:'log',dir:1},{row:7,x:50,w:55,speed:0.8,type:'lily',dir:-1},{row:7,x:200,w:55,speed:0.8,type:'lily',dir:-1},{row:7,x:350,w:55,speed:0.8,type:'lily',dir:-1},{row:6,x:30,w:90,speed:1.4,type:'log',dir:1},{row:6,x:230,w:90,speed:1.4,type:'log',dir:1},{row:5,x:0,w:60,speed:1.1,type:'lily',dir:1},{row:5,x:160,w:60,speed:1.1,type:'lily',dir:1},{row:5,x:310,w:60,speed:1.1,type:'lily',dir:1}];
       const fireflies=Array.from({length:18},()=>({x:Math.random()*W,y:Math.random()*H,r:1.5+Math.random()*1.5,phase:Math.random()*Math.PI*2,speed:0.3+Math.random()*0.4,dx:(Math.random()-0.5)*0.4,dy:(Math.random()-0.5)*0.4}));
       const vines=Array.from({length:6},(_,i)=>({x:30+i*(W/6),len:30+Math.random()*40,sway:Math.random()*Math.PI*2}));
       const goals=[0,1,2,3,4].map(i=>({x:i*(W/5)+10,reached:false}));
       const FROG_W=30,FROG_H=28;
-      let frog={col:4,row:13,x:W/2-FROG_W/2,y:rowY(13)+6,riding:null};
+      let frog={col:4,row:13,x:W/2-FROG_W/2,y:rowY(13)+6};
       let score=0,lives=3,level=1;
       frogRunning=true;
-      function resetFrog(){ frog.col=4;frog.row=13;frog.x=W/2-FROG_W/2;frog.y=rowY(13)+6;frog.riding=null; }
-      function setHUD(){ document.getElementById('froggerScore').textContent=`SCORE: ${score}  LVL: ${level}`; document.getElementById('froggerLives').textContent='🐸'.repeat(Math.max(lives,0)); }
+      function resetFrog(){frog.row=13;frog.x=W/2-FROG_W/2;frog.y=rowY(13)+6;}
+      function setHUD(){document.getElementById('froggerScore').textContent=`SCORE: ${score}  LVL: ${level}`;document.getElementById('froggerLives').textContent='🐸'.repeat(Math.max(lives,0));}
       setHUD();
       let lastMove=0;
-      function tryMove(dir){
-        const now=performance.now(); if(now-lastMove<160) return; lastMove=now;
-        if(dir==='up'&&frog.row>0){ frog.row--;frog.y=rowY(frog.row)+6;score+=10;setHUD(); }
-        if(dir==='down'&&frog.row<13){ frog.row++;frog.y=rowY(frog.row)+6; }
-        if(dir==='left'&&frog.x>0){ frog.x=Math.max(0,frog.x-CELL); }
-        if(dir==='right'&&frog.x<W-FROG_W){ frog.x=Math.min(W-FROG_W,frog.x+CELL); }
-        frog.riding=null;
-      }
-      document.addEventListener('keydown',function frogKey(e){
-        if(!frogRunning){ document.removeEventListener('keydown',frogKey); return; }
-        if(e.key==='ArrowUp'){e.preventDefault();tryMove('up');}
-        if(e.key==='ArrowDown'){e.preventDefault();tryMove('down');}
-        if(e.key==='ArrowLeft'){e.preventDefault();tryMove('left');}
-        if(e.key==='ArrowRight'){e.preventDefault();tryMove('right');}
-      });
+      function tryMove(dir){ const now=performance.now();if(now-lastMove<160)return;lastMove=now; if(dir==='up'&&frog.row>0){frog.row--;frog.y=rowY(frog.row)+6;score+=10;setHUD();} if(dir==='down'&&frog.row<13){frog.row++;frog.y=rowY(frog.row)+6;} if(dir==='left'&&frog.x>0){frog.x=Math.max(0,frog.x-CELL);} if(dir==='right'&&frog.x<W-FROG_W){frog.x=Math.min(W-FROG_W,frog.x+CELL);} }
+      document.addEventListener('keydown',function frogKey(e){ if(!frogRunning){document.removeEventListener('keydown',frogKey);return;} if(e.key==='ArrowUp'){e.preventDefault();tryMove('up');} if(e.key==='ArrowDown'){e.preventDefault();tryMove('down');} if(e.key==='ArrowLeft'){e.preventDefault();tryMove('left');} if(e.key==='ArrowRight'){e.preventDefault();tryMove('right');} });
       let gyroTilt=0;
-      function frogGyroHandler(e){ gyroTilt=Math.max(-30,Math.min(30,e.gamma)); }
-      function setupFrogGyro(){ if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){ DeviceOrientationEvent.requestPermission().then(s=>{ if(s==='granted'){ window.addEventListener('deviceorientation',frogGyroHandler);frogGyroActive=true; } }).catch(console.error); } else { window.addEventListener('deviceorientation',frogGyroHandler);frogGyroActive=true; } }
+      function frogGyroHandler(e){gyroTilt=Math.max(-30,Math.min(30,e.gamma));}
+      function setupFrogGyro(){ if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){DeviceOrientationEvent.requestPermission().then(s=>{if(s==='granted'){window.addEventListener('deviceorientation',frogGyroHandler);frogGyroActive=true;}}).catch(console.error);}else{window.addEventListener('deviceorientation',frogGyroHandler);frogGyroActive=true;} }
       if(window.innerWidth<=768) setupFrogGyro();
       const fc=document.getElementById('froggerCanvas');
-      fc.addEventListener('touchstart',e=>{ e.preventDefault(); const t=e.touches[0],rect=fc.getBoundingClientRect(); const tx=(t.clientX-rect.left)/(rect.width)*W,ty=(t.clientY-rect.top)/(rect.height)*H; const dy=ty-(frog.y+FROG_H/2),dx=tx-(frog.x+FROG_W/2); if(Math.abs(dy)>Math.abs(dx)){ if(dy<0)tryMove('up');else tryMove('down'); } else { if(dx<0)tryMove('left');else tryMove('right'); } },{passive:false});
-
-      function drawBG(){
-        ctx.fillStyle=C.sky;ctx.fillRect(0,0,W,H);
-        for(let r=0;r<14;r++){
-          const y=rowY(r),h=CELL;
-          if(r===0){ ctx.fillStyle=C.canopy;ctx.fillRect(0,y,W,h); }
-          else if(r>=1&&r<=3){ ctx.fillStyle=C.road;ctx.fillRect(0,y,W,h);ctx.setLineDash([12,8]);ctx.strokeStyle=C.roadLine;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,y+h/2);ctx.lineTo(W,y+h/2);ctx.stroke();ctx.setLineDash([]); }
-          else if(r===4){ ctx.fillStyle=C.safe;ctx.fillRect(0,y,W,h); }
-          else if(r>=5&&r<=8){ ctx.fillStyle=C.river;ctx.fillRect(0,y,W,h);ctx.strokeStyle=C.riverHi;ctx.lineWidth=1;ctx.globalAlpha=0.3;for(let rx=0;rx<W;rx+=20){ctx.beginPath();ctx.arc(rx+(r*7)%20,y+h*0.4,6,0,Math.PI);ctx.stroke();}ctx.globalAlpha=1; }
-          else if(r===9){ ctx.fillStyle=C.safe;ctx.fillRect(0,y,W,h); }
-          else if(r>=10&&r<=12){ ctx.fillStyle=C.road;ctx.fillRect(0,y,W,h);ctx.setLineDash([12,8]);ctx.strokeStyle=C.roadLine;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,y+h/2);ctx.lineTo(W,y+h/2);ctx.stroke();ctx.setLineDash([]); }
-          else if(r===13){ ctx.fillStyle=C.safe;ctx.fillRect(0,y,W,h); }
-        }
-        goals.forEach((g,i)=>{ const gx=i*(W/5)+8,gy=rowY(0)+4,gw=W/5-16,gh=CELL-8;ctx.fillStyle=g.reached?C.goal:C.leaf;ctx.beginPath();ctx.roundRect(gx,gy,gw,gh,8);ctx.fill();if(g.reached){ctx.fillStyle='#fff';ctx.font='bold 14px Exo 2,sans-serif';ctx.textAlign='center';ctx.fillText('🐸',gx+gw/2,gy+gh-6);} });
-        vines.forEach(v=>{ ctx.strokeStyle=C.vine;ctx.lineWidth=3;ctx.lineCap='round';const sw=Math.sin(Date.now()*0.0008+v.sway)*8;ctx.beginPath();ctx.moveTo(v.x,0);ctx.quadraticCurveTo(v.x+sw,v.len/2,v.x+sw*0.5,v.len);ctx.stroke();ctx.fillStyle=C.leaf;ctx.beginPath();ctx.ellipse(v.x+sw*0.5,v.len,7,4,0.5,0,Math.PI*2);ctx.fill(); });
-        fireflies.forEach(f=>{ f.x+=f.dx;f.y+=f.dy;if(f.x<0)f.x=W;if(f.x>W)f.x=0;if(f.y<0)f.y=H;if(f.y>H)f.y=0;const a=0.4+0.6*Math.abs(Math.sin(Date.now()*f.speed*0.003+f.phase));ctx.save();ctx.globalAlpha=a;ctx.shadowColor=C.firefly;ctx.shadowBlur=8;ctx.fillStyle=C.firefly;ctx.beginPath();ctx.arc(f.x,f.y,f.r,0,Math.PI*2);ctx.fill();ctx.restore(); });
-      }
-      function drawVehicle(v){ const y=rowY(v.row)+4,h=CELL-8;ctx.fillStyle=v.col;ctx.beginPath();ctx.roundRect(v.x,y,v.w,h,6);ctx.fill();ctx.fillStyle=v.colHi;ctx.beginPath();ctx.roundRect(v.x+4,y+3,v.w-8,6,3);ctx.fill(); }
-      function drawLog(lg){ const y=rowY(lg.row)+6,h=CELL-12;if(lg.type==='log'){ctx.fillStyle=C.log;ctx.beginPath();ctx.roundRect(lg.x,y,lg.w,h,8);ctx.fill();ctx.fillStyle=C.logHi;for(let i=0;i<3;i++){ctx.beginPath();ctx.roundRect(lg.x+4+i*(lg.w/3-2),y+3,lg.w/3-6,h-6,4);ctx.fill();}}else{ctx.fillStyle=C.lily;ctx.beginPath();ctx.ellipse(lg.x+lg.w/2,y+h/2,lg.w/2,h/2,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#ffaaaa';ctx.beginPath();ctx.arc(lg.x+lg.w/2,y+h/2,4,0,Math.PI*2);ctx.fill();} }
-      function drawFrog(){ const fx=frog.x,fy=frog.y,fw=FROG_W,fh=FROG_H;ctx.fillStyle=C.frog;ctx.beginPath();ctx.ellipse(fx+fw/2,fy+fh/2,fw/2,fh/2,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#a0ffa0';ctx.beginPath();ctx.ellipse(fx+fw/2,fy+fh/2+2,fw/3,fh/3,0,0,Math.PI*2);ctx.fill();[fx+6,fx+fw-10].forEach(ex=>{ctx.fillStyle=C.frogDk;ctx.beginPath();ctx.arc(ex+2,fy+7,5,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(ex+2,fy+7,3,0,Math.PI*2);ctx.fill();ctx.fillStyle='#111';ctx.beginPath();ctx.arc(ex+3,fy+7,1.5,0,Math.PI*2);ctx.fill();}); }
-
-      function loop(ts){
-        if(!frogRunning) return;
-        vehicles.forEach(v=>{ v.x+=v.speed*v.dir;if(v.dir===1&&v.x>W)v.x=-v.w;if(v.dir===-1&&v.x+v.w<0)v.x=W; });
-        logs.forEach(lg=>{ lg.x+=lg.speed*lg.dir;if(lg.dir===1&&lg.x>W)lg.x=-lg.w;if(lg.dir===-1&&lg.x+lg.w<0)lg.x=W; });
-        if(frogGyroActive&&Math.abs(gyroTilt)>8){ frog.x+=gyroTilt*0.04;frog.x=Math.max(0,Math.min(W-FROG_W,frog.x)); }
-        if(frog.row>=5&&frog.row<=8){ let on=false;logs.forEach(lg=>{ if(lg.row===frog.row){ const fx=frog.x+FROG_W/2;if(fx>lg.x&&fx<lg.x+lg.w){frog.x+=lg.speed*lg.dir;on=true;} } });if(!on){lives--;setHUD();if(lives<=0){frogRunning=false;drawBG();ctx.fillStyle='rgba(0,0,0,0.75)';ctx.fillRect(0,0,W,H);ctx.textAlign='center';ctx.font='bold 34px "Exo 2",sans-serif';ctx.fillStyle='#ff6060';ctx.fillText('GAME OVER',W/2,H/2-24);ctx.font='20px "Exo 2",sans-serif';ctx.fillStyle='#fff';ctx.fillText('Score: '+score,W/2,H/2+16);return;}resetFrog();}frog.x=Math.max(0,Math.min(W-FROG_W,frog.x)); }
-        if([1,2,3,10,11,12].includes(frog.row)){ vehicles.forEach(v=>{ if(v.row===frog.row&&frog.x+FROG_W>v.x+4&&frog.x<v.x+v.w-4){lives--;setHUD();if(lives<=0){frogRunning=false;return;}resetFrog();} }); }
-        if(frog.row===0){ const gi=Math.floor((frog.x+FROG_W/2)/(W/5));if(gi>=0&&gi<5&&!goals[gi].reached){goals[gi].reached=true;score+=200;setHUD();if(goals.every(g=>g.reached)){level++;score+=500;goals.forEach(g=>g.reached=false);vehicles.forEach(v=>v.speed*=1.1);logs.forEach(lg=>lg.speed*=1.1);setHUD();}resetFrog();}else{resetFrog();} }
+      fc.addEventListener('touchstart',e=>{e.preventDefault();const t=e.touches[0],rect=fc.getBoundingClientRect();const tx=(t.clientX-rect.left)/(rect.width)*W,ty=(t.clientY-rect.top)/(rect.height)*H;const dy=ty-(frog.y+FROG_H/2),dx=tx-(frog.x+FROG_W/2);if(Math.abs(dy)>Math.abs(dx)){if(dy<0)tryMove('up');else tryMove('down');}else{if(dx<0)tryMove('left');else tryMove('right');}},{passive:false});
+      function drawBG(){ ctx.fillStyle=C.sky;ctx.fillRect(0,0,W,H); for(let r=0;r<14;r++){const y=rowY(r),h=CELL;if(r===0){ctx.fillStyle=C.canopy;ctx.fillRect(0,y,W,h);}else if(r>=1&&r<=3){ctx.fillStyle=C.road;ctx.fillRect(0,y,W,h);ctx.setLineDash([12,8]);ctx.strokeStyle=C.roadLine;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,y+h/2);ctx.lineTo(W,y+h/2);ctx.stroke();ctx.setLineDash([]);}else if(r===4){ctx.fillStyle=C.safe;ctx.fillRect(0,y,W,h);}else if(r>=5&&r<=8){ctx.fillStyle=C.river;ctx.fillRect(0,y,W,h);ctx.strokeStyle=C.riverHi;ctx.lineWidth=1;ctx.globalAlpha=0.3;for(let rx=0;rx<W;rx+=20){ctx.beginPath();ctx.arc(rx+(r*7)%20,y+h*0.4,6,0,Math.PI);ctx.stroke();}ctx.globalAlpha=1;}else if(r===9){ctx.fillStyle=C.safe;ctx.fillRect(0,y,W,h);}else if(r>=10&&r<=12){ctx.fillStyle=C.road;ctx.fillRect(0,y,W,h);ctx.setLineDash([12,8]);ctx.strokeStyle=C.roadLine;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,y+h/2);ctx.lineTo(W,y+h/2);ctx.stroke();ctx.setLineDash([]);}else if(r===13){ctx.fillStyle=C.safe;ctx.fillRect(0,y,W,h);} } goals.forEach((g,i)=>{const gx=i*(W/5)+8,gy=rowY(0)+4,gw=W/5-16,gh=CELL-8;ctx.fillStyle=g.reached?C.goal:C.leaf;ctx.beginPath();ctx.roundRect(gx,gy,gw,gh,8);ctx.fill();if(g.reached){ctx.fillStyle='#fff';ctx.font='bold 14px sans-serif';ctx.textAlign='center';ctx.fillText('🐸',gx+gw/2,gy+gh-6);}}); vines.forEach(v=>{ctx.strokeStyle=C.vine;ctx.lineWidth=3;ctx.lineCap='round';const sw=Math.sin(Date.now()*0.0008+v.sway)*8;ctx.beginPath();ctx.moveTo(v.x,0);ctx.quadraticCurveTo(v.x+sw,v.len/2,v.x+sw*0.5,v.len);ctx.stroke();ctx.fillStyle=C.leaf;ctx.beginPath();ctx.ellipse(v.x+sw*0.5,v.len,7,4,0.5,0,Math.PI*2);ctx.fill();}); fireflies.forEach(f=>{f.x+=f.dx;f.y+=f.dy;if(f.x<0)f.x=W;if(f.x>W)f.x=0;if(f.y<0)f.y=H;if(f.y>H)f.y=0;const a=0.4+0.6*Math.abs(Math.sin(Date.now()*f.speed*0.003+f.phase));ctx.save();ctx.globalAlpha=a;ctx.shadowColor=C.firefly;ctx.shadowBlur=8;ctx.fillStyle=C.firefly;ctx.beginPath();ctx.arc(f.x,f.y,f.r,0,Math.PI*2);ctx.fill();ctx.restore();}); }
+      function drawVehicle(v){const y=rowY(v.row)+4,h=CELL-8;ctx.fillStyle=v.col;ctx.beginPath();ctx.roundRect(v.x,y,v.w,h,6);ctx.fill();ctx.fillStyle=v.colHi;ctx.beginPath();ctx.roundRect(v.x+4,y+3,v.w-8,6,3);ctx.fill();}
+      function drawLog(lg){const y=rowY(lg.row)+6,h=CELL-12;if(lg.type==='log'){ctx.fillStyle=C.log;ctx.beginPath();ctx.roundRect(lg.x,y,lg.w,h,8);ctx.fill();ctx.fillStyle=C.logHi;for(let i=0;i<3;i++){ctx.beginPath();ctx.roundRect(lg.x+4+i*(lg.w/3-2),y+3,lg.w/3-6,h-6,4);ctx.fill();}}else{ctx.fillStyle=C.lily;ctx.beginPath();ctx.ellipse(lg.x+lg.w/2,y+h/2,lg.w/2,h/2,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#ffaaaa';ctx.beginPath();ctx.arc(lg.x+lg.w/2,y+h/2,4,0,Math.PI*2);ctx.fill();}}
+      function drawFrog(){const fx=frog.x,fy=frog.y,fw=FROG_W,fh=FROG_H;ctx.fillStyle=C.frog;ctx.beginPath();ctx.ellipse(fx+fw/2,fy+fh/2,fw/2,fh/2,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#a0ffa0';ctx.beginPath();ctx.ellipse(fx+fw/2,fy+fh/2+2,fw/3,fh/3,0,0,Math.PI*2);ctx.fill();[fx+6,fx+fw-10].forEach(ex=>{ctx.fillStyle=C.frogDk;ctx.beginPath();ctx.arc(ex+2,fy+7,5,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(ex+2,fy+7,3,0,Math.PI*2);ctx.fill();ctx.fillStyle='#111';ctx.beginPath();ctx.arc(ex+3,fy+7,1.5,0,Math.PI*2);ctx.fill();});}
+      function loop(){
+        if(!frogRunning)return;
+        vehicles.forEach(v=>{v.x+=v.speed*v.dir;if(v.dir===1&&v.x>W)v.x=-v.w;if(v.dir===-1&&v.x+v.w<0)v.x=W;});
+        logs.forEach(lg=>{lg.x+=lg.speed*lg.dir;if(lg.dir===1&&lg.x>W)lg.x=-lg.w;if(lg.dir===-1&&lg.x+lg.w<0)lg.x=W;});
+        if(frogGyroActive&&Math.abs(gyroTilt)>8){frog.x+=gyroTilt*0.04;frog.x=Math.max(0,Math.min(W-FROG_W,frog.x));}
+        if(frog.row>=5&&frog.row<=8){let on=false;logs.forEach(lg=>{if(lg.row===frog.row){const fx=frog.x+FROG_W/2;if(fx>lg.x&&fx<lg.x+lg.w){frog.x+=lg.speed*lg.dir;on=true;}}});if(!on){lives--;setHUD();if(lives<=0){frogRunning=false;drawBG();ctx.fillStyle='rgba(0,0,0,0.75)';ctx.fillRect(0,0,W,H);ctx.textAlign='center';ctx.font='bold 34px sans-serif';ctx.fillStyle='#ff6060';ctx.fillText('GAME OVER',W/2,H/2-24);ctx.font='20px sans-serif';ctx.fillStyle='#fff';ctx.fillText('Score: '+score,W/2,H/2+16);return;}resetFrog();}frog.x=Math.max(0,Math.min(W-FROG_W,frog.x));}
+        if([1,2,3,10,11,12].includes(frog.row)){vehicles.forEach(v=>{if(v.row===frog.row&&frog.x+FROG_W>v.x+4&&frog.x<v.x+v.w-4){lives--;setHUD();if(lives<=0){frogRunning=false;return;}resetFrog();}});}
+        if(frog.row===0){const gi=Math.floor((frog.x+FROG_W/2)/(W/5));if(gi>=0&&gi<5&&!goals[gi].reached){goals[gi].reached=true;score+=200;setHUD();if(goals.every(g=>g.reached)){level++;score+=500;goals.forEach(g=>g.reached=false);vehicles.forEach(v=>v.speed*=1.1);logs.forEach(lg=>lg.speed*=1.1);setHUD();}resetFrog();}else{resetFrog();}}
         if(frog.x<-FROG_W||frog.x>W){lives--;setHUD();if(lives<=0){frogRunning=false;return;}resetFrog();}
         drawBG();logs.forEach(drawLog);vehicles.forEach(drawVehicle);drawFrog();
         frogRAF=requestAnimationFrame(loop);
@@ -1017,20 +760,6 @@ pageDiv.appendChild(img);
       cancelAnimationFrame(frogRAF);
       frogRAF=requestAnimationFrame(loop);
     }
-    /* ── Resume page lightbox ── */
-function openResumeLightbox(src) {
-  const lb  = document.getElementById('resumePageLightbox');
-  const img = document.getElementById('resumeLightboxImg');
-  img.src = src;
-  lb.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeResumeLightbox() {
-  document.getElementById('resumePageLightbox').classList.remove('open');
-  document.getElementById('resumeLightboxImg').src = '';
-  document.body.style.overflow = 'hidden'; // keep resume overlay scroll locked
-}
   </script>
 </body>
 </html>
