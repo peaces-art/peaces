@@ -435,7 +435,7 @@
         <!-- Slide 1: Styled / Design resume -->
         <div class="resume-slide">
           <p class="resume-slide-label">Design Version</p>
-          <div class="resume-card" id="resumeCard1" onclick="openLightbox(0)">
+          <div class="resume-card" id="resumeCard1" onclick="openResumeLightbox(0)">
             <div class="resume-card-loading" id="resumeLoad1"><div class="resume-spinner"></div><span>Loading&hellip;</span></div>
             <canvas id="resumeCanvas1" style="display:none;"></canvas>
             <button class="resume-enlarge-btn">&#x26F6; Enlarge</button>
@@ -446,7 +446,7 @@
         <!-- Slide 2: Standard / docx resume — cropped below Core Strengths -->
         <div class="resume-slide">
           <p class="resume-slide-label">Standard Version</p>
-          <div class="resume-card" id="resumeCard2" onclick="openLightbox(1)">
+          <div class="resume-card" id="resumeCard2" onclick="openResumeLightbox(1)">
             <div class="resume-card-loading" id="resumeLoad2"><div class="resume-spinner"></div><span>Loading&hellip;</span></div>
             <canvas id="resumeCanvas2" style="display:none;"></canvas>
             <button class="resume-enlarge-btn">&#x26F6; Enlarge</button>
@@ -678,7 +678,7 @@
       }
     }
 
-    function openLightbox(idx){
+    function openResumeLightbox(idx){
       var data=resumeCanvasData[idx];
       if(!data) return;
       var img=document.getElementById('resumeLightboxImg');
