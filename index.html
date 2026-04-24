@@ -625,7 +625,7 @@
             document.head.appendChild(s);
           });
         }
-        var pdf=await pdfjsLib.getDocument({data:atob(data.url.split(',')[1])}).promise;
+        var b64=data.url.split(',')[1];var bin=atob(b64);var bytes=new Uint8Array(bin.length);for(var k=0;k<bin.length;k++) bytes[k]=bin.charCodeAt(k);var pdf=await pdfjsLib.getDocument({data:bytes}).promise;
         var scale=2.5;
         // Render each page to temp canvas
         var pages=[]; var totalH=0; var maxW=0;
