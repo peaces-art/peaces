@@ -272,6 +272,8 @@
     body.night header::after { background: #0d0d14; }
     body.night header::before { opacity: 0; }
     body.night .site-title { color: #ffffff; text-shadow: 0 0 12px rgba(255,255,255,0.55), 0 0 28px rgba(180,160,255,0.3); }
+    #xenoImg { transition: filter 0.5s ease; }
+    body.night #xenoImg { filter: invert(1); }
     body.night .portfolio-hero-btn { background: var(--night-acc); box-shadow: 0 4px 20px rgba(123,94,167,0.35); }
     body.night .portfolio-hero-btn:hover { box-shadow: 0 8px 28px rgba(123,94,167,0.55); }
     body.night .portfolio-btn { background: var(--night-acc); box-shadow: 0 4px 20px rgba(123,94,167,0.35); }
@@ -422,7 +424,7 @@
         </ul>
       </div>
       <div style="margin-top:24px;border-radius:24px;overflow:hidden;">
-        <img src="xeno.PNG" alt="Americana Xenomorph Tattoo Illustration" style="width:100%;display:block;object-fit:cover;" />
+        <img src="xeno.PNG" alt="Americana Xenomorph Tattoo Illustration" id="xenoImg" style="width:100%;display:block;object-fit:cover;" />
       </div>
     </div>
   </section>
