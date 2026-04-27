@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -117,9 +117,9 @@
     .artwork-card-meta { font-size: 0.88rem; color: #888; }
     .artwork-card-tag { display: inline-block; background: var(--yellow); color: var(--black); font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-top: 10px; letter-spacing: 0.5px; }
     /* ── Artwork card carousel ── */
-    .card-carousel { position: relative; overflow: hidden; }
-    .card-carousel-track { display: flex; transition: transform 0.38s cubic-bezier(0.4,0,0.2,1); }
-    .card-carousel-slide { min-width: 100%; flex-shrink: 0; }
+    .card-carousel { position: relative; overflow: hidden; width: 100%; }
+    .card-carousel-track { display: flex; width: 200%; transition: transform 0.38s cubic-bezier(0.4,0,0.2,1); }
+    .card-carousel-slide { width: 50%; flex-shrink: 0; overflow: hidden; }
     .card-carousel-slide img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; transition: transform 0.4s ease; }
     .card-carousel:hover .card-carousel-slide img { transform: scale(1.04); }
     .card-carousel-slide video { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; background: #000; }
@@ -393,7 +393,7 @@
       </div>
       <div class="artwork-card card-carousel" id="sanicCard">
         <div class="card-carousel-track" id="sanicTrack">
-          <div class="card-carousel-slide">
+          <div class="card-carousel-slide" onclick="openLightbox('shoebox.png','Sanic &amp; Knackles — Custom Shoebox Art')" style="cursor:zoom-in;">
             <img src="shoebox.png" alt="Sanic and Knackles Custom Shoebox Art" />
           </div>
           <div class="card-carousel-slide">
@@ -547,12 +547,11 @@
     let sanicIdx = 0;
     function sanicSlide(idx) {
       sanicIdx = idx;
-      document.getElementById('sanicTrack').style.transform = idx === 0 ? 'translateX(0)' : 'translateX(-100%)';
+      document.getElementById('sanicTrack').style.transform = idx === 0 ? 'translateX(0)' : 'translateX(-50%)';
       document.querySelectorAll('#sanicCard .card-carousel-dot').forEach((d,i) => d.classList.toggle('active', i === idx));
       const vid = document.getElementById('sanicVideo');
       if (idx === 1) { vid.play(); }
       else { vid.pause(); vid.currentTime = 0; }
-      // update arrows opacity
       document.querySelector('#sanicCard .prev').style.opacity = idx === 0 ? '0.35' : '1';
       document.querySelector('#sanicCard .next').style.opacity = idx === 1 ? '0.35' : '1';
     }
